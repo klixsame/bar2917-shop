@@ -1,14 +1,10 @@
-import Logo from '@/components/elements/Logo/Logo'
 import Link from 'next/link'
 import CartPopup from './CartPopup/CartPopup'
 
 const Header = () => {
   return (
     <header className='header'>
-      <div className='container header__container'>
-        <div className='header__logo'>
-          <Logo />
-        </div>
+      <div className='header__container'>
         <div className='header__content'>
           <div className='header__content__info'>
             <div className='header__content__info__time'>

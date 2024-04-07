@@ -4,6 +4,7 @@ import './globalStyles/globals.css'
 import './globalStyles/header.css'
 import './globalStyles/footer.css'
 import './globalStyles/cart-popup.css'
+import './globalStyles/sidebar.css'
 import Layout from '@/components/layouts/Layout'
 
 export const metadata: Metadata = {

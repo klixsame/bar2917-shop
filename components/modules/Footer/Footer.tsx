@@ -24,8 +24,8 @@ const Footer = () => {
             Заказ по телефону:
           </span>
           <a href='tel:+79811565667' className='footer__a__phone'>
-              +7 (981) 156-56-67
-            </a>
+            +7 (981) 156-56-67
+          </a>
         </div>
       </div>
     </footer>
