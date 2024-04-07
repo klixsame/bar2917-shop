@@ -30,10 +30,12 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               className='cart-popup__wrapper'
               onMouseLeave={handleHidePopup}
             >
-              <button className='btn-reset cart-popup__close' onClick={handleHidePopup} />
-                <span className='cart-popup__title'>
+              <div className="cart-popup__up">
+              <span className='cart-popup__title'>
                   Корзина
                 </span>
+              <button className='btn-reset cart-popup__close' onClick={handleHidePopup} />  
+              </div>
               <ul className='list-reset cart-popup__cart-list'>
                 <li className='cart-popup__cart-list__empty-cart' />
               </ul>

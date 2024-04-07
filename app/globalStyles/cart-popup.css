@@ -15,9 +15,6 @@
   }
   
   .cart-popup__close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -34,14 +31,19 @@
   }
   
   .cart-popup__title {
-    position: absolute;
-    left: 20px;
     margin: 0;
-    padding-bottom: 16px;
-    margin-bottom: 12px;
     color: rgba(255, 255, 255, 0.90);
     font-size: 16px;
     font-weight: 700;
+  }
+
+  .cart-popup__up {
+    padding-left: 3px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
     border-bottom: #565C66 1px solid;
   }
   
