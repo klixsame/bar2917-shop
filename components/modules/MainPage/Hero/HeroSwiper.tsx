@@ -5,7 +5,7 @@ import SwiperCore from 'swiper/core'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper-bundle.css'
-
+// swiper
 SwiperCore.use([Navigation, Pagination])
 
 const HeroSwiper = () => {
