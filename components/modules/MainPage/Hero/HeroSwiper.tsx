@@ -2,10 +2,10 @@ import React from 'react'
 import styles from '@/styles/main-page/index.module.scss'
 import Image from 'next/image'
 import SwiperCore from 'swiper/core'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper-bundle.css'
-// swiper
+
 SwiperCore.use([Navigation, Pagination])
 
 const HeroSwiper = () => {
@@ -19,8 +19,13 @@ const HeroSwiper = () => {
       width={1162}
       height={437}
       loop
+      autoplay={{
+        delay: 4000,
+        disableOnInteraction: false,
+      }}
       centeredSlides
       spaceBetween={10}
+      modules={[Autoplay, Navigation, Pagination]}
     >
       <SwiperSlide>
         <Image src='/img/yellow.jpg' alt='yellow' width={1162} height={437} />
