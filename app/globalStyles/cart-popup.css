@@ -21,7 +21,7 @@
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.06) !important;
   transition: background-color 0.2s ease-in-out;
-  background-image: url(../../public/img/close-btn.svg);
+  background-image: url(@/public/img/close-btn.svg);
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -81,7 +81,7 @@
   align-items: self-end;
   padding-left: 20px;
   justify-content: center;
-  background-image: url(../../public/img/empty-cart.svg);
+  background-image: url(@/public/img/empty-cart.svg);
   background-repeat: no-repeat;
   background-position: center center;
   color: #e8e9ea;

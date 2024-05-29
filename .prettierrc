@@ -4,5 +4,24 @@
   "singleQuote": true,
   "tabWidth": 2,
   "useTabs": false,
-  "jsxSingleQuote": true
+  "jsxSingleQuote": true,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "@/components/(.*)$",
+    "@/layout/(.*)$",
+    "@/ui/(.*)$",
+    "@/providers/(.*)$",
+    "@/shared/(.*)$",
+    "@/assets/(.*)$",
+    "@/config/(.*)$",
+    "@/store/(.*)$",
+    "@/hooks/(.*)$",
+    "@/types/(.*)$",
+    "@/utils/(.*)$",
+    "@/api/(.*)$",
+    "./(.*)",
+    "../(.*)"
+],
+"importOrderSeparation": true,
+"importOrderSortSpecifiers": true
 }

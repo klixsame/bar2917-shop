@@ -9,47 +9,47 @@ const SidebarMenu = () => {
       </div>
       <div className='sidebar__menu'>
         <Link className='sidebar__menu__item' href='/rolls'>
-          <div className='sidebar__menu__item--rolls' />
+          <div className='sidebar__menu__item__div item--rolls' />
           <span className='sidebar__menu__item__span'>Роллы</span>
         </Link>
         <Link className='sidebar__menu__item' href='/sushi'>
-          <div className='sidebar__menu__item--sushi' />
+          <div className='sidebar__menu__item__div item--sushi' />
           <span className='sidebar__menu__item__span'>Суши</span>
         </Link>
         <Link className='sidebar__menu__item' href='/sets'>
-          <div className='sidebar__menu__item--sets' />
+          <div className='sidebar__menu__item__div item--sets' />
           <span className='sidebar__menu__item__span'>Сеты</span>
         </Link>
         <Link className='sidebar__menu__item' href='/pizza'>
-          <div className='sidebar__menu__item--pizza' />
+          <div className='sidebar__menu__item__div item--pizza' />
           <span className='sidebar__menu__item__span'>Пицца</span>
         </Link>
         <Link className='sidebar__menu__item' href='/snacks'>
-          <div className='sidebar__menu__item--snacks' />
+          <div className='sidebar__menu__item__div item--snacks' />
           <span className='sidebar__menu__item__span'>Закуски</span>
         </Link>
         <Link className='sidebar__menu__item' href='/gedza'>
-          <div className='sidebar__menu__item--gedza' />
+          <div className='sidebar__menu__item__div item--gedza' />
           <span className='sidebar__menu__item__span'>Гёдза</span>
         </Link>
         <Link className='sidebar__menu__item' href='/salads'>
-          <div className='sidebar__menu__item--salads' />
+          <div className='sidebar__menu__item__div item--salads' />
           <span className='sidebar__menu__item__span'>Салаты</span>
         </Link>
         <Link className='sidebar__menu__item' href='/poke'>
-          <div className='sidebar__menu__item--poke' />
+          <div className='sidebar__menu__item__div item--poke' />
           <span className='sidebar__menu__item__span'>Поке</span>
         </Link>
         <Link className='sidebar__menu__item' href='/soups'>
-          <div className='sidebar__menu__item--soups' />
+          <div className='sidebar__menu__item__div item--soups' />
           <span className='sidebar__menu__item__span'>Супы</span>
         </Link>
         <Link className='sidebar__menu__item' href='/wok'>
-          <div className='sidebar__menu__item--wok' />
+          <div className='sidebar__menu__item__div item--wok' />
           <span className='sidebar__menu__item__span'>Вок</span>
         </Link>
         <Link className='sidebar__menu__item' href='/additionally'>
-          <div className='sidebar__menu__item--additionally' />
+          <div className='sidebar__menu__item__div item--additionally' />
           <span className='sidebar__menu__item__span'>Дополнительно</span>
         </Link>
       </div>

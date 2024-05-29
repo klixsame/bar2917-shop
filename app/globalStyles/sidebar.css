@@ -31,81 +31,54 @@
   margin-bottom: 8px;
 }
 
-.sidebar__menu__item--rolls {
+.sidebar__menu__item__div {
   width: 44px;
   height: 44px;
-  background: url(../../public/img/rolls.svg) no-repeat center center;
   padding-left: 10px;
 }
 
-.sidebar__menu__item--sushi {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/sushi.svg) no-repeat center center;
-  padding-left: 10px;
+.item--rolls {
+  background: url(@/public/img/rolls.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--sets {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/sets.svg) no-repeat center center;
-  padding-left: 10px;
+.item--sushi {
+  background: url(@/public/img/sushi.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--pizza {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/pizza.svg) no-repeat center center;
-  padding-left: 10px;
+.item--sets {
+  background: url(@/public/img/sets.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--snacks {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/snacks.svg) no-repeat center center;
-  padding-left: 10px;
+.item--pizza {
+  background: url(@/public/img/pizza.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--gedza {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/gedza.svg) no-repeat center center;
-  padding-left: 10px;
+.item--snacks {
+  background: url(@/public/img/snacks.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--salads {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/salads.svg) no-repeat center center;
-  padding-left: 10px;
+.item--gedza {
+  background: url(@/public/img/gedza.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--poke {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/poke.svg) no-repeat center center;
-  padding-left: 10px;
+.item--salads {
+  background: url(@/public/img/salads.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--soups {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/soup.svg) no-repeat center center;
-  padding-left: 10px;
+.item--poke {
+  background: url(@/public/img/poke.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--wok {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/wok.svg) no-repeat center center;
-  padding-left: 10px;
+.item--soups {
+  background: url(@/public/img/soup.svg) no-repeat center center;
 }
 
-.sidebar__menu__item--additionally {
-  width: 44px;
-  height: 44px;
-  background: url(../../public/img/additionally.svg) no-repeat center center;
-  padding-left: 10px;
+.item--wok {
+  background: url(@/public/img/wok.svg) no-repeat center center;
+}
+
+.item--additionally {
+  background: url(@/public/img/additionally.svg) no-repeat center center;
 }
 
 .sidebar__menu__item__span {

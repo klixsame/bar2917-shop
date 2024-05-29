@@ -1,5 +1,7 @@
 {
   "name": "bar2917-shop",
+  "description": "Special development for bar2917",
+  "author": "Artem Stupachenko [kleyfiex]",
   "version": "0.1.0",
   "private": true,
   "scripts": {

@@ -5,7 +5,7 @@
   font-family: Montserrat Basis;
   font-style: normal;
   font-weight: 700;
-  src: url('../../public/fonts/Montserrat-Bold.ttf');
+  src: url('@/public/fonts/Montserrat-Bold.ttf');
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-family: Montserrat Basis;
   font-style: normal;
   font-weight: 600;
-  src: url('../../public/fonts/Montserrat-SemiBold.ttf');
+  src: url('@/public/fonts/Montserrat-SemiBold.ttf');
 }
 
 @font-face {
@@ -21,7 +21,7 @@
   font-family: Montserrat Basis;
   font-style: normal;
   font-weight: 500;
-  src: url('../../public/fonts/Montserrat-Medium.ttf');
+  src: url('@/public/fonts/Montserrat-Medium.ttf');
 }
 
 @font-face {
@@ -29,7 +29,7 @@
   font-family: Montserrat Basis;
   font-style: normal;
   font-weight: 400;
-  src: url('../../public/fonts/Montserrat-Regular.ttf');
+  src: url('@/public/fonts/Montserrat-Regular.ttf');
 }
 
 @font-face {
@@ -37,7 +37,7 @@
   font-family: Montserrat Basis;
   font-style: normal;
   font-weight: 300;
-  src: url('../../public/fonts/Montserrat-Light.ttf');
+  src: url('@/public/fonts/Montserrat-Light.ttf');
 }
 /*****************************************************************************/
 
