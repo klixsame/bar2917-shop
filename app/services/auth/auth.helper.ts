@@ -2,8 +2,13 @@ import { IAuthResponse, ITokens } from '@/app/store/user/user.interface';
 import Cookies from 'js-cookie';
 
 export const getAccessToken = () => {
-    const accessToken = Cookies.get('access_token')
+    const accessToken = Cookies.get('accessToken')
     return accessToken || null
+}
+
+export const getRefreshToken = () => {
+  const refreshToken = Cookies.get('refreshToken')
+  return refreshToken || null
 }
 
 export const getUserFromStorage = () => {
