@@ -1,21 +1,20 @@
+'use client'
+
+import { ADMIN_PANEL_URL } from "@/app/config/url.config";
+import NotFound from "@/app/not-found";
 import { getAccessToken, getRefreshToken } from "@/app/services/auth/auth.helper";
 import { useActions } from "@/components/hocs/useActions";
 import { useAuth } from "@/components/hocs/useAuth";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import { FC, PropsWithChildren, useEffect } from "react";
-import { TypeComponentAuthFields } from "./auth-page.types";
+import { protectedRoutes } from "./protected-routes.data";
 
-const DynamicCheckRole = dynamic(() => import('./CheckRole'), { ssr: false });
-
-const AuthProvider: FC<PropsWithChildren<Partial<TypeComponentAuthFields>>> = ({
+const AuthProvider: FC<PropsWithChildren<unknown>> = ({
   children,
-  Component = {},
 }) => {
-  const { isOnlyUser } = Component;
   const { user } = useAuth();
   const { checkAuth, logout } = useActions();
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const accessToken = getAccessToken();
@@ -31,11 +30,30 @@ const AuthProvider: FC<PropsWithChildren<Partial<TypeComponentAuthFields>>> = ({
     }
   }, [pathname]);
 
-  return isOnlyUser ? (
-    <DynamicCheckRole Component={{ isOnlyUser }} children={children} />
-  ) : (
-    <>{children}</>
-  );
-};
+  const router = useRouter()
+
+  const isProtectedRoute = protectedRoutes.some(route => pathname?.startsWith(route))
+
+  const isAdminRoute = pathname?.startsWith(ADMIN_PANEL_URL)
+
+  if(!isProtectedRoute && !isAdminRoute) {
+    return <>{children}</>
+  }
+
+  if(user?.isAdmin) {
+    return <>{children}</>
+  }
+
+  if(user && isProtectedRoute) {
+    return <>{children}</>
+  }
+
+  if(user && isAdminRoute) {
+    return <NotFound />
+  }
+
+  pathname !== '/auth' && router.replace('/auth')
+  return null
+}
 
 export default AuthProvider;

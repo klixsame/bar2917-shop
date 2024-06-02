@@ -1,37 +1,35 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import AuthProvider from "./providers/auth-provider/AuthProvider";
-import { persistor, store } from "./store/store";
+import { PropsWithChildren } from "react";
+import './globalStyles/auth.css';
+import './globalStyles/cart-popup.css';
+import './globalStyles/footer.css';
+import './globalStyles/globals.css';
+import './globalStyles/header.css';
+import './globalStyles/normalize.css';
+import './globalStyles/sidebar.css';
+import Providers from "./providers/Providers";
 
-
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false
-    },
-  },
-});
 
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+  children
+}: PropsWithChildren<unknown>) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <AuthProvider>
             <html lang="en">
+                    <head>
+                      <meta charSet="utf-8" />
+                      <meta name="viewport" content="width=device-width, initial-scale=1" />
+                      <link rel="icon" href="/favicon.ico" />
+                      <title>Bar2917</title>
+                      <meta name="description" content="Суши-бар Bar2917" />
+                      <meta name="author" content="kleyfiex" />
+                      <meta name="keywords" content="Your,Keywords" />
+                      <meta name="robots" content="index, follow" />
+                    </head>
               <body>
-                {children}
+                <Providers>
+                  {children}
+                </Providers>
+                <div id="modal"></div>
               </body>
             </html>
-          </AuthProvider>
-        </PersistGate>
-      </Provider>
-    </QueryClientProvider>
-  );
+  )
 }

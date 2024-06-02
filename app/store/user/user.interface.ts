@@ -2,6 +2,7 @@ import { IUser } from "@/app/types/user.interface"
 
 export interface IUserState {
     email: string
+    isAdmin: boolean
 }
 
 export interface ITokens {

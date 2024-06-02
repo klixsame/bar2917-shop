@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from '@/styles/main-page/index.module.scss'
 import Image from 'next/image'
 import SwiperCore from 'swiper/core'
@@ -28,10 +27,10 @@ const HeroSwiper = () => {
       modules={[Autoplay, Navigation, Pagination]}
     >
       <SwiperSlide>
-        <Image src='/img/yellow.jpg' alt='yellow' width={1162} height={437} />
+        <Image src='/img/discount/sale-10.jpg' alt='skidka' width={1162} height={437} />
       </SwiperSlide>
       <SwiperSlide>
-        <Image src='/img/red.jpg' alt='asd' width={1162} height={437} />
+        <Image src='/img/discount/skidka-otzyv.png' alt='otzyv' width={1162} height={437} />
       </SwiperSlide>
     </Swiper>
   )

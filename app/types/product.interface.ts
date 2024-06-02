@@ -6,6 +6,7 @@ export interface IProduct {
     slug: string
     description: string
     price: number
+    weight: number
     image: string
     category: ICategory
     createdAt: string
