@@ -124,3 +124,13 @@ h1 {
   transition: .2s ease-in-out;
   background-color: #eb7e01;
 }
+
+.contacts p{
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.delivery__info  p{
+  font-size: 16px;
+  line-height: 150%;
+}

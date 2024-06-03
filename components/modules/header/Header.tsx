@@ -35,7 +35,7 @@ const Header = () => {
               </a>
             </li>
             <li className='header__links__item'>
-              <a href='/delivery' className='header__links__item__a'>
+              <a href='/delivery-info' className='header__links__item__a'>
                 Доставка и оплата
               </a>
             </li>

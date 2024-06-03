@@ -1,6 +1,8 @@
 import Footer from '../modules/Footer/Footer';
-import Header from '../modules/Header/Header';
 import SidebarMenu from '../modules/SidebarMenu/SidebarMenu';
+import Header from '../modules/header/Header';
+
+
 
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
