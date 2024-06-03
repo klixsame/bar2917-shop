@@ -1,5 +1,4 @@
 import { instance } from "@/app/api/api.interceptor";
-import { handleRequest } from "../helpers/requestHandler";
 import { IFeedback } from "../types/feedback.interface";
 
 
@@ -11,18 +10,18 @@ type TypeData = {
 
 export const FeedbackService = {
   async getAllFeedbacks() {
-    return handleRequest<IFeedback[]>(instance({
+    return instance<IFeedback[]>({
       url: FEEDBACKS,
       method: 'GET'
-    }));
+    })
   },
 
   async leave(productId: string | number, data: TypeData) {
-    return handleRequest<IFeedback[]>(instance({
+    return instance<IFeedback[]>({
       url: `${FEEDBACKS}/leave/${productId}`,
       method: 'POST',
       data
-    }));
+    })
   }
 };
 

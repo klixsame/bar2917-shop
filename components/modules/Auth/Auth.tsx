@@ -38,7 +38,7 @@ const Auth = () => {
         <section>
             <div className="container__auth">
                 <form onSubmit={handleSubmit(onSubmit)} className="form form__auth">
-                    <h1>{type === 'login' ? 'Войти' : 'Регистрация'}</h1>
+                    <h1 className="text-primary">{type === 'login' ? 'Войти' : 'Регистрация'}</h1>
                     <p>Введите данные, чтобы {type === 'login' ? 'авторизоваться' : 'зарегистрироваться'}</p>
 
                     {isLoading ? ( <Loader /> ) : (<>

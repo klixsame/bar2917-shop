@@ -15,3 +15,8 @@ export interface IProduct {
 export interface IProductDetails {
     product: IProduct
 }
+
+export type TypeProducts = {
+    length: number
+    products: IProduct[]
+}

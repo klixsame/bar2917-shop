@@ -1,5 +1,4 @@
 import { instance } from "@/app/api/api.interceptor";
-import { handleRequest } from "../helpers/requestHandler";
 
 
 const STATISTICS = 'statistics';
@@ -12,10 +11,10 @@ export type TypeStatisticsResponse = {
 
 export const StatisticsService = {
   async getMain() {
-    return handleRequest<TypeStatisticsResponse>(instance({
+    return instance<TypeStatisticsResponse>({
       url: `${STATISTICS}/main`,
       method: 'GET'
-    }));
+    })
   },
 
 };

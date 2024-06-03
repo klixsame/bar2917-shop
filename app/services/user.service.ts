@@ -1,6 +1,5 @@
 import { instance } from "@/app/api/api.interceptor";
-import { handleRequest } from "../helpers/requestHandler";
-import { IUser } from "../types/user.interface";
+import { IFullUser, IUser } from "../types/user.interface";
 
 
 
@@ -16,25 +15,27 @@ type TypeData = {
 
 export const UserService = {
   async getProfile() {
-    return handleRequest<IUser[]>(instance({
+    return instance<IFullUser>({
       url: `${USERS}/profile`,
       method: 'GET'
-    }));
+    })
   },
 
   async updateProfile(data: TypeData) {
-    return handleRequest<IUser>(instance({
+    return instance<IUser>({
       url: `${USERS}/profile`,
       method: 'PUT',
       data
-    }));
+    })
   },
 
   async delete(id: string | number) {
-    return handleRequest<IUser>(instance({
+    return instance<IUser>({
       url: `${USERS}/${id}`,
       method: 'DELETE'
-    }));
+    })
   }
-};
+
+  
+}
 
