@@ -121,6 +121,10 @@ h1 {
   flex-direction: row !important;
 }
 
+.input-custom .box-border {
+  flex-direction: row !important;
+}
+
 .btn__default {
   width: 330px;
   height: 55px;
@@ -139,7 +143,7 @@ h1 {
 
 .btn__card {
   width: 260px !important;
-  height: 50px !important;
+  height: 48px !important;
 }
 
 .btn__default:hover {
@@ -170,6 +174,26 @@ h1 {
   object-fit: cover !important;
 }
 
+.cart__img {
+  width: 100px !important;
+  height: 70px !important;
+  object-fit: cover !important;
+}
+
+.cart__item {
+  border-color: #ffffff1f;
+}
+
 .card__weight {
   font-size: 16px;
+}
+
+.btn__card.product__item__card__button.left {
+  border-radius: 10px 0 0 10px;
+  border-right: none;
+}
+
+.btn__card.product__item__card__button.right {
+  border-radius: 0 10px 10px 0;
+  border-left: none;
 }

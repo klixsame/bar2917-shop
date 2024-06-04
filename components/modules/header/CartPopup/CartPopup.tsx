@@ -1,12 +1,17 @@
 'use client'
+import { useCart } from '@/components/hocs/useCart'
 import { withClickOutside } from '@/components/hocs/withClickOutside'
 import { IWrappedComponentProps } from '@/types/hocs'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { forwardRef } from 'react'
+import CartItem from '../CartItem/CartItem'
 
 const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
+
+    const { items, total} = useCart()
+
     const handleShowPopup = () => setOpen(true)
 
     const handleHidePopup = () => setOpen(false)
@@ -36,13 +41,17 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                   onClick={handleHidePopup}
                 />
               </div>
-              <ul className='list-reset cart-popup__cart-list'>
-                <li className='cart-popup__cart-list__empty-cart' />
-              </ul>
+              <div className='list-reset cart-popup__cart-list'>
+                {items.length ? (
+                  items.map(item => <CartItem item={item} key={item.id} />)
+                ) : (
+                  <div className='cart-popup__cart-list__empty-cart' />
+                )}  
+              </div>
               <div className='cart-popup__footer'>
                 <div className='cart-popup__footer__inner'>
                   <span>Сумма заказа:</span>
-                  <span>0 ₽</span>
+                  <span>{total} ₽</span>
                 </div>
                 <Link href='/order' className='cart-popup__footer__link'>
                   Перейти к оформлению

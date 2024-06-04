@@ -1,6 +1,8 @@
+import MainLayout from "@/components/layouts/MainLayout";
 
 const DeliveryInfo = () => {
     return(
+        <MainLayout>
             <div className="delivery__info">
                 <h1>Доставка и оплата</h1>
                 <p>Доставка — от 100 рублей</p>
@@ -11,6 +13,7 @@ const DeliveryInfo = () => {
                 <p>— Банковской картой онлайн</p>
                 <p>— СБП онлайн</p>
             </div>
+        </MainLayout>
     )
 }
 

@@ -14,7 +14,7 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
         toast.success('Регистрация прошла успешна!');
         return response
       } catch (error) {
-        toast.error('Ошибка регистрации. Попробуйте снова.');
+        toast.error('Такой пользователь уже существует');
         return thunkApi.rejectWithValue(error)
       }
     }
@@ -29,7 +29,7 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
         toast.success('Авторизация прошла успешна!');
         return response
       } catch (error) {
-        toast.error('Ошибка авторизации. Попробуйте снова.');
+        toast.error('Неверная почта или пароль');
         return thunkApi.rejectWithValue(error)
       }
     }

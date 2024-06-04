@@ -1,5 +1,4 @@
 'use client'
-import MainLayout from "@/components/layouts/MainLayout";
 import { NextUIProvider } from "@nextui-org/react";
 import { PropsWithChildren } from "react";
 import { Toaster } from "react-hot-toast";
@@ -32,9 +31,7 @@ export default function RootLayout({
                 <Providers>
                   <NextUIProvider>
                     <Toaster position="top-right" reverseOrder={false}/>
-                    <MainLayout>  
                       {children}
-                    </MainLayout>
                   </NextUIProvider>
                 </Providers>
                 <div id="modal"></div>

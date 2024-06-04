@@ -9,7 +9,8 @@ const colors = {
   primary: '#FF8A00',
   background: '#101010',
   'background-card': '#1C1C1C',
-  'card-border': '#292929'
+  'card-border': '#292929',
+  'background-button-card': '#ff8a00'
 }
 
 module.exports = {
