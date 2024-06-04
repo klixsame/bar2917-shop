@@ -1,4 +1,8 @@
+'use client'
+import MainLayout from "@/components/layouts/MainLayout";
+import { NextUIProvider } from "@nextui-org/react";
 import { PropsWithChildren } from "react";
+import { Toaster } from "react-hot-toast";
 import './globalStyles/auth.css';
 import './globalStyles/cart-popup.css';
 import './globalStyles/footer.css';
@@ -26,7 +30,12 @@ export default function RootLayout({
                     </head>
               <body>
                 <Providers>
-                  {children}
+                  <NextUIProvider>
+                    <Toaster position="top-right" reverseOrder={false}/>
+                    <MainLayout>  
+                      {children}
+                    </MainLayout>
+                  </NextUIProvider>
                 </Providers>
                 <div id="modal"></div>
               </body>

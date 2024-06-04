@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ШРИФТЫ */
 
 @font-face {
@@ -60,10 +64,15 @@ h1 {
   font-weight: 400;
 }
 
+.main__content__own {
+  margin-bottom: 100px !important;
+  width: 1162px !important;
+}
+
 .container {
-  width: 1415px;
-  margin: 0 auto;
-  padding: 0 15px;
+  width: 1440px !important;
+  margin: 0 auto !important;
+  padding: 0 15px !important;
 }
 
 .btn-reset {
@@ -72,6 +81,14 @@ h1 {
   cursor: pointer;
   background-color: transparent;
   border: none;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  color: #FF8A00 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FF8A00 !important;
 }
 
 .list-reset {
@@ -120,6 +137,11 @@ h1 {
   letter-spacing: .3;
 }
 
+.btn__card {
+  width: 260px !important;
+  height: 50px !important;
+}
+
 .btn__default:hover {
   transition: .2s ease-in-out;
   background-color: #eb7e01;
@@ -133,4 +155,21 @@ h1 {
 .delivery__info  p{
   font-size: 16px;
   line-height: 150%;
+}
+
+.card__template {
+  width: 280px;
+  height: 350px;
+  box-sizing: border-box !important;
+  padding: 8px;
+}
+
+.card__img {
+  width: 260px !important;
+  height: 160px !important;
+  object-fit: cover !important;
+}
+
+.card__weight {
+  font-size: 16px;
 }

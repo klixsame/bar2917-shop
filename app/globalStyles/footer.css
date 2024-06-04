@@ -5,12 +5,13 @@
 }
 
 .footer__container {
-  width: 900px !important;
+  width: 1000px !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-top: 8px !important;
+  margin: 0 auto !important;
 }
 
 .logo__img__footer {
@@ -21,7 +22,7 @@
 .footer__links {
   display: flex;
   flex-direction: row;
-  width: 300px;
+  width: 470px;
   justify-content: space-between;
 }
 

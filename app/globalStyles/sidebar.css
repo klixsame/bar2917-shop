@@ -1,6 +1,7 @@
 .sidebar__container {
   padding-top: 10px;
   width: 230px;
+  margin-bottom: 100px !important;
 }
 
 .sidebar__logo {
@@ -29,12 +30,12 @@
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  padding-left: 10px;
 }
 
 .sidebar__menu__item__div {
   width: 44px;
   height: 44px;
-  padding-left: 10px;
 }
 
 .item--rolls {

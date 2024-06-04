@@ -1,8 +1,6 @@
-import MainLayout from "@/components/layouts/MainLayout";
 
 const Contact = () => {
     return(
-        <MainLayout>
             <div className="contacts">
                 <h1>Контакты</h1>
                 <p><strong>BAR2917 – современная доставка самых вкусных роллов!</strong><br/>
@@ -20,7 +18,6 @@ const Contact = () => {
                 <p>ОГРН: 318470400111956</p>
                 <p>Юридический адрес: 188507, Россия, Ленинградская обл., Ломоносовский р-н,<br />городской посёлок Новоселье, проспект Питерский, дом 5</p>
             </div>
-        </MainLayout>
     )
 }
 

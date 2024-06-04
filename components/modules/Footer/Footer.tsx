@@ -3,11 +3,16 @@ import Logo from '@/components/elements/Logo/Logo'
 const Footer = () => {
   return (
     <footer className='footer'>
-      <div className='container footer__container'>
+      <div className='footer__container'>
         <ul className='footer__links list-reset'>
           <li className='footer__links__item'>
             <a href='/contacts' className='footer__links__item__a'>
               Контакты
+            </a>
+          </li>
+          <li className='footer__links__item'>
+            <a href='/' className='footer__links__item__a'>
+              Обратная связь
             </a>
           </li>
           <li className='footer__links__item'>

@@ -1,8 +1,9 @@
+import { errorCatch } from "@/app/api/api.helper"
 import { removeFromStorage } from "@/app/services/auth/auth.helper"
 import { AuthService } from "@/app/services/auth/auth.service"
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import toast from "react-hot-toast"
 import { IAuthResponse, IEmailPassword } from "./user.interface"
-import { errorCatch } from "@/app/api/api.helper"
 
 /* register */
 export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
@@ -10,8 +11,10 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
     async (data, thunkApi) => {
       try {
         const response = await AuthService.main('register', data)
+        toast.success('Регистрация прошла успешна!');
         return response
       } catch (error) {
+        toast.error('Ошибка регистрации. Попробуйте снова.');
         return thunkApi.rejectWithValue(error)
       }
     }
@@ -23,8 +26,10 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
     async (data, thunkApi) => {
       try {
         const response = await AuthService.main('login', data)
+        toast.success('Авторизация прошла успешна!');
         return response
       } catch (error) {
+        toast.error('Ошибка авторизации. Попробуйте снова.');
         return thunkApi.rejectWithValue(error)
       }
     }

@@ -7,7 +7,14 @@ const nextConfig = {
         SERVER_URL_IMAGE: process.env.SERVER_URL_IMAGE
     },
     images: {
-        domains: ['localhost'], // Добавьте ваш локальный хост в список разрешенных доменов
+        remotePatterns: [
+            {
+              protocol: 'http',
+              hostname: 'localhost',
+              port: '4200',
+              pathname: '/assets/**',
+            },
+        ]
     },
 }
 

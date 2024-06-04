@@ -1,7 +1,10 @@
-import Link from 'next/link'
-import CartPopup from './CartPopup/CartPopup'
+import { useAuth } from '@/components/hocs/useAuth';
+import Link from 'next/link';
+import CartPopup from './CartPopup/CartPopup';
 
 const Header = () => {
+  const { user } = useAuth();
+
   return (
     <header className='header'>
       <div className='header__container'>
@@ -41,9 +44,15 @@ const Header = () => {
             </li>
           </ul>
           <div className='header__icon__links'>
-            <Link className='header__icon__links__item' href='/profile'>
-              <div className='header__icon__links__card__item--profile' />
-            </Link>
+          {user ? (
+              <Link className='header__icon__links__item' href='/profile'>
+                <div className='header__icon__links__card__item--profile' />
+              </Link>
+            ) : (
+              <Link className='header__icon__links__item' href='/auth'>
+                <div className='header__icon__links__card__item--profile' />
+              </Link>
+            )}
             <CartPopup />
           </div>
         </div>
