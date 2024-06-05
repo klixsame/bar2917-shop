@@ -45,7 +45,7 @@ const Header = () => {
           </ul>
           <div className='header__icon__links'>
           {user ? (
-              <Link className='header__icon__links__item' href='/profile'>
+              <Link className='header__icon__links__item' href='/users/profile'>
                 <div className='header__icon__links__card__item--profile' />
               </Link>
             ) : (

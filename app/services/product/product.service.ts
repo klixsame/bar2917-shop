@@ -1,6 +1,8 @@
-import { instance } from "@/app/api/api.interceptor";
-import { IProduct, TypeProducts } from "../../types/product.interface";
-import { PRODUCTS, TypeProductData, TypeProductDataFilters } from "./product.types";
+import { instance } from "@/app/api/api.interceptor"
+import { IProduct, TypeProducts } from "@/app/types/product.interface"
+import { PRODUCTS, TypeProductData, TypeProductDataFilters } from "./product.types"
+import axios from "axios"
+
 
 export const ProductService = {
   async getAll(queryData = {} as TypeProductDataFilters) {
@@ -13,11 +15,8 @@ export const ProductService = {
     return data
   },
 
-  async getSimilar(id: string | number,) {
-    return instance<IProduct[]>({
-      url: `${PRODUCTS}/similar/${id}`,
-      method: 'GET'
-    })
+  async getSimilar(id: number,) {
+    return axios.get(`${PRODUCTS}/similar/${id}`)
   },
   
   async getBySlug(slug: string,) {

@@ -36,7 +36,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                     >
                         <FiMinus fontSize={13} />
                     </Button>
-                    <span className="text-white font-normal w-44 bg-background-button-card h-12 d-flex pt-4">
+                    <span className="text-white font-normal w-52 bg-background-button-card h-12 d-flex pt-4">
                         {currentElement.quantity} x {product.price} ₽
                     </span>
                     <Button

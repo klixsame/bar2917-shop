@@ -1,7 +1,8 @@
 import { ICategory } from "./category.interface"
 
+
 export interface IProduct {
-    id: number
+    id: number 
     name: string
     slug: string
     description: string

@@ -5,6 +5,7 @@ export interface IUser {
     email: string
     name: string
     phone: string
+    birthdate: string
     isAdmin: boolean
 }
 
