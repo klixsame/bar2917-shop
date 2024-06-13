@@ -7,7 +7,7 @@ const USERS = 'users'
 
 type TypeData = {
     email: string
-    name: string
+    name?: string
     password?: string
     phone?: string
     birthdate?: string

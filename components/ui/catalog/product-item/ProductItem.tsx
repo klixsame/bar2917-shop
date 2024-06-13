@@ -13,7 +13,7 @@ const ProductItem: FC<{product: IProduct}> = ({product}) => {
         <div className="bg-background-card card__template border-1 border-card-border rounded-lg animate-scaleIn">
             <Link href={`/${product.category.slug}/${product.slug}`}>
                 <div className="product__item__card__image">
-                    <Image width={262} height={180} src={imageUrl} alt={product.name} className="card__img rounded-lg"/>
+                        <Image width={262} height={180} src={imageUrl} alt={product.name} className="card__img rounded-lg"/>
                 </div>
             </Link>
                 <div className="flex-row justify-between mt-3.5 ">

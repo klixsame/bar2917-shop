@@ -148,7 +148,7 @@ h1 {
 
 .btn__default:hover {
   transition: .2s ease-in-out;
-  background-color: #eb7e01;
+  background-color: #e77b00;
 }
 
 .contacts p{
@@ -196,4 +196,8 @@ h1 {
 .btn__card.product__item__card__button.right {
   border-radius: 0 10px 10px 0;
   border-left: none;
+}
+
+.img-skidka {
+  padding-top: 70px;
 }

@@ -1,4 +1,5 @@
 'use client'
+import { useAuth } from '@/components/hocs/useAuth'
 import { useCart } from '@/components/hocs/useCart'
 import { withClickOutside } from '@/components/hocs/withClickOutside'
 import { IWrappedComponentProps } from '@/types/hocs'
@@ -11,6 +12,8 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
 
     const { items, total} = useCart()
+    
+    const { user } = useAuth();
 
     const handleShowPopup = () => setOpen(true)
 
@@ -18,13 +21,19 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
 
     return (
       <div className='cart-popup' ref={ref}>
-        <Link
+                  {user ? (
+              <Link
+              className='header__icon__links__item item__busket'
+              href='/order'
+              onMouseEnter={handleShowPopup}
+            ><div className='header__icon__links__card__item--busket' /></Link>
+            ) : (
+              <Link
           className='header__icon__links__item item__busket'
-          href='/busket'
+          href='/auth'
           onMouseEnter={handleShowPopup}
-        >
-          <div className='header__icon__links__card__item--busket' />
-        </Link>
+        ><div className='header__icon__links__card__item--busket' /></Link>
+            )}
         <AnimatePresence>
           {open && (
             <motion.div
@@ -53,9 +62,16 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                   <span>Сумма заказа:</span>
                   <span>{total} ₽</span>
                 </div>
-                <Link href='/order' className='cart-popup__footer__link'>
+
+                {user ? (
+              <Link href='/order' className='cart-popup__footer__link'>
+              Перейти к оформлению
+            </Link>
+            ) : (
+              <Link href='/auth' className='cart-popup__footer__link'>
                   Перейти к оформлению
                 </Link>
+            )}                
               </div>
             </motion.div>
           )}

@@ -33,6 +33,12 @@
   padding-left: 10px;
 }
 
+.sidebar__menu__item:hover {
+  transition: .2s ease-in-out;
+  background-color: #ff880009;
+  border: 1px solid #ff8a00;
+}
+
 .sidebar__menu__item__div {
   width: 44px;
   height: 44px;

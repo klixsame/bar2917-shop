@@ -29,8 +29,10 @@ export default function RootLayout({
                     </head>
               <body>
                 <Providers>
+                  <Toaster   containerStyle={{
+                      left: "40%",
+                    }}/>
                   <NextUIProvider>
-                    <Toaster position="top-right" reverseOrder={false}/>
                       {children}
                   </NextUIProvider>
                 </Providers>

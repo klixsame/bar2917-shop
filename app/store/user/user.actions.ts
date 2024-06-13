@@ -1,9 +1,9 @@
-import { errorCatch } from "@/app/api/api.helper"
-import { removeFromStorage } from "@/app/services/auth/auth.helper"
-import { AuthService } from "@/app/services/auth/auth.service"
-import { createAsyncThunk } from "@reduxjs/toolkit"
-import toast from "react-hot-toast"
-import { IAuthResponse, IEmailPassword } from "./user.interface"
+import { errorCatch } from "@/app/api/api.helper";
+import { removeFromStorage } from "@/app/services/auth/auth.helper";
+import { AuthService } from "@/app/services/auth/auth.service";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
+import { IAuthResponse, IEmailPassword } from "./user.interface";
 
 /* register */
 export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
@@ -35,8 +35,10 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
     }
   )
 
+
 export const logout = createAsyncThunk('auth/logout', async () => {
     removeFromStorage()
+    toast.success('Вы успешно вышли из аккаунта')
 })
 
 /* checkAuth */
@@ -54,4 +56,3 @@ export const checkAuth = createAsyncThunk(
       }
     }
   )
-  
