@@ -3,7 +3,7 @@ import { useActions } from "@/components/hocs/useActions";
 import { useAuth } from "@/components/hocs/useAuth";
 import { useProfile } from "@/components/hocs/useProfile";
 import Loader from "@/components/ui/Loader";
-import Button from "@/components/ui/button/Button";
+import ButtonCustom from "@/components/ui/button/ButtonCustom";
 import { Input } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import toast from "react-hot-toast";
@@ -94,7 +94,7 @@ const ProfilePage = () => {
                             errorMessage="Почта"
                         />
 
-                        <Button type="submit">Сохранить</Button>
+                        <ButtonCustom type="submit">Сохранить</ButtonCustom>
                     </>
                 )}
             </form>

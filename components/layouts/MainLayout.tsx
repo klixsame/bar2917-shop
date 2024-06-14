@@ -12,7 +12,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <SidebarMenu />
         <div className='main__content__own'>
           <Header />
+          <main className='dark'>
           {children}
+          </main>
         </div>
       </div>
       <Footer />

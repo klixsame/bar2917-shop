@@ -1,13 +1,56 @@
 import { yandexJSAPI } from '@/app/constants/app.constants';
+import { OrderService } from '@/app/services/order.service';
+import { useActions } from '@/components/hocs/useActions';
+import { useCart } from '@/components/hocs/useCart';
 import MainLayout from '@/components/layouts/MainLayout';
-import Button from '@/components/ui/button/Button';
-import { Input, Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/react';
-import { Map, Placemark, Polygon, YMaps } from '@pbe/react-yandex-maps';
+import ButtonCustom from '@/components/ui/button/ButtonCustom';
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/react';
+import { FullscreenControl, Map, Placemark, Polygon, YMaps, ZoomControl } from '@pbe/react-yandex-maps';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaMapMarkerAlt } from 'react-icons/fa'; // Импортируем иконку маркера
 
 const OrderPage = () => {
+    // Определение типа данных, возвращаемых OrderService.place
+        type PlaceOrderResponse = {
+            confirmation: {
+                confirmation_url: string;
+            };
+        };
+
+        // Определение типа данных, передаваемых в OrderService.place
+        type OrderItem = {
+            price: number;
+            quantity: number;
+            productId: string;
+        };
+
+    const {reset} = useActions()
+    const {items, total} = useCart()
+    const { push } = useRouter()
+
+
+    const placeOrder = async (): Promise<PlaceOrderResponse> => {
+        const response: AxiosResponse<PlaceOrderResponse> = await OrderService.place({
+            items: items.map(item => ({
+                price: item.price,
+                quantity: item.quantity,
+                productId: item.product.id
+            }))
+        });
+        return response.data;
+    };
+    
+    const { mutate } = useMutation<PlaceOrderResponse, Error, void>({
+        mutationFn: placeOrder,
+        onSuccess: (data) => {
+            push(data.confirmation.confirmation_url)
+        }
+    });
+
     const [selectedAddress, setSelectedAddress] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [tempAddress, setTempAddress] = useState('');
@@ -26,12 +69,16 @@ const OrderPage = () => {
             const addressParts = fullAddress.split(', ');
 
             // Извлекаем нужные части адреса (городской поселок, улица и дом)
-            const city = addressParts[4];
+            let city = addressParts[4];
             const street = addressParts[5] || '-';
             const house = addressParts[6] || '-';
 
-            if (city !== 'городской посёлок Новоселье') {
-                toast.error('Доставка осуществляется только по гп. Новоселье');
+            if (city === 'городской посёлок Новоселье') {
+                city = 'Новоселье';
+            }
+
+            if (city !== 'Новоселье') {
+                toast.error('Доставка осуществляется только по Новоселье');
                 return null;
             }
 
@@ -72,36 +119,53 @@ const OrderPage = () => {
                 <h1>Оформление заказа</h1>
                 <div className='d-flex flex-row'>
                     <div className='w-2/4'>
-                        <div className=' d-flex flex-row items-center relative'>
-                            <Input
-                                value={selectedAddress}
-                                disabled
-                                label="Адрес доставки"
-                                className='w-5/6'
-                                isRequired
-                                classNames={{
-                                    innerWrapper: "bg-transparent pt-4",
-                                    input: "bg-transparent",
-                                }}
-                                endContent={
-                                    <FaMapMarkerAlt
-                                    className=' text-blue-500 cursor-pointer absolute bottom-4'
-                                    size={24}
-                                    fill='orange'
-                                    onClick={handleOpenMap}
-                                />
-                                }
-                            />
-                            
+                        <div>
+                        <Input type='text' label="Комментарий к заказу" className="input-custom w-11/12" isClearable />
+                        <div className='w-11/12 border border-card-border p-3 rounded-lg mt-3'>
+                            <p className='leading-5'>Не забудь топпинги и палочки.</p>
+                            <p>От палочек можно отказаться, чтобы сохранить природу.</p>
                         </div>
-                        <div className='mt-5 flex-row justify-between w-5/6'>
-                            <Input type='text' label="Квартира" className="input-custom w-36" isRequired isClearable />
-                            <Input type='text' label="Подъезд" className="input-custom w-36" />
-                            <Input type='text' label="Этаж" className="input-custom w-36" />
                         </div>
-                </div>
+                        <div className='w-11/12 p-5 bg-background-card rounded-lg border border-card-border mt-3'>
+                            <h2 className='text-2xl mb-4'>Адрес доставки</h2>
+                            <div>
+                                <div className='d-flex flex-row items-center relative'>
+                                    <Input
+                                        value={selectedAddress}
+                                        disabled
+                                        label="Адрес доставки"
+                                        isRequired
+                                        classNames={{
+                                            innerWrapper: "bg-transparent pt-4",
+                                            input: "bg-transparent",
+                                        }}
+                                        endContent={
+                                            <FaMapMarkerAlt
+                                            className=' text-blue-500 cursor-pointer absolute bottom-4'
+                                            size={24}
+                                            fill='orange'
+                                            onClick={handleOpenMap}
+                                        />
+                                        }
+                                    />
+                                    
+                                </div>
+                                <div className='mt-5 flex-row justify-between'>
+                                    <Input type='text' label="Квартира" className="input-custom w-36" isRequired isClearable />
+                                    <Input type='text' label="Подъезд" className="input-custom w-36" />
+                                    <Input type='text' label="Этаж" className="input-custom w-36" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <div className='w-2/4'>
-                        <h2>Общая стоимость заказа - </h2>
+                    <div className='d-flex flex-row items-center w-3/5 justify-between bg-background-card border border-card-border rounded-lg p-5'>
+                        <h2 className='text-2xl'>Сумма заказа</h2>
+                        <span className='text-xl text-white font-normal'>{total} ₽</span>
+                    </div>
+                    <div className='d-flex flex-row items-center w-3/5 mt-5'>
+                        <Button className='w-full bg-mainprimary text-white h-14' onPress={() => mutate()}>Оплатить</Button>
+                    </div>
                 </div>
                 </div>
                 <Modal isOpen={modalVisible} onOpenChange={handleCloseModal} size='full' classNames={{
@@ -150,14 +214,16 @@ const OrderPage = () => {
                                                 <Placemark 
                                                     geometry={markerCoords} 
                                                 />
+                                                <ZoomControl options={{ position: { right: 10, top: 10 } }} />
+                                                <FullscreenControl options={{ position: { right: 10, top: 50 } }} />
                                             </Map>
                                         </YMaps>
                                     </div>
                                 </ModalBody>
                                 <ModalFooter >
-                                    <Button color="warning" onClick={handleSaveAddress}>
+                                    <ButtonCustom color="warning" onClick={handleSaveAddress}>
                                         <span className='text-white'>Сохранить адрес</span>
-                                    </Button>
+                                    </ButtonCustom>
                                 </ModalFooter>
                             </>
                         )}
@@ -169,3 +235,5 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
+
+

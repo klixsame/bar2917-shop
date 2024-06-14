@@ -3,13 +3,13 @@ import { IEmailPassword } from "@/app/store/user/user.interface";
 import { useActions } from "@/components/hocs/useActions";
 import { useAuth } from "@/components/hocs/useAuth";
 import Loader from "@/components/ui/Loader";
-import Button from "@/components/ui/button/Button";
 import { Input } from "@nextui-org/react";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { EyeFilledIcon } from "./EyeFilledIcon";
 import { EyeSlashFilledIcon } from "./EyeSlashFilledIcon";
 import { useAuthRedirect } from "./useAuthRedirect";
+import ButtonCustom from "@/components/ui/button/ButtonCustom";
 
 const Auth = () => {
     useAuthRedirect()
@@ -97,7 +97,7 @@ const Auth = () => {
                             </button>
                         }
                         />
-                    <Button type="submit">{type === 'login' ? 'Авторизоваться' : 'Зарегистрироваться'}</Button>
+                    <ButtonCustom type="submit">{type === 'login' ? 'Авторизоваться' : 'Зарегистрироваться'}</ButtonCustom>
 
                     <div className="justify-center flex-row">
                         <button className="mt-5 text-sm w-24" type="button" onClick={() => setType(type === 'login' ? 'register' : 'login')}>

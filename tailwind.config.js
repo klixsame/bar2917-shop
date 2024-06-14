@@ -6,7 +6,7 @@ const colors = {
   transparent: twColors.transparent,
   black: twColors.black,
   white: twColors.white,
-  primary: '#FF8A00',
+  mainprimary: '#FF8A00',
   background: '#101010',
   'background-card': '#1C1C1C',
   'card-border': '#292929',
@@ -40,6 +40,7 @@ module.exports = {
       }
     },
   },
+  darkMode:  'class',
   plugins: [nextui()],
 }
 

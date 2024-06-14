@@ -9,12 +9,10 @@ import Catalog from '@/components/ui/catalog/Catalog'
 
 const MainPage = ({ products, length }: TypeProducts) => {
   return (
-    <main>
       <MainLayout>
       <Hero />
       <Catalog title="Популярное" products={products || []}/>
       </MainLayout>
-    </main>
   )
 }
 

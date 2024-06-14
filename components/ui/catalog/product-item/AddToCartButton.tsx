@@ -1,10 +1,10 @@
 import { IProduct } from "@/app/types/product.interface";
 import { useActions } from "@/components/hocs/useActions";
 import { useCart } from "@/components/hocs/useCart";
+import ButtonCustom from "@/components/ui/button/ButtonCustom";
 import { FC } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
-import Button from "../../button/Button";
 
 const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
     // const { user } = useAuth()
@@ -21,7 +21,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
         <div>
             {currentElement ? (
                 <div className="flex-row items-center justify-between">
-                    <Button
+                    <ButtonCustom
                         className="btn__default btn__card product__item__card__button left"
                         onClick={() => {
                             if (currentElement.quantity === 1) {
@@ -35,11 +35,11 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                         }}
                     >
                         <FiMinus fontSize={13} />
-                    </Button>
+                    </ButtonCustom>
                     <span className="text-white font-normal w-52 bg-background-button-card h-12 d-flex pt-4">
                         {currentElement.quantity} x {product.price} ₽
                     </span>
-                    <Button
+                    <ButtonCustom
                         className="btn__default btn__card product__item__card__button right"
                         onClick={() => {
                             changeQuantity({
@@ -49,10 +49,10 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                         }}
                     >
                         <FaPlus />
-                    </Button>
+                    </ButtonCustom>
                 </div>
             ) : (
-                <Button
+                <ButtonCustom
                     className="btn__default btn__card product__item__card__button"
                     onClick={() => 
                         addToCart({
@@ -66,7 +66,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                         <FaPlus />
                         <span className="text-white font-normal">{product.price} ₽</span>
                     </div>
-                </Button>
+                </ButtonCustom>
             )}
         </div>
     );

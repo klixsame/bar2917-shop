@@ -28,14 +28,14 @@ export default function RootLayout({
                       <meta name="robots" content="index, follow" />
                     </head>
               <body>
-                <Providers>
-                  <Toaster   containerStyle={{
-                      left: "40%",
-                    }}/>
-                  <NextUIProvider>
-                      {children}
-                  </NextUIProvider>
-                </Providers>
+                  <Providers>
+                    <Toaster   containerStyle={{
+                        left: "40%",
+                      }}/>
+                    <NextUIProvider>
+                        {children}
+                    </NextUIProvider>
+                  </Providers>
                 <div id="modal"></div>
               </body>
             </html>

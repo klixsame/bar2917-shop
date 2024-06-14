@@ -4,7 +4,7 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Add your custom props here
 }
 
-export const Button: FC<PropsWithChildren<IButton>> = ({ children, ...rest }) => {
+export const ButtonCustom: FC<PropsWithChildren<IButton>> = ({ children, ...rest }) => {
   return (
     <button className="btn__default" {...rest}>
         {children}
@@ -12,4 +12,4 @@ export const Button: FC<PropsWithChildren<IButton>> = ({ children, ...rest }) =>
 )
 };
 
-export default Button
+export default ButtonCustom
