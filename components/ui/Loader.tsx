@@ -1,8 +1,22 @@
-
 const Loader = () => {
     return (
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle fill='#FF156D' stroke='#FF156D' stroke-width='15' r='15' cx='40' cy='100'><animate attributeName='opacity' calcMode='spline' dur='2' values='1;0;1;' keySplines='.5 0 .5 1;.5 0 .5 1' repeatCount='indefinite' begin='-.4'></animate></circle><circle fill='#FF156D' stroke='#FF156D' stroke-width='15' r='15' cx='100' cy='100'><animate attributeName='opacity' calcMode='spline' dur='2' values='1;0;1;' keySplines='.5 0 .5 1;.5 0 .5 1' repeatCount='indefinite' begin='-.2'></animate></circle><circle fill='#FF156D' stroke='#FF156D' stroke-width='15' r='15' cx='160' cy='100'><animate attributeName='opacity' calcMode='spline' dur='2' values='1;0;1;' keySplines='.5 0 .5 1;.5 0 .5 1' repeatCount='indefinite' begin='0'></animate></circle></svg>
-    )
-}
+        <div className="Loader">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="50px" height="50px" viewBox="0 0 128 128">
+                <g>
+                    <circle cx="16" cy="64" r="16" fill="#ffa300" />
+                    <circle cx="16" cy="64" r="14.344" fill="#ffa300" transform="rotate(45 64 64)" />
+                    <circle cx="16" cy="64" r="12.531" fill="#ffa300" transform="rotate(90 64 64)" />
+                    <circle cx="16" cy="64" r="10.75" fill="#ffa300" transform="rotate(135 64 64)" />
+                    <circle cx="16" cy="64" r="10.063" fill="#ffa300" transform="rotate(180 64 64)" />
+                    <circle cx="16" cy="64" r="8.063" fill="#ffa300" transform="rotate(225 64 64)" />
+                    <circle cx="16" cy="64" r="6.438" fill="#ffa300" transform="rotate(270 64 64)" />
+                    <circle cx="16" cy="64" r="5.375" fill="#ffa300" transform="rotate(315 64 64)" />
+                    <animateTransform attributeName="transform" type="rotate" values="0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64" calcMode="discrete" dur="720ms" repeatCount="indefinite"></animateTransform>
+                </g>
+            </svg>
+        </div>
+    );
+};
 
-export default Loader
+
+export default Loader;

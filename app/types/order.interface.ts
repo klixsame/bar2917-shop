@@ -16,4 +16,6 @@ export interface IOrder {
     status: EnumOrderStatus
     address: string
     user: IUser
+    commentary?: string
+    total: number
 }

@@ -5,6 +5,12 @@ const {nextui} = require("@nextui-org/react");
 const colors = {
   transparent: twColors.transparent,
   black: twColors.black,
+  red: twColors.red,
+  green: twColors.green,
+  blue: twColors.blue,
+  yellow: twColors.yellow,
+  purple: twColors.purple,
+  orange: twColors.orange,
   white: twColors.white,
   mainprimary: '#FF8A00',
   background: '#101010',

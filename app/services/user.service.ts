@@ -10,7 +10,6 @@ type TypeData = {
     name?: string
     password?: string
     phone?: string
-    birthdate?: string
 }
 
 export const UserService = {

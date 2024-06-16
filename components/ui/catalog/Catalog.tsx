@@ -7,16 +7,17 @@ interface ICatalog {
     title?: string
 }
 
-const Catalog: FC<ICatalog> = ({products, title}) => {
-
+const Catalog: FC<ICatalog> = ({ products = [], title }) => {
     return (
         <section>
-                {title && <h1>{title}</h1>}
-                <div className="flex-row flex-wrap gap-3.5">
-                    { products.length ?
-                    products.map(product => <ProductItem key={product.id} product={product} />) : <div>Здесь нет продуктов</div>
-                    }
-                </div>
+            {title && <h1>{title}</h1>}
+            <div className="flex-row flex-wrap gap-3.5">
+                {products.length ? (
+                    products.map(product => <ProductItem key={product.id} product={product} />)
+                ) : (
+                    <div>Здесь нет продуктов</div>
+                )}
+            </div>
         </section>
     )
 }

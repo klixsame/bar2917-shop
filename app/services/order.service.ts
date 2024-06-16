@@ -17,7 +17,9 @@ type TypeData = {
     quantity:  number,
     productId:  number,
     price:  number
-  }[]
+  }[],
+  commentary?:  string
+  address: string
 }
 
 export const OrderService = {
@@ -28,10 +30,17 @@ export const OrderService = {
     })
   },
 
+  async getOrdersByUser() {
+    return instance<IOrder[]>({
+      url: `${ORDERS}/by-user`,
+      method: 'GET'
+    })
+  },
+
   async place(data: TypeData){
     return instance<{confirmation: {confirmation_url: string}}>({
       url: ORDERS,
-      method:  'POST',
+      method: 'POST',
       data
     })
   }

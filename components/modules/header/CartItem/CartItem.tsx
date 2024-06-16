@@ -15,13 +15,13 @@ const CartItem: FC<{item: ICartItem}> = ({item}) => {
             </div>
             <div className="cart__content ml-2 w-64">
                 <div className="cart__contfalse)p__row flex-row h-12 justify-between">
-                    <h3>{item.product.name}</h3>
+                    <h3 className="text-sm">{item.product.name}</h3>
                     <div className="cart__content__amount h-20">
                         <CartActions item={item}/>
                     </div>
                 </div>
                 <div className="cart__content__down__row pb-3 w-24">
-                    <span className="text-white text-base">{item.price} ₽</span>
+                    <span className="text-white text-sm">{item.price} ₽</span>
                 </div>
             </div>
         </div>
