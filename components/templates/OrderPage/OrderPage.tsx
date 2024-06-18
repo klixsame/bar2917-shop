@@ -1,8 +1,11 @@
-import { yandexJSAPI } from '@/app/constants/app.constants';
+import { FolderNameForImage, yandexJSAPI } from '@/app/constants/app.constants';
 import { OrderService } from '@/app/services/order.service';
+import { ProductService } from '@/app/services/product/product.service';
+import { IProduct } from '@/app/types/product.interface';
 import { useActions } from '@/components/hocs/useActions';
 import { useAuth } from '@/components/hocs/useAuth';
 import { useCart } from '@/components/hocs/useCart';
+import { useProfile } from '@/components/hocs/useProfile';
 import MainLayout from '@/components/layouts/MainLayout';
 import Loader from '@/components/ui/Loader';
 import ButtonCustom from '@/components/ui/button/ButtonCustom';
@@ -14,6 +17,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaMapMarkerAlt } from 'react-icons/fa'; // Импортируем иконку маркера
+import OrderItem from './OrderItem/OrderItem';
+
+const SERVER_URL_FOR_IMAGE = process.env.SERVER_URL_IMAGE as string
 
 const OrderPage = () => {
     // Определение типа данных, возвращаемых OrderService.place
@@ -33,6 +39,20 @@ const OrderPage = () => {
     const { reset } = useActions();
     const { items, total } = useCart();
     const { push } = useRouter();
+    const [additionalProducts, setAdditionalProducts] = useState<IProduct[]>([]);
+
+    useEffect(() => {
+        const fetchAdditionalProducts = async () => {
+            try {
+                const response: AxiosResponse<IProduct[]> = await ProductService.getByCategory('additionally');
+                setAdditionalProducts(response.data); // Установка данных в состояние
+            } catch (error) {
+                console.error('Ошибка получения дополнительных продуктов:', error);
+            }
+        };
+
+        fetchAdditionalProducts();
+    }, []);
 
     const placeOrder = async (): Promise<PlaceOrderResponse> => {
         const fullAddress = `${selectedAddress}, кв. ${apartment}${entrance ? `, пар. ${entrance}` : ''}${floor ? `, этаж ${floor}` : ''}`;
@@ -56,6 +76,7 @@ const OrderPage = () => {
         }
     });
 
+    const { profile } = useProfile();
     const [selectedAddress, setSelectedAddress] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [tempAddress, setTempAddress] = useState('');
@@ -66,6 +87,7 @@ const OrderPage = () => {
     const [floor, setFloor] = useState('');
     const [isAddressValid, setIsAddressValid] = useState(false);
     const [isCartEmpty, setIsCartEmpty] = useState(true);
+    const [isUserValid, setIsUserValid] = useState(false);
 
     // Проверка на заполненность адреса и квартиры
     useEffect(() => {
@@ -76,6 +98,11 @@ const OrderPage = () => {
     useEffect(() => {
         setIsCartEmpty(items.length === 0);
     }, [items]);
+
+    // Проверка на наличие имени и телефона у пользователя
+    useEffect(() => {
+        setIsUserValid(profile?.name?.trim() !== '' && profile?.phone?.trim() !== '');
+    }, [profile]);
 
     const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setComment(event.target.value);
@@ -151,174 +178,193 @@ const OrderPage = () => {
         setModalVisible(false);
     };
 
-    const {isLoading} = useAuth()
+    const { isLoading } = useAuth();
 
+    const productsToDisplay = ['Имбирь', 'Соевый соус', 'Палочки', 'Васаби'];
+
+
+    const imageUrl = `${SERVER_URL_FOR_IMAGE}/${FolderNameForImage}`;
+    
     return (
         <MainLayout>
-            {isLoading ? ( <Loader /> ) : (<section>
-                <h1>Оформление заказа</h1>
-                <div className='d-flex flex-row'>
-                    <div className='w-2/4'>
-                        <div>
-                            <Input
-                                type='text'
-                                label="Комментарий к заказу"
-                                className="input-custom w-11/12"
-                                isClearable
-                                value={comment}
-                                onChange={handleCommentChange}
-                            />
-                            <div className='w-11/12 border border-card-border p-3 rounded-lg mt-3'>
-                                <p className='leading-5'>Не забудь топпинги и палочки.</p>
-                                <p>От палочек можно отказаться, чтобы сохранить природу.</p>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <section>
+                    <h1>Оформление заказа</h1>
+                    <div className='d-flex flex-row'>
+                        <div className='w-2/4'>
+                            <div>
+                                <Input
+                                    type='text'
+                                    label="Комментарий к заказу"
+                                    className="input-custom w-11/12"
+                                    isClearable
+                                    value={comment}
+                                    onChange={handleCommentChange}
+                                />
+                                <div className='w-11/12 border border-card-border p-3 rounded-lg mt-3'>
+                                    <p className='leading-5'>Не забудь топпинги и палочки.</p>
+                                    <p>От палочек можно отказаться, чтобы сохранить природу.</p>
+                                </div>
+                            </div>
+                            <div>
+                            {additionalProducts
+                                .filter(product => productsToDisplay.includes(product.name))
+                                .map(product => (       
+                                    <OrderItem product={product} />
+                                ))}
+                            </div>
+                            <div className='w-11/12 p-5 bg-background-card rounded-lg border border-card-border mt-5'>
+                                <h2 className='text-2xl mb-4'>Адрес доставки</h2>
+                                <div>
+                                    <div className='d-flex flex-row items-center relative'>
+                                        <Input
+                                            value={selectedAddress}
+                                            disabled
+                                            label="Адрес доставки"
+                                            isRequired
+                                            classNames={{
+                                                innerWrapper: "bg-transparent pt-4",
+                                                input: "bg-transparent",
+                                            }}
+                                            endContent={
+                                                <FaMapMarkerAlt
+                                                    className=' text-blue-500 cursor-pointer absolute bottom-4'
+                                                    size={24}
+                                                    fill='orange'
+                                                    onClick={handleOpenMap}
+                                                />
+                                            }
+                                        />
+                                    </div>
+                                    <div className='mt-5 flex-row justify-between'>
+                                        <Input 
+                                            type='text' 
+                                            label="Квартира" 
+                                            className="input-custom w-36" 
+                                            isRequired 
+                                            value={apartment}
+                                            onChange={handleApartmentChange}
+                                        />
+                                        <Input 
+                                            type='text' 
+                                            label="Подъезд" 
+                                            className="input-custom w-36"
+                                            value={entrance}
+                                            onChange={handleEntranceChange}
+                                        />
+                                        <Input 
+                                            type='text' 
+                                            label="Этаж" 
+                                            className="input-custom w-36"
+                                            value={floor}
+                                            onChange={handleFloorChange}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className='w-11/12 p-5 bg-background-card rounded-lg border border-card-border mt-3'>
-                            <h2 className='text-2xl mb-4'>Адрес доставки</h2>
-                            <div>
-                                <div className='d-flex flex-row items-center relative'>
-                                    <Input
-                                        value={selectedAddress}
-                                        disabled
-                                        label="Адрес доставки"
-                                        isRequired
-                                        classNames={{
-                                            innerWrapper: "bg-transparent pt-4",
-                                            input: "bg-transparent",
-                                        }}
-                                        endContent={
-                                            <FaMapMarkerAlt
-                                                className=' text-blue-500 cursor-pointer absolute bottom-4'
-                                                size={24}
-                                                fill='orange'
-                                                onClick={handleOpenMap}
-                                            />
-                                        }
-                                    />
+                        <div className='w-2/4'>
+                            <div className='d-flex  w-3/5  bg-background-card border border-card-border rounded-lg p-5'>
+                                <div className='flex-row items-center justify-between'>
+                                    <h2 className='text-2xl'>Сумма заказа</h2>
+                                    <span className='text-xl text-white font-normal'>{total+100} ₽</span>
                                 </div>
-                                <div className='mt-5 flex-row justify-between'>
-                                    <Input 
-                                        type='text' 
-                                        label="Квартира" 
-                                        className="input-custom w-36" 
-                                        isRequired 
-                                        value={apartment}
-                                        onChange={handleApartmentChange}
-                                    />
-                                    <Input 
-                                        type='text' 
-                                        label="Подъезд" 
-                                        className="input-custom w-36"
-                                        value={entrance}
-                                        onChange={handleEntranceChange}
-                                    />
-                                    <Input 
-                                        type='text' 
-                                        label="Этаж" 
-                                        className="input-custom w-36"
-                                        value={floor}
-                                        onChange={handleFloorChange}
-                                    />
+                                <div>
+                                    {selectedAddress.trim() === '' && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Укажите адрес</p></div>
+                                    )}
+                                    {apartment.trim() === '' && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Укажите квартиру</p></div>
+                                    )}
+                                    {isCartEmpty && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Пустая корзина</p></div>
+                                    )}
+                                    {!isUserValid && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Укажите имя и телефон в профиле</p></div>
+                                    )}
                                 </div>
+                                <p className='mt-2'>Стоимость доставки - 100 ₽</p>
+                            </div>
+                            <div className='d-flex flex-row items-center w-3/5 mt-5'>
+                                <Button
+                                    className='w-full bg-mainprimary text-white h-14'
+                                    onPress={() => mutate()}
+                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid}
+                                >
+                                    Оплатить
+                                </Button>
                             </div>
                         </div>
                     </div>
-                    <div className='w-2/4'>
-                        <div className='d-flex  w-3/5  bg-background-card border border-card-border rounded-lg p-5'>
-                            <div className='flex-row items-center justify-between'>
-                            <h2 className='text-2xl'>Сумма заказа</h2>
-                            <span className='text-xl text-white font-normal'>{total+100} ₽</span>
-                            </div>
-                            <div>
-                            {selectedAddress.trim() === '' && (
-                            <div className='mt-2'><p className='text-mainprimary'>* Укажите адрес</p></div>
-                            )}
-                            {apartment.trim() === '' && (
-                                <div className='mt-2'><p className='text-mainprimary'>* Укажите квартиру</p></div>
-                            )}
-                            {isCartEmpty && (
-                                <div className='mt-2'><p className='text-mainprimary'>* Пустая корзина</p></div>
-                            )}
-                            </div>
-                            <p className='mt-2'>Стоимость доставки - 100 ₽</p>
-                        </div>
-                        <div className='d-flex flex-row items-center w-3/5 mt-5'>
-                            <Button
-                            className='w-full bg-mainprimary text-white h-14'
-                            onPress={() => mutate()}
-                            isDisabled={!isAddressValid || isCartEmpty}
-                            >
-                            Оплатить
-                            </Button>
-                            </div>
-                            </div>
-                            </div>
-                            <Modal isOpen={modalVisible} onOpenChange={handleCloseModal} size='full' classNames={{
-                            body: "text-black-500",
-                            header: "text-black-500",
-                            footer: "d-flex justify-center",
-                            }}>
-                            <ModalContent>
+                    <Modal isOpen={modalVisible} onOpenChange={handleCloseModal} size='full' classNames={{
+                        body: "text-black-500",
+                        header: "text-black-500",
+                        footer: "d-flex justify-center",
+                    }}>
+                        <ModalContent>
                             {(onClose) => (
-                            <>
-                            <ModalBody>
-                                <div>
-                                    <p className='text-black text-xl'><strong>Текущий адрес:</strong> {tempAddress}</p>
-                                </div>
-                                <div style={{ height: '80vh' }}>
-                                    <YMaps query={{ apikey: yandexJSAPI }}>
-                                        <Map
-                                            defaultState={{ center: [59.81, 30.08], zoom: 14 }}
-                                            style={{ width: '100%', height: '100%' }}
-                                            onClick={handleMapClick}
-                                        >
-                                            <Polygon
-                                                geometry={[[
-                                                    [59.816363323874306, 30.049340797713597],
-                                                    [59.80667909171499, 30.04771001463253],
-                                                    [59.80161968721998, 30.059554649642294],
-                                                    [59.801360209813154, 30.07663495664913],
-                                                    [59.80226837187317, 30.085904671004595],
-                                                    [59.80317650911478, 30.095603538802454],
-                                                    [59.80438732016457, 30.105903221419652],
-                                                    [59.8089274686685, 30.111053062728224],
-                                                    [59.81333730460038, 30.110366417220412],
-                                                    [59.8144612867991, 30.10487325315792],
-                                                    [59.815758142074614, 30.080154014876662],
-                                                    [59.816363323874306, 30.066335274031935],
-                                                    [59.81653623093453, 30.059554649642294],
-                                                    [59.816363323874306, 30.049340797713597]
-                                                ]]}
-                                                options={{
-                                                    fillColor: 'rgba(160, 193, 0, 0.3)', // Прозрачный цвет заливки
-                                                    strokeColor: '#ed4543',
-                                                    strokeWidth: 5
-                                                }}
-                                                onClick={handleMapClick}
-                                            />
-                                            <Placemark 
-                                                geometry={markerCoords} 
-                                            />
-                                            <ZoomControl options={{ position: { right: 10, top: 10 } }} />
-                                            <FullscreenControl options={{ position: { right: 10, top: 50 } }} />
-                                        </Map>
-                                    </YMaps>
-                                </div>
-                            </ModalBody>
-                            <ModalFooter >
-                                <ButtonCustom color="warning" onClick={handleSaveAddress}>
-                                    <span className='text-white'>Сохранить адрес</span>
-                                </ButtonCustom>
-                            </ModalFooter>
-                            </>
+                                <>
+                                    <ModalBody>
+                                        <div>
+                                            <p className='text-black text-xl'><strong>Текущий адрес:</strong> {tempAddress}</p>
+                                        </div>
+                                        <div style={{ height: '80vh' }}>
+                                            <YMaps query={{ apikey: yandexJSAPI }}>
+                                                <Map
+                                                    defaultState={{ center: [59.81, 30.08], zoom: 14 }}
+                                                    style={{ width: '100%', height: '100%' }}
+                                                    onClick={handleMapClick}
+                                                >
+                                                    <Polygon
+                                                        geometry={[[
+                                                            [59.816363323874306, 30.049340797713597],
+                                                            [59.80667909171499, 30.04771001463253],
+                                                            [59.80161968721998, 30.059554649642294],
+                                                            [59.801360209813154, 30.07663495664913],
+                                                            [59.80226837187317, 30.085904671004595],
+                                                            [59.80317650911478, 30.095603538802454],
+                                                            [59.80438732016457, 30.105903221419652],
+                                                            [59.8089274686685, 30.111053062728224],
+                                                            [59.81333730460038, 30.110366417220412],
+                                                            [59.8144612867991, 30.10487325315792],
+                                                            [59.815758142074614, 30.080154014876662],
+                                                            [59.816363323874306, 30.066335274031935],
+                                                            [59.81653623093453, 30.059554649642294],
+                                                            [59.816363323874306, 30.049340797713597]
+                                                        ]]}
+                                                        options={{
+                                                            fillColor: 'rgba(160, 193, 0, 0.3)', // Прозрачный цвет заливки
+                                                            strokeColor: '#ed4543',
+                                                            strokeWidth: 5
+                                                        }}
+                                                        onClick={handleMapClick}
+                                                    />
+                                                    <Placemark 
+                                                        geometry={markerCoords} 
+                                                    />
+                                                    <ZoomControl options={{ position: { right: 10, top: 10 } }} />
+                                                    <FullscreenControl options={{ position: { right: 10, top: 50 } }} />
+                                                </Map>
+                                            </YMaps>
+                                        </div>
+                                    </ModalBody>
+                                    <ModalFooter >
+                                        <ButtonCustom color="warning" onClick={handleSaveAddress}>
+                                            <span className='text-white'>Сохранить адрес</span>
+                                        </ButtonCustom>
+                                    </ModalFooter>
+                                </>
                             )}
-                            </ModalContent>
-                            </Modal>
-                            </section>)}
-                            </MainLayout>
-                            );
-                            };
+                        </ModalContent>
+                    </Modal>
+                </section>
+            )}
+        </MainLayout>
+    );
+};
 
-                            export default OrderPage;                                                           
-                           
-                               
+export default OrderPage;
+
+

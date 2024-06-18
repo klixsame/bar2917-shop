@@ -22,12 +22,12 @@ const ProductItem: FC<{product: IProduct}> = ({product}) => {
                         <h3 className="">{product.name}</h3>
                         </Link>
                     </div>
-                    <div className="w-12">
+                    <div className="w-14 flex-row justify-end">
                         <span className="card__weight font-normal">{product.weight} г</span>
                     </div>
                 </div>
                 <div className="h-64">
-                <p className=" mt-2 leading-4 line-clamp-3">{product.description}</p>
+                <p className=" mt-2 leading-4 line-clamp-2">{product.description}</p>
                 </div>
             {/* <p>{product.price}</p> */}
             <div className="product__item__card__row__button">

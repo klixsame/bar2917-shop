@@ -16,9 +16,9 @@ export const FeedbackService = {
     })
   },
 
-  async leave(productId: string | number, data: TypeData) {
+  async leave(data: TypeData) {
     return instance<IFeedback[]>({
-      url: `${FEEDBACKS}/leave/${productId}`,
+      url: `${FEEDBACKS}/leave`,
       method: 'POST',
       data
     })

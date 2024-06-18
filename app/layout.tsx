@@ -30,9 +30,9 @@ export default function RootLayout({
                     </head>
               <body>
                   <Providers>
-                    <Toaster   containerStyle={{
+                    <Toaster containerStyle={{
                         left: "40%",
-                      }}/>
+                      }} />
                     <Next13ProgressBar height='3px' color='#FF8A00' showOnShallow/>
                     <NextUIProvider>
                         {children}

@@ -5,6 +5,7 @@ import { IProduct } from "@/app/types/product.interface";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useQuery } from "@tanstack/react-query";
 import Image from 'next/image';
+import SimilarProducts from "./SimilarProducts";
 import AddToCartInline from "./product-information/AddToCartInline";
 
 interface IProductPage {
@@ -36,11 +37,11 @@ export default function Product({
     return (
         <MainLayout>
             <section className="mt-6">
-                <div className="flex-row w-11/12 h-90 bg-background-card border border-card-border p-3 rounded-lg">
-                    <div className="w-4/12">
-                        <Image width={500} height={254} src={imageUrl} alt={product.name} className="rounded-lg" />
+                <div className="flex-row w-11/12 bg-background-card border border-card-border p-3 rounded-lg">
+                    <div className="w-5/12">
+                        <Image width={427} height={217} src={imageUrl} alt={product.name} className="rounded-lg" />
                     </div>
-                    <div className="ml-3 flex-wrap w-8/12 justify-between">
+                    <div className="ml-3 flex-wrap w-7/12 justify-between">
                         <div className="h-10/12">
                             <h2 className="text-2xl">{product.name}</h2>
                             <div className="w-full">
@@ -59,6 +60,7 @@ export default function Product({
                         </div>
                     </div>
                 </div>
+                <SimilarProducts similarProducts={similarProducts} />
             </section>
         </MainLayout>
     );

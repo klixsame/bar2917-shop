@@ -6,7 +6,7 @@ import { FC } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
 
-const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
+const AddToCartButtonAddition: FC<{ product: IProduct }> = ({ product }) => {
     // const { user } = useAuth()
     // if(!user) return toast('Сначала авторизуйтесь')
 
@@ -20,9 +20,9 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
     return (
         <div>
             {currentElement ? (
-                <div className="flex-row items-center justify-between">
+                <div className="flex-row items-center justify-between w-32 h-8 bg-background-button-card rounded-lg">
                     <ButtonCustom
-                        className="btn__default btn__card product__item__card__button left"
+                        className="w-8 flex items-center justify-center h-full"
                         onClick={() => {
                             if (currentElement.quantity === 1) {
                                 removeFromCart({ id: currentElement.id });
@@ -36,13 +36,13 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                     >
                         <FiMinus fontSize={13} />
                     </ButtonCustom>
-                    <div className="w-52 bg-background-button-card h-12 justify-center ">    
-                    <span className="text-white font-normal">
+                    <div className="h-full justify-center ">    
+                    <span className="text-white text-xs font-normal">
                         {currentElement.quantity} x {product.price} ₽
                     </span>
                     </div>
                     <ButtonCustom
-                        className="btn__default btn__card product__item__card__button right"
+                        className="w-8 flex items-center justify-center h-full"
                         onClick={() => {
                             changeQuantity({
                                 id: currentElement.id,
@@ -55,7 +55,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                 </div>
             ) : (
                 <ButtonCustom
-                    className="btn__default btn__card product__item__card__button"
+                    className="w-24 flex bg-background-button-card rounded-lg h-8 flex-row items-center justify-center"
                     onClick={() => 
                         addToCart({
                             product,
@@ -64,9 +64,8 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                         })
                     }
                 >
-                    <div className="flex-row items-center w-18 justify-between">
+                    <div className="flex-row items-center justify-between">
                         <FaPlus />
-                        <span className="text-white font-normal pl-2">{product.price} ₽</span>
                     </div>
                 </ButtonCustom>
             )}
@@ -74,4 +73,4 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
     );
 }
 
-export default AddToCartButton;
+export default AddToCartButtonAddition;

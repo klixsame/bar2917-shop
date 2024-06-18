@@ -18,6 +18,7 @@ const ProfilePage = () => {
         phone: "",
         email: ""
     });
+    const [allPhones, setAllPhones] = useState<{ id: number; phone: string }[]>([]);
 
     useEffect(() => {
         setFormData({
@@ -25,6 +26,16 @@ const ProfilePage = () => {
             phone: profile.phone || "",
             email: profile.email || ""
         });
+
+        const fetchAllPhones = async () => {
+            try {
+                const response = await UserService.getAllPhones();
+                setAllPhones(response.data);
+            } catch (error) {
+                console.error('Ошибка при получении телефонов:', error);
+            }
+        };
+        fetchAllPhones();
     }, [profile]);
 
     const handleChange = (e: { target: { name: string; value: string; }; }) => {
@@ -37,6 +48,21 @@ const ProfilePage = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+
+        // Проверяем, есть ли введенный телефон в списке всех телефонов
+        const isDuplicatePhone = allPhones.some(item => item.phone === formData.phone);
+
+        if (isDuplicatePhone) {
+            toast.error('Этот телефон уже используется');
+            return;
+        }
+
+        // Проверяем, заполнено ли поле имени
+        if (!formData.name.trim()) {
+            toast.error('Пожалуйста, введите ваше имя');
+            return;
+        }
+
         toast.promise(
             UserService.updateProfile(formData), 
             {
@@ -66,7 +92,7 @@ const ProfilePage = () => {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    errorMessage="Неверное имя"
+                                    errorMessage="Имя обязательно для заполнения"
                                 />
 
                                 <InputMask

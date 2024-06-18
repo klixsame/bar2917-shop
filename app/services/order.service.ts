@@ -20,6 +20,7 @@ type TypeData = {
   }[],
   commentary?:  string
   address: string
+  deliveryDateTime: string
 }
 
 export const OrderService = {

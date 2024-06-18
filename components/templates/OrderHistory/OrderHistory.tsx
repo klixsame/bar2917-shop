@@ -107,7 +107,7 @@ const OrderHistory = () => {
                         </div>
                     </div>
                     <div className="w-5/12 ml-5">
-                        {selectedOrder ? (
+                        {selectedOrder && (
                             <div>
                                 <div className="flex-row justify-between">
                                     <h2>Заказ № {selectedOrder.id}</h2>
@@ -127,10 +127,6 @@ const OrderHistory = () => {
                                     <p className="text-white text-lg font-medium">{selectedOrder.total} ₽</p>
                                 </div>
                                 <Button className="bg-background-button-card mt-3" onClick={handleRepeatOrder}>Повторить заказ</Button>
-                            </div>
-                        ) : (
-                            <div>
-                                <p>Выберите заказ для просмотра деталей</p>
                             </div>
                         )}
                     </div>
