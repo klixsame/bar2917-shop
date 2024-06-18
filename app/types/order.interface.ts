@@ -15,7 +15,8 @@ export interface IOrder {
     items: ICartItem[]
     status: EnumOrderStatus
     address: string
-    deliveryDateTime: string
+    deliveryDate: string
+    deliveryTime: string
     user: IUser
     commentary?: string
     total: number

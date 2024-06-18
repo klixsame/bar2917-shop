@@ -9,15 +9,16 @@ import { useProfile } from '@/components/hocs/useProfile';
 import MainLayout from '@/components/layouts/MainLayout';
 import Loader from '@/components/ui/Loader';
 import ButtonCustom from '@/components/ui/button/ButtonCustom';
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/react';
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, Select, SelectItem } from '@nextui-org/react';
 import { FullscreenControl, Map, Placemark, Polygon, YMaps, ZoomControl } from '@pbe/react-yandex-maps';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaMapMarkerAlt } from 'react-icons/fa'; // Импортируем иконку маркера
 import OrderItem from './OrderItem/OrderItem';
+
 
 const SERVER_URL_FOR_IMAGE = process.env.SERVER_URL_IMAGE as string
 
@@ -41,6 +42,8 @@ const OrderPage = () => {
     const { push } = useRouter();
     const [additionalProducts, setAdditionalProducts] = useState<IProduct[]>([]);
 
+    
+
     useEffect(() => {
         const fetchAdditionalProducts = async () => {
             try {
@@ -63,7 +66,9 @@ const OrderPage = () => {
                 productId: item.product.id
             })),
             address: fullAddress,
-            commentary: comment
+            commentary: comment,
+            deliveryDate: deliveryDatePick,
+            deliveryTime: deliveryTimePick
         });
         return response.data;
     };
@@ -88,6 +93,19 @@ const OrderPage = () => {
     const [isAddressValid, setIsAddressValid] = useState(false);
     const [isCartEmpty, setIsCartEmpty] = useState(true);
     const [isUserValid, setIsUserValid] = useState(false);
+    
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTime, setSelectedTime] = useState('');
+    const [datesObject, setDatesObject] = useState<{ key: string; label: string; }[]>([]);
+    const [timesObject, setTimesObject] = useState<{ key: string; label: string; }[]>([]);
+    const [deliveryDatePick, setDeliveryDatePick] = useState('');
+    const [deliveryTimePick, setDeliveryTimePick] = useState('');
+    const [isTimeSelectDisabled, setIsTimeSelectDisabled] = useState(true);
+    const [isDateSelectDisabled, setIsDateSelectDisabled] = useState(false);
+    const [isDeliveryClosed, setIsDeliveryClosed] = useState(false);
+    const [disabledTimes, setDisabledTimes] = useState<string[]>([]);
+
+    console.log('asdad', disabledTimes);
 
     // Проверка на заполненность адреса и квартиры
     useEffect(() => {
@@ -124,6 +142,118 @@ const OrderPage = () => {
     const handleSaveAddress = () => {
         setSelectedAddress(tempAddress);
         setModalVisible(false);
+    };
+
+// Генерация дат и времени при загрузке компонента
+
+const generateDates = () => {
+    const today = new Date();
+    const dates = [];
+
+    // Первым элементом добавляем сегодняшнюю дату
+    dates.push({ key: today.toLocaleDateString('ru-RU'), label: today.toLocaleDateString('ru-RU') });
+
+    // Затем добавляем следующие три дня
+    for (let i = 1; i < 4; i++) {
+        const date = new Date();
+        date.setDate(today.getDate() + i);
+        dates.push({ key: date.toLocaleDateString('ru-RU'), label: date.toLocaleDateString('ru-RU') });
+    }
+
+    return dates;
+};
+
+const generateTimes = (isToday: boolean) => {
+    const times = [];
+    const now = new Date();
+    let startTime = new Date();
+
+    if (isToday) {
+        startTime.setHours(now.getHours(), Math.ceil(now.getMinutes() / 30) * 30, 0, 0); // Округляем минуты до ближайшего 30-минутного интервала
+    } else {
+        startTime.setHours(12, 0, 0, 0); // Начало времени для не сегодняшнего дня
+    }
+
+    const endTime = new Date();
+    endTime.setHours(22, 30, 0, 0); // Задаем конечное время 22:30
+
+    while (startTime <= endTime) {
+        if (!isToday || startTime > now) {
+            times.push({ key: startTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }), label: startTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
+        }
+        startTime.setMinutes(startTime.getMinutes() + 30);
+    }
+
+    return times;
+};
+
+
+const checkDeliveryTime = () => {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    if (currentHour < 11 || (currentHour === 22 && currentMinute > 30) || currentHour >= 23) {
+        setIsDeliveryClosed(true);
+    } else {
+        setIsDeliveryClosed(false);
+    }
+};
+
+
+useEffect(() => {
+    setDatesObject(generateDates());
+    setTimesObject(generateTimes(true));
+    checkDeliveryTime()
+}, []);
+
+useEffect(() => {
+    setIsTimeSelectDisabled(selectedDate === ''); // Если selectedDate пустая строка, то селект времени должен быть disabled
+
+    if (selectedDate) {
+        const today = new Date().toLocaleDateString('ru-RU');
+        const isToday = selectedDate === today;
+        setTimesObject(generateTimes(isToday));
+    }
+}, [selectedDate]);
+
+useEffect(() => {
+    setIsTimeSelectDisabled(selectedDate === '');
+ 
+    const fetchOrders = async () => {
+        if (selectedDate) {
+            const orders = await OrderService.getAllOrders()
+            
+            const selectedDateOrders = orders.data.filter((order: any) => 
+                order.deliveryDate === selectedDate
+            );
+            
+            const disabledKeys = selectedDateOrders.map((order: any) => 
+                order.deliveryTime
+            );
+
+            setDisabledTimes(disabledKeys);
+            const today = new Date().toLocaleDateString('ru-RU');
+            const isToday = selectedDate === today;
+            setTimesObject(generateTimes(isToday));
+        }
+    };
+
+    fetchOrders();
+}, [selectedDate]);
+
+
+
+    const handleDateChange = (e: { target: { value: any; }; }) => {
+        const selectedDate = e.target.value;
+        setSelectedDate(selectedDate);
+        setDeliveryDatePick(selectedDate); // Записываем выбранную дату в состояние deliveryDatePick
+    };
+
+    const handleTimeChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+        const selectedTime = e.target.value;
+        setSelectedTime(e.target.value);
+        setDeliveryTimePick(selectedTime);
     };
 
     // Функция для обратного геокодирования и извлечения нужной части адреса
@@ -264,6 +394,25 @@ const OrderPage = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className='w-11/12 p-5 bg-background-card rounded-lg border border-card-border mt-5'>       
+                            <h2 className='text-2xl mb-4'>Время доставки</h2>              
+                            <div className='flex-row justify-between'>
+                            <Select label="Выберите дату" size='sm' className='w-6/12' value={selectedDate} onChange={handleDateChange}  classNames={{popoverContent: 'bg-background-card', value: 'text-white'}}>
+                                {datesObject.map((dateObject) => (
+                                <SelectItem key={dateObject.key} value={dateObject.label} className='selectitem-span'>
+                                  {dateObject.label}
+                                </SelectItem>
+                                ))}
+                            </Select>
+                            <Select label="Выберите время" size='sm' className='w-5/12' value={selectedTime} onChange={handleTimeChange} classNames={{popoverContent: 'bg-background-card'}}  disabledKeys={disabledTimes}>
+                                {timesObject.map((timeObject) => (
+                                <SelectItem key={timeObject.key} value={timeObject.label} className='selectitem-span'>
+                                    {timeObject.label}
+                                </SelectItem>
+                                ))}
+                            </Select>
+                            </div>
+                            </div>
                         </div>
                         <div className='w-2/4'>
                             <div className='d-flex  w-3/5  bg-background-card border border-card-border rounded-lg p-5'>
@@ -272,6 +421,11 @@ const OrderPage = () => {
                                     <span className='text-xl text-white font-normal'>{total+100} ₽</span>
                                 </div>
                                 <div>
+                                    {isDeliveryClosed && (
+                                        <div className='mt-2'>
+                                            <p className='text-mainprimary'>* Время приема заказов с 11:00 до 23:00</p>
+                                        </div>
+                                    )}
                                     {selectedAddress.trim() === '' && (
                                         <div className='mt-2'><p className='text-mainprimary'>* Укажите адрес</p></div>
                                     )}
@@ -284,6 +438,12 @@ const OrderPage = () => {
                                     {!isUserValid && (
                                         <div className='mt-2'><p className='text-mainprimary'>* Укажите имя и телефон в профиле</p></div>
                                     )}
+                                    {!selectedDate && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Выберите дату доставки</p></div>
+                                    )}
+                                    {!selectedTime && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Выберите время доставки</p></div>
+                                    )}
                                 </div>
                                 <p className='mt-2'>Стоимость доставки - 100 ₽</p>
                             </div>
@@ -291,7 +451,7 @@ const OrderPage = () => {
                                 <Button
                                     className='w-full bg-mainprimary text-white h-14'
                                     onPress={() => mutate()}
-                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid}
+                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid || !selectedDate || !selectedTime }
                                 >
                                     Оплатить
                                 </Button>

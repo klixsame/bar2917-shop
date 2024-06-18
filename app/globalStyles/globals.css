@@ -208,3 +208,7 @@ h1 {
   left: 50%;
   height: 100vh;
 }
+
+.selectitem-span span {
+  color: white;
+}
