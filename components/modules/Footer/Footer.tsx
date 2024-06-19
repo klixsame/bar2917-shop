@@ -1,3 +1,4 @@
+"use client"
 import { FeedbackService } from '@/app/services/feedback.service';
 import Logo from '@/components/elements/Logo/Logo';
 import { useAuth } from '@/components/hocs/useAuth';

@@ -114,6 +114,7 @@ const OrderHistory = () => {
                                     <p className={getStatusColor(selectedOrder.status)}>{getStatusTranslation(selectedOrder.status)}</p>
                                 </div>
                                 <p className="mt-1">{formatDate(selectedOrder.createdAt)}, {new Date(selectedOrder.createdAt).toLocaleTimeString()}</p>
+                                <p className="mt-1">Доставка на {selectedOrder.deliveryDate} {selectedOrder.deliveryTime}</p>
                                 <p className="mt-1">{selectedOrder.address}</p>
                                 <div>
                                     {selectedOrder.items.map(item => <SelectedCard item={item} key={item.id} />)}

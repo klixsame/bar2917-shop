@@ -41,7 +41,13 @@ const OrderPage = () => {
     const { items, total } = useCart();
     const { push } = useRouter();
     const [additionalProducts, setAdditionalProducts] = useState<IProduct[]>([]);
+    const { user } = useAuth();
+    const router = useRouter();
 
+    if(!user) {
+        router.push('/');
+        return null;
+    }
     
 
     useEffect(() => {
@@ -105,7 +111,7 @@ const OrderPage = () => {
     const [isDeliveryClosed, setIsDeliveryClosed] = useState(false);
     const [disabledTimes, setDisabledTimes] = useState<string[]>([]);
 
-    console.log('asdad', disabledTimes);
+
 
     // Проверка на заполненность адреса и квартиры
     useEffect(() => {
@@ -169,7 +175,15 @@ const generateTimes = (isToday: boolean) => {
     let startTime = new Date();
 
     if (isToday) {
-        startTime.setHours(now.getHours(), Math.ceil(now.getMinutes() / 30) * 30, 0, 0); // Округляем минуты до ближайшего 30-минутного интервала
+        // Увеличиваем текущее время на 1 час
+        startTime.setHours(now.getHours() + 1, 0, 0, 0);
+        // Округляем минуты до ближайшего 30-минутного интервала
+        startTime.setMinutes(Math.ceil(startTime.getMinutes() / 30) * 30);
+        // Проверяем, если минуты равны 60, то увеличиваем час и сбрасываем минуты на 0
+        if (startTime.getMinutes() === 60) {
+            startTime.setHours(startTime.getHours() + 1);
+            startTime.setMinutes(0);
+        }
     } else {
         startTime.setHours(12, 0, 0, 0); // Начало времени для не сегодняшнего дня
     }
@@ -185,7 +199,7 @@ const generateTimes = (isToday: boolean) => {
     }
 
     return times;
-};
+}
 
 
 const checkDeliveryTime = () => {
@@ -397,14 +411,14 @@ useEffect(() => {
                             <div className='w-11/12 p-5 bg-background-card rounded-lg border border-card-border mt-5'>       
                             <h2 className='text-2xl mb-4'>Время доставки</h2>              
                             <div className='flex-row justify-between'>
-                            <Select label="Выберите дату" size='sm' className='w-6/12' value={selectedDate} onChange={handleDateChange}  classNames={{popoverContent: 'bg-background-card', value: 'text-white'}}>
+                            <Select label="Выберите дату" size='sm' className='w-6/12' value={selectedDate} onChange={handleDateChange} isDisabled={isDeliveryClosed}  classNames={{popoverContent: 'bg-background-card', value: 'text-white'}}>
                                 {datesObject.map((dateObject) => (
                                 <SelectItem key={dateObject.key} value={dateObject.label} className='selectitem-span'>
                                   {dateObject.label}
                                 </SelectItem>
                                 ))}
                             </Select>
-                            <Select label="Выберите время" size='sm' className='w-5/12' value={selectedTime} onChange={handleTimeChange} classNames={{popoverContent: 'bg-background-card'}}  disabledKeys={disabledTimes}>
+                            <Select label="Выберите время" size='sm' className='w-5/12' value={selectedTime} onChange={handleTimeChange} classNames={{popoverContent: 'bg-background-card'}} isDisabled={isTimeSelectDisabled} disabledKeys={disabledTimes}>
                                 {timesObject.map((timeObject) => (
                                 <SelectItem key={timeObject.key} value={timeObject.label} className='selectitem-span'>
                                     {timeObject.label}
@@ -423,7 +437,7 @@ useEffect(() => {
                                 <div>
                                     {isDeliveryClosed && (
                                         <div className='mt-2'>
-                                            <p className='text-mainprimary'>* Время приема заказов с 11:00 до 23:00</p>
+                                            <p className='text-mainprimary'>* Время приема заказов с 11:00 до 22:00</p>
                                         </div>
                                     )}
                                     {selectedAddress.trim() === '' && (
@@ -451,7 +465,7 @@ useEffect(() => {
                                 <Button
                                     className='w-full bg-mainprimary text-white h-14'
                                     onPress={() => mutate()}
-                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid || !selectedDate || !selectedTime }
+                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid || !selectedDate || !selectedTime || isDeliveryClosed }
                                 >
                                     Оплатить
                                 </Button>

@@ -1,7 +1,6 @@
 'use client'
 
 import { ADMIN_PANEL_URL } from "@/app/config/url.config";
-import NotFound from "@/app/not-found";
 import { getAccessToken, getRefreshToken } from "@/app/services/auth/auth.helper";
 import { useActions } from "@/components/hocs/useActions";
 import { useAuth } from "@/components/hocs/useAuth";
@@ -49,7 +48,8 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({
   }
 
   if(user && isAdminRoute) {
-    return <NotFound />
+    router.push('/')
+    return <></>
   }
 
   pathname !== '/auth' && router.replace('/auth')
