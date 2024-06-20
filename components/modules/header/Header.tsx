@@ -34,26 +34,26 @@ const Header = () => {
             </div>
           </div>
           <ul className='header__links list-reset'>
-            {!profile.isAdmin ? (
-                <li className='header__links__item pl-5'>
-                <a href='/admin' className='header__links__item__a'>
-                  Панель администратора
-                </a>
-              </li>
-            ) : (
-              <>
-                <li className='header__links__item'>
-                  <a href='/contacts' className='header__links__item__a'>
-                    Контакты
-                  </a>
-                </li>
-                <li className='header__links__item'>
-                  <a href='/delivery-info' className='header__links__item__a'>
-                    Доставка и оплата
-                  </a>
-                </li>
-              </>
-            )}
+          {user?.isAdmin ? (
+        <li className='header__links__item pl-5'>
+          <a href='/admin' className='header__links__item__a'>
+            Панель администратора
+          </a>
+        </li>
+      ) : (
+        <>
+          <li className='header__links__item'>
+            <a href='/contacts' className='header__links__item__a'>
+              Контакты
+            </a>
+          </li>
+          <li className='header__links__item'>
+            <a href='/delivery-info' className='header__links__item__a'>
+              Доставка и оплата
+            </a>
+          </li>
+        </>
+      )}
           </ul>
           <div className='header__icon__links'>
             {user ? (
