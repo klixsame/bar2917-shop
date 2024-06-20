@@ -184,12 +184,11 @@ const generateTimes = (isToday: boolean) => {
     let startTime = new Date();
 
     if (isToday) {
-        // Увеличиваем текущее время на 1 час
-        startTime.setHours(now.getHours() + 1, 0, 0, 0);
-        // Округляем минуты до ближайшего 30-минутного интервала
-        startTime.setMinutes(Math.ceil(startTime.getMinutes() / 30) * 30);
-        // Проверяем, если минуты равны 60, то увеличиваем час и сбрасываем минуты на 0
-        if (startTime.getMinutes() === 60) {
+        // Увеличиваем текущее время на 1 час и 30 минут
+        startTime.setHours(now.getHours() + 1);
+        startTime.setMinutes(now.getMinutes() + 30 - (now.getMinutes() % 30));
+        // Проверяем, если минуты равны 60 или больше, то увеличиваем час и сбрасываем минуты на 0
+        if (startTime.getMinutes() >= 60) {
             startTime.setHours(startTime.getHours() + 1);
             startTime.setMinutes(0);
         }
@@ -209,6 +208,8 @@ const generateTimes = (isToday: boolean) => {
 
     return times;
 }
+
+
 
 
 const checkDeliveryTime = () => {

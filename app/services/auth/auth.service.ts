@@ -13,7 +13,6 @@ export const AuthService =  {
             method: 'POST',
             data
         })
-        console.log('ты даун')
         if (response.data.accessToken) {
             saveToStorage(response.data)
         }
