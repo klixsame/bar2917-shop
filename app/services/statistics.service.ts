@@ -13,7 +13,7 @@ export const StatisticsService = {
   async getMain() {
     return instance<TypeStatisticsResponse>({
       url: `${STATISTICS}/main`,
-      method: 'GET'
+      method: 'GET',
     })
   },
 

@@ -1,15 +1,37 @@
-
+"use client"
 import LogoSidebar from '@/components/elements/LogoSidebar/LogoSidebar';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const SidebarMenu = () => {
+  const pathname = usePathname();
 
   return (
-    <div className='sidebar__container'>
+    <div className='sidebar__container h-screen'>
       <div className='sidebar__logo'>
         <LogoSidebar />
       </div>
       <div className='sidebar__menu'>
+        {pathname.startsWith('/admin') && (
+          <><Link className='sidebar__menu__item' href='/admin'>
+            <span className='sidebar__menu__item__span'>Статистика</span>
+          </Link>
+          <Link className='sidebar__menu__item' href='/admin/orders'>
+              <span className='sidebar__menu__item__span'>Заказы</span>
+          </Link>
+          <Link className='sidebar__menu__item' href='/admin/products'>
+              <span className='sidebar__menu__item__span'>Товары</span>
+          </Link>
+          <Link className='sidebar__menu__item' href='/admin/categories'>
+              <span className='sidebar__menu__item__span'>Категории</span>
+          </Link>
+          <Link className='sidebar__menu__item' href='/admin/feedbacks'>
+              <span className='sidebar__menu__item__span'>Обратная связь</span>
+          </Link>
+</>
+        )}
+        {!pathname.startsWith('/admin') && (
+          <>
         <Link className='sidebar__menu__item' href='/category/rolls'>
           <div className='sidebar__menu__item__div item--rolls' />
           <span className='sidebar__menu__item__span'>Роллы</span>
@@ -54,9 +76,11 @@ const SidebarMenu = () => {
           <div className='sidebar__menu__item__div item--additionally' />
           <span className='sidebar__menu__item__span'>Дополнительно</span>
         </Link>
+        </>
+        )}
       </div>
     </div>
   )
 }
 
-export default SidebarMenu
+export default SidebarMenu;

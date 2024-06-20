@@ -39,6 +39,15 @@ const OrderPage = () => {
 
     const { reset } = useActions();
     const { items, total } = useCart();
+    const minOrderAmount = 500;
+    const [isBelowMinOrder, setIsBelowMinOrder] = useState(false);
+    useEffect(() => {
+        if (total < minOrderAmount) {
+          setIsBelowMinOrder(true);
+        } else {
+          setIsBelowMinOrder(false);
+        }
+      }, [total]);
     const { push } = useRouter();
     const [additionalProducts, setAdditionalProducts] = useState<IProduct[]>([]);
     const { user } = useAuth();
@@ -411,7 +420,7 @@ useEffect(() => {
                             <div className='w-11/12 p-5 bg-background-card rounded-lg border border-card-border mt-5'>       
                             <h2 className='text-2xl mb-4'>Время доставки</h2>              
                             <div className='flex-row justify-between'>
-                            <Select label="Выберите дату" size='sm' className='w-6/12' value={selectedDate} onChange={handleDateChange} isDisabled={isDeliveryClosed}  classNames={{popoverContent: 'bg-background-card', value: 'text-white'}}>
+                            <Select label="Выберите дату" size='sm' className='w-6/12' value={selectedDate} onChange={handleDateChange} isDisabled={isDeliveryClosed} classNames={{popoverContent: 'bg-background-card', value: 'text-white'}}>
                                 {datesObject.map((dateObject) => (
                                 <SelectItem key={dateObject.key} value={dateObject.label} className='selectitem-span'>
                                   {dateObject.label}
@@ -458,6 +467,9 @@ useEffect(() => {
                                     {!selectedTime && (
                                         <div className='mt-2'><p className='text-mainprimary'>* Выберите время доставки</p></div>
                                     )}
+                                    {isBelowMinOrder && (
+                                        <div className='mt-2'><p className='text-mainprimary'>* Минимальная сумма заказа - 500 ₽</p></div>
+                                    )}
                                 </div>
                                 <p className='mt-2'>Стоимость доставки - 100 ₽</p>
                             </div>
@@ -465,7 +477,7 @@ useEffect(() => {
                                 <Button
                                     className='w-full bg-mainprimary text-white h-14'
                                     onPress={() => mutate()}
-                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid || !selectedDate || !selectedTime || isDeliveryClosed }
+                                    isDisabled={!isAddressValid || isCartEmpty || !isUserValid || !selectedDate || !selectedTime || isBelowMinOrder || isDeliveryClosed}
                                 >
                                     Оплатить
                                 </Button>

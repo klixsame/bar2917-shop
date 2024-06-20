@@ -1,9 +1,11 @@
 import { useAuth } from '@/components/hocs/useAuth';
+import { useProfile } from '@/components/hocs/useProfile';
 import Link from 'next/link';
 import CartPopup from './CartPopup/CartPopup';
 
 const Header = () => {
   const { user } = useAuth();
+  const { profile } = useProfile();
 
   return (
     <header className='header'>
@@ -32,19 +34,29 @@ const Header = () => {
             </div>
           </div>
           <ul className='header__links list-reset'>
-            <li className='header__links__item'>
-              <a href='/contacts' className='header__links__item__a'>
-                Контакты
-              </a>
-            </li>
-            <li className='header__links__item'>
-              <a href='/delivery-info' className='header__links__item__a'>
-                Доставка и оплата
-              </a>
-            </li>
+            {!profile.isAdmin ? (
+                <li className='header__links__item pl-5'>
+                <a href='/admin' className='header__links__item__a'>
+                  Панель администратора
+                </a>
+              </li>
+            ) : (
+              <>
+                <li className='header__links__item'>
+                  <a href='/contacts' className='header__links__item__a'>
+                    Контакты
+                  </a>
+                </li>
+                <li className='header__links__item'>
+                  <a href='/delivery-info' className='header__links__item__a'>
+                    Доставка и оплата
+                  </a>
+                </li>
+              </>
+            )}
           </ul>
           <div className='header__icon__links'>
-          {user ? (
+            {user ? (
               <Link className='header__icon__links__item' href='/users/profile'>
                 <div className='header__icon__links__card__item--profile' />
               </Link>
@@ -58,7 +70,7 @@ const Header = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
