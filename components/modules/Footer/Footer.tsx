@@ -56,7 +56,7 @@ const Footer = () => {
             </a>
           </li>
           <li className='footer__links__item'>
-            <Link href='/delivery' className='footer__links__item__a'>
+            <Link href='/delivery-info' className='footer__links__item__a'>
               Доставка и оплата
             </Link>
           </li>

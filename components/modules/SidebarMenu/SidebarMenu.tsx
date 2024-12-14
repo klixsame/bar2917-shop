@@ -32,47 +32,47 @@ const SidebarMenu = () => {
         )}
         {!pathname.startsWith('/admin') && (
           <>
-        <Link className='sidebar__menu__item' href='/category/rolls'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/rolls'>
           <div className='sidebar__menu__item__div item--rolls' />
           <span className='sidebar__menu__item__span'>Роллы</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/sushi'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/sushi'>
           <div className='sidebar__menu__item__div item--sushi' />
           <span className='sidebar__menu__item__span'>Суши</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/sets'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/sets'>
           <div className='sidebar__menu__item__div item--sets' />
           <span className='sidebar__menu__item__span'>Сеты</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/pizza'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/pizza'>
           <div className='sidebar__menu__item__div item--pizza' />
           <span className='sidebar__menu__item__span'>Пицца</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/snacks'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/snacks'>
           <div className='sidebar__menu__item__div item--snacks' />
           <span className='sidebar__menu__item__span'>Закуски</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/gedza'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/gedza'>
           <div className='sidebar__menu__item__div item--gedza' />
           <span className='sidebar__menu__item__span'>Гёдза</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/salads'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/salads'>
           <div className='sidebar__menu__item__div item--salads' />
           <span className='sidebar__menu__item__span'>Салаты</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/poke'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/poke'>
           <div className='sidebar__menu__item__div item--poke' />
           <span className='sidebar__menu__item__span'>Поке</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/soups'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/soups'>
           <div className='sidebar__menu__item__div item--soups' />
           <span className='sidebar__menu__item__span'>Супы</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/wok'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/wok'>
           <div className='sidebar__menu__item__div item--wok' />
           <span className='sidebar__menu__item__span'>Вок</span>
         </Link>
-        <Link className='sidebar__menu__item' href='/category/additionally'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/additionally'>
           <div className='sidebar__menu__item__div item--additionally' />
           <span className='sidebar__menu__item__span'>Дополнительно</span>
         </Link>
