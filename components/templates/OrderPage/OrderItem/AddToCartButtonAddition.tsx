@@ -3,6 +3,7 @@ import { useActions } from "@/components/hocs/useActions";
 import { useCart } from "@/components/hocs/useCart";
 import ButtonCustom from "@/components/ui/button/ButtonCustom";
 import { FC } from "react";
+import toast from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
 
@@ -44,13 +45,18 @@ const AddToCartButtonAddition: FC<{ product: IProduct }> = ({ product }) => {
                     <ButtonCustom
                         className="w-8 flex items-center justify-center h-full"
                         onClick={() => {
-                            changeQuantity({
-                                id: currentElement.id,
-                                type: 'plus'
-                            });
+                            if (currentElement.quantity < 10) {
+                                changeQuantity({
+                                    id: currentElement.id,
+                                    type: "plus",
+                                });
+                            } else {
+                                toast.error("Максимальное количество — 10");
+                            }
                         }}
+                        disabled={currentElement.quantity >= 12}
                     >
-                        <FaPlus />
+                        <FaPlus fontSize={13}/>
                     </ButtonCustom>
                 </div>
             ) : (
