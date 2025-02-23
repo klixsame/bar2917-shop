@@ -45,16 +45,16 @@ const AddToCartButtonAddition: FC<{ product: IProduct }> = ({ product }) => {
                     <ButtonCustom
                         className="w-8 flex items-center justify-center h-full"
                         onClick={() => {
-                            if (currentElement.quantity < 10) {
+                            if (currentElement.quantity < 50) {
                                 changeQuantity({
                                     id: currentElement.id,
                                     type: "plus",
                                 });
                             } else {
-                                toast.error("Максимальное количество — 10");
+                                toast.error("Максимальное количество — 50");
                             }
                         }}
-                        disabled={currentElement.quantity >= 12}
+                        disabled={currentElement.quantity >= 51}
                     >
                         <FaPlus fontSize={13}/>
                     </ButtonCustom>

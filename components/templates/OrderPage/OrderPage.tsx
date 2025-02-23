@@ -424,7 +424,7 @@ useEffect(() => {
                             <Select label="Выберите дату" size='sm' className='w-6/12' value={selectedDate} onChange={handleDateChange} isDisabled={isDeliveryClosed} classNames={{popoverContent: 'bg-background-card', value: 'text-white'}}>
                                 {datesObject.map((dateObject) => (
                                 <SelectItem key={dateObject.key} value={dateObject.label} className='selectitem-span'>
-                                  {dateObject.label}
+                                    {dateObject.label}
                                 </SelectItem>
                                 ))}
                             </Select>

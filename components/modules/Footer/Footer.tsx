@@ -51,9 +51,12 @@ const Footer = () => {
             </Link>
           </li>
           <li className='footer__links__item'>
-            <a onClick={handleOpen} className='footer__links__item__a' style={{ cursor: 'pointer' }}>
+            <Link href='/legal' className='footer__links__item__a'>
+              Правовая информация
+            </Link>
+            {/* <a onClick={handleOpen} className='footer__links__item__a' style={{ cursor: 'pointer' }}>
               Обратная связь
-            </a>
+            </a> */}
           </li>
           <li className='footer__links__item'>
             <Link href='/delivery-info' className='footer__links__item__a'>

@@ -42,16 +42,16 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                     <ButtonCustom
                         className="btn__default btn__card product__item__card__button right"
                         onClick={() => {
-                            if (currentElement.quantity < 10) {
+                            if (currentElement.quantity < 50) {
                                 changeQuantity({
                                     id: currentElement.id,
                                     type: "plus",
                                 });
                             } else {
-                                toast.error("Максимальное количество — 10");
+                                toast.error("Максимальное количество — 50");
                             }
                         }}
-                        disabled={currentElement.quantity >= 12}
+                        disabled={currentElement.quantity >= 51}
                     >
                         <FaPlus />
                     </ButtonCustom>
