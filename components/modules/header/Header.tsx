@@ -26,7 +26,7 @@ const Header = () => {
             </div>
             <div className='header__content__info__geo'>
               <p className='header__p__up'>
-                Доставка в <span>гп. Новоселье</span>
+                Доставка <span>гп. Новоселье</span>
               </p>
               <a href='tel:+79811565667' className='header__a__down'>
                 +7 (981) 156-56-67
