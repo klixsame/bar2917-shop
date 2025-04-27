@@ -1,18 +1,11 @@
 'use client'
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClientProvider } from "@tanstack/react-query"
 import { PropsWithChildren } from "react"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
+import { queryClient } from "../api/query.client"
 import { persistor, store } from "../store/store"
 import AuthProvider from "./auth-provider/AuthProvider"
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false
-        }
-    }
-})
 
 export default function Providers({
    children

@@ -1,0 +1,167 @@
+import { ILocationResponse, LocationService } from '@/app/services/location.service';
+import { setLocations, setSelectedLocation } from '@/app/store/location/location.slice';
+import { RootState } from '@/app/store/store';
+import { Button, Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { MapPin } from 'lucide-react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+export default function LocationSelector() {
+  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { selectedLocationId, locations } = useSelector((state: RootState) => state.location);
+
+  console.log('Current state:', { selectedLocationId, locationsCount: locations.length });
+
+  const { data: response, isLoading } = useQuery<AxiosResponse<ILocationResponse>>({
+    queryKey: ['locations'],
+    queryFn: () => LocationService.getAll(),
+    staleTime: 1000 * 60 * 5, // 5 минут
+    refetchOnMount: true,
+    retry: 3
+  });
+
+  // Эффект для установки локаций в store
+  useEffect(() => {
+    console.log('Setting locations effect, response:', response?.data?.data);
+    if (response?.data?.data) {
+      dispatch(setLocations(response.data.data));
+    }
+  }, [response?.data?.data, dispatch]);
+
+  // Отдельный эффект для инициализации выбранной локации
+  useEffect(() => {
+    const initializeSelectedLocation = async () => {
+      if (locations.length > 0 && !selectedLocationId) {
+        console.log('Initializing selected location, locations:', locations);
+        const defaultLocation = locations.find(loc => loc.isDefault && loc.isActive);
+        const activeLocation = locations.find(loc => loc.isActive);
+        const locationToSet = defaultLocation || activeLocation;
+        
+        if (locationToSet) {
+          console.log('Setting default location:', locationToSet);
+          dispatch(setSelectedLocation(locationToSet.id));
+          
+          // Инвалидируем зависимые запросы после установки локации
+          await Promise.all([
+            queryClient.invalidateQueries({ queryKey: ['category-products'] }),
+            queryClient.invalidateQueries({ queryKey: ['products'] }),
+            queryClient.invalidateQueries({ queryKey: ['get product'] }),
+            queryClient.invalidateQueries({ queryKey: ['cart-products'] })
+          ]);
+        }
+      }
+    };
+
+    initializeSelectedLocation();
+  }, [locations, selectedLocationId, dispatch, queryClient]);
+
+  const handleLocationChange = async (locationId: number) => {
+    console.log('Changing location to:', locationId);
+    dispatch(setSelectedLocation(locationId));
+    onClose();
+
+    // Инвалидируем все зависимые запросы
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ['category-products'] }),
+      queryClient.invalidateQueries({ queryKey: ['products'] }),
+      queryClient.invalidateQueries({ queryKey: ['get product'] }),
+      queryClient.invalidateQueries({ queryKey: ['cart-products'] })
+    ]);
+
+    // Принудительно обновляем все зависимые запросы
+    await queryClient.refetchQueries({
+      queryKey: ['category-products'],
+      type: 'active'
+    });
+  };
+
+  // Показываем лоадер только при первой загрузке
+  if (isLoading && locations.length === 0) {
+    return <span className="text-white">Загрузка...</span>;
+  }
+
+  const selectedLocation = locations.find(loc => loc.id === selectedLocationId);
+  console.log('Selected location:', selectedLocation);
+
+  return (
+    <>
+      <button 
+        onClick={onOpen}
+        className="flex items-center gap-1 text-white hover:text-orange-500 transition-colors"
+      >
+        <span className="font-medium">
+          {selectedLocation?.name || 'Выберите адрес'}
+        </span>
+      </button>
+
+      <Modal 
+        isOpen={isOpen} 
+        onClose={onClose}
+        size="lg"
+        classNames={{
+          base: "bg-[#1F1F1F]/90 backdrop-blur-sm",
+          wrapper: "bg-[#1F1F1F]/90",
+          header: "border-b border-[#2D2D2D]",
+          body: "py-6",
+          closeButton: "hover:bg-[#2D2D2D] active:bg-[#3D3D3D] text-white",
+          backdrop: "bg-black/60"
+        }}
+      >
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">
+            <h3 className="text-xl font-semibold text-white">
+              Выберите адрес
+            </h3>
+            <p className="text-sm text-white">
+              Выберите ближайший к вам ресторан для оформления заказа
+            </p>
+          </ModalHeader>
+          <ModalBody>
+            <div className="grid gap-3">
+              {locations.filter(loc => loc.isActive).map((location) => (
+                <Button
+                  key={location.id}
+                  className={`w-full h-auto p-4 ${
+                    selectedLocationId === location.id 
+                      ? 'bg-orange-500 text-white hover:bg-orange-600' 
+                      : 'bg-[#2D2D2D]/90 text-white hover:bg-[#3D3D3D]'
+                  } transition-colors duration-200`}
+                  onClick={() => handleLocationChange(location.id)}
+                >
+                  <div className="flex items-start gap-3 w-full">
+                    <div className="flex-shrink-0 mt-1">
+                      <MapPin className={`w-5 h-5 ${
+                        selectedLocationId === location.id 
+                          ? 'text-white' 
+                          : 'text-orange-500'
+                      }`} />
+                    </div>
+                    <div className="flex flex-col items-start gap-1 flex-grow">
+                      <span className="font-medium text-base text-white">
+                        {location.name}
+                      </span>
+                      <span className={`text-sm ${
+                        selectedLocationId === location.id 
+                          ? 'text-white' 
+                          : 'text-white/80'
+                      }`}>
+                        {location.address}
+                      </span>
+                    </div>
+                    {selectedLocationId === location.id && (
+                      <div className="flex-shrink-0 w-2 h-2 rounded-full bg-white mt-2" />
+                    )}
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+} 

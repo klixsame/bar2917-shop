@@ -111,11 +111,6 @@ span {
   width: 190px;
 }
 
-.header__content__info__geo {
-  width: 186px;
-  display: flex;
-}
-
 .header__content__info__geo p,
 .header__content__info__geo a {
   margin-left: auto;

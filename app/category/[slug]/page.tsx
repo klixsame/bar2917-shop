@@ -2,13 +2,17 @@
 
 import NotFound from '@/app/not-found';
 import { CategoryService } from '@/app/services/category.service';
-import { ProductService } from '@/app/services/product/product.service';
-import { ICategory } from '@/app/types/category.interface';
-import { IProduct } from '@/app/types/product.interface';
+import { IProductsByLocation, LocationService } from '@/app/services/location.service';
+import { RootState } from '@/app/store/store';
 import MainLayout from '@/components/layouts/MainLayout';
-import { Tab, Tabs } from '@nextui-org/tabs'; // Импортируем компоненты табов
+import Loader from '@/components/ui/Loader';
+import { Card, CardBody } from "@nextui-org/card";
+import { Tab, Tabs } from '@nextui-org/tabs';
+import { useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Catalog = dynamic(() => import('@/components/ui/catalog/Catalog'), { ssr: false });
 
@@ -18,80 +22,94 @@ interface CategoryPageProps {
   };
 }
 
-async function fetchCategoryData(slug: string) {
-  const { data: products } = await ProductService.getByCategory(slug);
-  const { data: category } = await CategoryService.getBySlug(slug);
-  return { products, category };
-}
-
 export default function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = params;
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
-  const [category, setCategory] = useState<ICategory | null>(null);
-  const [notFound, setNotFound] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<number>(0); // Состояние для отслеживания активной вкладки
+  const selectedLocationId = useSelector((state: RootState) => state.location.selectedLocationId);
+  const [activeTab, setActiveTab] = useState<number>(0);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { products, category } = await fetchCategoryData(slug);
-        setProducts(products);
-        setFilteredProducts(products); // Устанавливаем начальный фильтр для всех продуктов
-        setCategory(category);
-      } catch (error) {
-        setNotFound(true);
-      }
-    }
-    fetchData();
-  }, [slug]);
+  const { data: categoryData, isLoading: categoryLoading, error: categoryError } = useQuery({
+    queryKey: ['category', slug],
+    queryFn: () => CategoryService.getBySlug(slug),
+    enabled: !!slug
+  });
 
-  const filterProducts = (type: string) => {
-    if (type === 'all') {
-      setFilteredProducts(products);
-    } else if (type === 'classic') {
-      setFilteredProducts(products.filter(product => product.image.includes('classicrolls')));
-    } else if (type === 'baked') {
-      setFilteredProducts(products.filter(product => product.image.includes('baked')));
-    }
-  };
+  const { data: productsData, isLoading: productsLoading } = useQuery<IProductsByLocation>({
+    queryKey: ['category-products', slug, selectedLocationId],
+    queryFn: () => LocationService.getProductsByCategory(slug),
+    enabled: !!slug && !!selectedLocationId,
+    staleTime: 0,
+    refetchOnWindowFocus: false,
+    retry: 1
+  });
 
-  useEffect(() => {
-    if (slug === 'rolls') {
-      if (activeTab === 0) filterProducts('all');
-      if (activeTab === 1) filterProducts('classic');
-      if (activeTab === 2) filterProducts('baked');
-    }
-  }, [activeTab, products, slug]);
+  const { data: locationsData } = useQuery<AxiosResponse<{ data: Array<{ id: number; name: string }> }>>({
+    queryKey: ['locations'],
+    queryFn: () => LocationService.getAll(),
+    enabled: !!selectedLocationId,
+    refetchOnWindowFocus: false
+  });
+
+  const category = categoryData?.data;
+  const products = productsData?.products || [];
+  const locationName = locationsData?.data?.data?.find(loc => loc.id === selectedLocationId)?.name || '';
+
+  const filteredProducts = slug === 'rolls' ? 
+    activeTab === 0 ? products :
+    activeTab === 1 ? products.filter(product => product.image.includes('classicrolls')) :
+    products.filter(product => product.image.includes('baked')) 
+    : products;
+
+  const EmptyStateMessage = () => (
+    <Card className="max-w-[600px] mx-auto my-8">
+      <CardBody className="text-center py-8 gap-3">
+        <h3 className="text-xl font-semibold mb-4">
+          К сожалению, в данном ресторане мы временно не готовим блюда из данной категории
+        </h3>
+        <p className="text-gray-500 leading-5">
+          Пожалуйста, выберите другую категорию или выберите один из наших других ресторанов
+        </p>
+      </CardBody>
+    </Card>
+  );
+
+  if (categoryLoading || productsLoading) {
+    return (
+      <MainLayout>
+        <Loader />
+      </MainLayout>
+    );
+  }
+
+  if (categoryError || !category) {
+    return <NotFound />;
+  }
 
   return (
     <main>
       <MainLayout>
-        {notFound ? (
-          <NotFound />
+        <div className='flex-row justify-between'>
+          <h1>{category.name}</h1>
+          {slug === 'rolls' && (
+            <div className='flex flex-row items-center'>
+              <Tabs 
+                aria-label="Rolls Filter Tabs" 
+                selectedKey={activeTab.toString()} 
+                onSelectionChange={(key) => setActiveTab(Number(key))}
+                classNames={{
+                  tabList: "flex-row"
+                }}
+              >
+                <Tab key="0" title="Все" />
+                <Tab key="1" title="Классические" />
+                <Tab key="2" title="Запеченные" />
+              </Tabs>
+            </div>
+          )}
+        </div>
+        {filteredProducts.length > 0 ? (
+          <Catalog products={filteredProducts} />
         ) : (
-          category && (
-            <>
-            <div className='flex-row justify-between'>
-              <h1>{category.name}</h1>
-                {slug === 'rolls' ? ( // Условный рендеринг для страницы роллов
-                  <div className='flex flex-row items-center'>
-                    <Tabs aria-label="Rolls Filter Tabs" 
-                    selectedKey={activeTab.toString()} 
-                    onSelectionChange={(key)  => setActiveTab(Number(key))}
-                    classNames={{
-                      tabList: "flex-row"
-                    }}>
-                      <Tab key="0" title="Все" />
-                      <Tab key="1" title="Классические" />
-                      <Tab key="2" title="Запеченные" />
-                    </Tabs>
-                  </div>
-                ) : null}
-              </div>
-              <Catalog products={filteredProducts}  />
-            </>
-          )
+          <EmptyStateMessage />
         )}
       </MainLayout>
     </main>

@@ -3,8 +3,10 @@ import { getAccessToken, removeFromStorage } from "../services/auth/auth.helper"
 import { AuthService } from "../services/auth/auth.service";
 import { errorCatch, getContentType } from "./api.helper";
 
+const API_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:4200/api';
+
 export const instance = axios.create({
-    baseURL: process.env.SERVER_URL,
+    baseURL: API_SERVER_URL,
     headers: getContentType()
 })
 
@@ -25,7 +27,7 @@ instance.interceptors.response.use(
         const originalRequest = error.config
 
         if ((
-            error.response.status === 401 ||
+            error.response?.status === 401 ||
             errorCatch(error) === 'jwt expired' ||
             errorCatch(error) === 'jwt must be provided'
           ) &&
@@ -43,4 +45,5 @@ instance.interceptors.response.use(
             }
           }
           
+        throw error;
 })

@@ -1,11 +1,18 @@
+import { RootState } from '@/app/store/store';
 import { useAuth } from '@/components/hocs/useAuth';
 import { useProfile } from '@/components/hocs/useProfile';
+import LocationSelector from '@/components/ui/location/LocationSelector';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 import CartPopup from './CartPopup/CartPopup';
 
 const Header = () => {
   const { user } = useAuth();
   const { profile } = useProfile();
+  const { selectedLocationId, locations } = useSelector((state: RootState) => state.location);
+  
+  const selectedLocation = locations.find(loc => loc.id === selectedLocationId);
+  const phoneNumber = selectedLocation?.phone || '+7 (981) 156-56-67';
 
   return (
     <header className='header'>
@@ -25,35 +32,39 @@ const Header = () => {
               </div>
             </div>
             <div className='header__content__info__geo'>
-              <p className='header__p__up'>
+              {/* <p className='header__p__up'>
                 Доставка <span>гп. Новоселье</span>
-              </p>
-              <a href='tel:+79811565667' className='header__a__down'>
-                +7 (981) 156-56-67
+              </p> */}
+              <div className='flex flex-row items-end gap-1'>
+                <p className='header__p__up'>Доставка</p>
+                <LocationSelector />
+              </div>
+              <a href={`tel:${phoneNumber.replace(/[^\d+]/g, '')}`} className='header__a__down'>
+                {phoneNumber}
               </a>
             </div>
           </div>
-          <ul className='header__links list-reset'>
+          <ul className='header__links'>
           {user?.isAdmin ? (
-        <li className='header__links__item pl-5'>
-          <a href='/admin' className='header__links__item__a'>
-            Панель администратора
-          </a>
-        </li>
-      ) : (
-        <>
-          <li className='header__links__item'>
-            <a href='/contacts' className='header__links__item__a'>
-              Контакты
-            </a>
-          </li>
-          <li className='header__links__item'>
-            <a href='/delivery-info' className='header__links__item__a'>
-              Доставка и оплата
-            </a>
-          </li>
-        </>
-      )}
+            <li className='header__links__item pl-5'>
+              <a href='/admin' className='header__links__item__a'>
+                Панель администратора
+              </a>
+            </li>
+          ) : (
+            <>
+              <li className='header__links__item'>
+                <a href='/contacts' className='header__links__item__a'>
+                  Контакты
+                </a>
+              </li>
+              <li className='header__links__item'>
+                <a href='/delivery-info' className='header__links__item__a'>
+                  Доставка и оплата
+                </a>
+              </li>
+            </>
+          )}
           </ul>
           <div className='header__icon__links'>
             {user ? (

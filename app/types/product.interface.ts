@@ -9,6 +9,7 @@ export interface IProduct {
     price: number
     weight: number
     image: string
+    isAvailable: boolean
     category: ICategory
     createdAt: string
 }

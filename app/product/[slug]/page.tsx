@@ -1,26 +1,83 @@
+'use client';
+
 import { ProductService } from "@/app/services/product/product.service";
-import { IPageSlugParam, TypeParamSlug } from "@/app/types/page-params";
+import { RootState } from "@/app/store/store";
+import { IPageSlugParam } from "@/app/types/page-params";
+import { IProduct } from "@/app/types/product.interface";
+import MainLayout from "@/components/layouts/MainLayout";
 import Product from "@/components/templates/ProductPage/Product";
+import Loader from "@/components/ui/Loader";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+import { notFound } from "next/navigation";
+import { useSelector } from "react-redux";
 
-export async function generateStaticParams() {
-    const response = await ProductService.getAll();
-    const paths = response.products.map(product => ({ params: { slug: product.slug } }));
-    return paths;
-}
+export default function ProductPage({ params }: IPageSlugParam) {
+    const selectedLocationId = useSelector((state: RootState) => state.location.selectedLocationId);
+    const slug = params?.slug;
+    
+    if (!slug) {
+        console.log('No slug provided');
+        return notFound();
+    }
 
-async function getProduct(params: TypeParamSlug) {
-    const product = await ProductService.getBySlug(params?.slug as string);
-    const similarProducts = await ProductService.getSimilar(product.id);
-    return { product, similarProducts };
-}
+    const { data: productData, isLoading: productLoading, error: productError } = useQuery({
+        queryKey: ['get product', slug, selectedLocationId],
+        queryFn: () => ProductService.getBySlug(slug),
+        enabled: !!selectedLocationId,
+        staleTime: 0,
+        refetchOnWindowFocus: false,
+        retry: 1
+    });
 
-export default async function ProductPage({ params }: IPageSlugParam) {
-    const { product, similarProducts } = await getProduct(params);
+    const productId = productData?.data?.data?.id;
+
+    const { data: similarProducts, isLoading: similarLoading } = useQuery<AxiosResponse<IProduct[]>>({
+        queryKey: ['similar products', productId, selectedLocationId],
+        queryFn: () => {
+            if (!productId) return Promise.resolve({ 
+                data: [], 
+                status: 200, 
+                statusText: "OK",
+                headers: {},
+                config: {} as any
+            });
+            return ProductService.getSimilar(productId);
+        },
+        enabled: !!productId && !!selectedLocationId,
+        staleTime: 0,
+        refetchOnWindowFocus: false
+    });
+
+    if (!selectedLocationId) {
+        return (
+            <MainLayout>
+                <div className="text-center text-white mt-8">
+                    Пожалуйста, выберите ресторан
+                </div>
+            </MainLayout>
+        );
+    }
+
+    if (productLoading || similarLoading) {
+        return (
+            <MainLayout>
+                <Loader />
+            </MainLayout>
+        );
+    }
+
+    if (productError || !productData?.data?.data) {
+        return notFound();
+    }
+
     return (
-        <Product 
-            initialProduct={product}
-            similarProducts={similarProducts}
-            slug={params.slug}
-        />
+        <MainLayout>
+            <Product 
+                initialProduct={productData.data.data}
+                similarProducts={similarProducts?.data || []}
+                slug={slug}
+            />
+        </MainLayout>
     );
 }

@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { cartSlice } from "./cart/cart.slice";
+import locationReducer from './location/location.slice';
 import { userSlice } from "./user/user.slice";
 
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 'redux-persist';
@@ -8,7 +9,8 @@ import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 
 
   const combinedReducers = combineReducers({
       cart: cartSlice.reducer,
-      user: userSlice.reducer
+      user: userSlice.reducer,
+      location: locationReducer
     })
 
   let mainReducer = combinedReducers
@@ -20,7 +22,7 @@ import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 
     const persistConfig = {
       key: 'bar2917-shop',
       storage,
-      whitelist: ['cart']
+      whitelist: ['cart', 'location']
     }
 
     mainReducer = persistReducer(persistConfig, combinedReducers)
@@ -40,4 +42,7 @@ import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 
   export const persistor = persistStore(store)
 
   export type TypeRootState = ReturnType<typeof mainReducer>
+  
+  export type RootState = ReturnType<typeof store.getState>;
+  export type AppDispatch = typeof store.dispatch;
   

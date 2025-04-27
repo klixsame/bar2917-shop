@@ -1,15 +1,25 @@
 import MainPage from "@/components/templates/MainPage/MainPage";
-import { ProductService } from "./services/product/product.service";
+import { LocationService } from "./services/location.service";
 
+export const revalidate = 60;
 
-export const revalidate = 60
 async function getProducts() {
-  const data = await ProductService.getAll()
-  return data
+  try {
+    const { products } = await LocationService.getLocationWithProducts();
+    return {
+      products,
+      length: products.length
+    };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return {
+      products: [],
+      length: 0
+    };
+  }
 }
 
 export default async function Home() {
-  const data = await getProducts()
-
-  return <MainPage products={data.products} length={data.length}/>;
+  const data = await getProducts();
+  return <MainPage products={data.products} length={data.length} />;
 }
