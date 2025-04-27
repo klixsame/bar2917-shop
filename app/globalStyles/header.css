@@ -37,7 +37,8 @@ span {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 1163px;
+  width: 100%;
+  max-width: 1163px;
 }
 
 .header__content__info {
@@ -45,7 +46,8 @@ span {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 522px;
+  width: 100%;
+  max-width: 522px;
 }
 
 .header__content__info__time {
@@ -53,7 +55,8 @@ span {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
 }
 
 .header__content__info__time__carbon {
@@ -100,7 +103,8 @@ span {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
 }
 
 .header__icon__links {
@@ -109,6 +113,10 @@ span {
   justify-content: space-between;
   align-items: center;
   width: 190px;
+}
+
+.header__content__info__geo {
+  display: flex;
 }
 
 .header__content__info__geo p,

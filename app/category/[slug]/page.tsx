@@ -87,17 +87,23 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   return (
     <main>
       <MainLayout>
-        <div className='flex-row justify-between'>
+        <div className='flex-row justify-between ctg'>
           <h1>{category.name}</h1>
           {slug === 'rolls' && (
-            <div className='flex flex-row items-center'>
+            <div className='flex flex-row items-center mb-3'>
               <Tabs 
                 aria-label="Rolls Filter Tabs" 
                 selectedKey={activeTab.toString()} 
                 onSelectionChange={(key) => setActiveTab(Number(key))}
                 classNames={{
-                  tabList: "flex-row"
+                  tabList: "flex-row",
+                  tab: "text-[10px] sm:text-sm",
+                  cursor: "bg-orange-500",
+                  tabContent: "py-0 group-data-[selected=true]:text-white",
                 }}
+                size="sm"
+                radius="sm"
+                color="warning"
               >
                 <Tab key="0" title="Все" />
                 <Tab key="1" title="Классические" />

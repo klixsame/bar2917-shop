@@ -11,7 +11,7 @@ export interface IProduct {
     image: string
     isAvailable: boolean
     category: ICategory
-    createdAt: string
+    createdAt?: string
 }
 
 export interface IProductDetails {

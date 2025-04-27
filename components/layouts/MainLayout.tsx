@@ -1,9 +1,7 @@
 import Footer from '../modules/Footer/Footer';
-import SidebarMenu from '../modules/SidebarMenu/SidebarMenu';
 import Header from '../modules/header/Header';
-
-
-
+import MobileNav from '../modules/MobileNav/MobileNav';
+import SidebarMenu from '../modules/SidebarMenu/SidebarMenu';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -18,6 +16,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       <Footer />
+      <MobileNav />
     </>
   )
 }

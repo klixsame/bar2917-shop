@@ -1,11 +1,11 @@
 .footer {
   margin-top: auto;
-  height: 86px;
   background-color: #1d1e25;
 }
 
 .footer__container {
-  width: 1000px !important;
+  width: 100% !important;
+  max-width: 1000px !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

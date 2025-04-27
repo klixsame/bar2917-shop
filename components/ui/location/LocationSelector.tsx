@@ -5,7 +5,7 @@ import { Button, Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } fr
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { MapPin } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function LocationSelector() {
@@ -13,6 +13,21 @@ export default function LocationSelector() {
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedLocationId, locations } = useSelector((state: RootState) => state.location);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Проверка, является ли устройство мобильным
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   console.log('Current state:', { selectedLocationId, locationsCount: locations.length });
 
@@ -101,59 +116,59 @@ export default function LocationSelector() {
       <Modal 
         isOpen={isOpen} 
         onClose={onClose}
-        size="lg"
+        size={isMobile ? "xs" : "lg"}
         classNames={{
           base: "bg-[#1F1F1F]/90 backdrop-blur-sm",
           wrapper: "bg-[#1F1F1F]/90",
           header: "border-b border-[#2D2D2D]",
-          body: "py-6",
+          body: isMobile ? "py-2 px-2" : "py-6",
           closeButton: "hover:bg-[#2D2D2D] active:bg-[#3D3D3D] text-white",
-          backdrop: "bg-black/60"
+          backdrop: "bg-black/60",
         }}
       >
-        <ModalContent>
-          <ModalHeader className="flex flex-col gap-1">
-            <h3 className="text-xl font-semibold text-white">
+        <ModalContent className={isMobile ? "max-w-[280px] mx-auto" : ""}>
+          <ModalHeader className={`flex flex-col gap-1 ${isMobile ? "p-2" : ""}`}>
+            <h3 className={`${isMobile ? "text-sm" : "text-xl"} font-semibold text-white`}>
               Выберите адрес
             </h3>
-            <p className="text-sm text-white">
-              Выберите ближайший к вам ресторан для оформления заказа
+            <p className={`${isMobile ? "text-[10px]" : "text-sm"} text-white`}>
+              Выберите ближайший к вам ресторан
             </p>
           </ModalHeader>
-          <ModalBody>
-            <div className="grid gap-3">
+          <ModalBody className={isMobile ? "pt-2 pb-3 px-2" : ""}>
+            <div className={`grid ${isMobile ? "gap-1.5" : "gap-3"}`}>
               {locations.filter(loc => loc.isActive).map((location) => (
                 <Button
                   key={location.id}
-                  className={`w-full h-auto p-4 ${
+                  className={`w-full h-auto ${isMobile ? "p-1.5 min-h-0" : "p-4"} ${
                     selectedLocationId === location.id 
                       ? 'bg-orange-500 text-white hover:bg-orange-600' 
                       : 'bg-[#2D2D2D]/90 text-white hover:bg-[#3D3D3D]'
                   } transition-colors duration-200`}
                   onClick={() => handleLocationChange(location.id)}
                 >
-                  <div className="flex items-start gap-3 w-full">
+                  <div className={`flex items-start ${isMobile ? "gap-1.5" : "gap-3"} w-full`}>
                     <div className="flex-shrink-0 mt-1">
-                      <MapPin className={`w-5 h-5 ${
+                      <MapPin className={`${isMobile ? "w-3 h-3" : "w-5 h-5"} ${
                         selectedLocationId === location.id 
                           ? 'text-white' 
                           : 'text-orange-500'
                       }`} />
                     </div>
-                    <div className="flex flex-col items-start gap-1 flex-grow">
-                      <span className="font-medium text-base text-white">
+                    <div className="flex flex-col items-start gap-0.5 flex-grow overflow-hidden text-left w-full">
+                      <span className={`font-medium ${isMobile ? "text-xs" : "text-base"} text-white text-left w-full`}>
                         {location.name}
                       </span>
-                      <span className={`text-sm ${
+                      <span className={`${isMobile ? "text-[9px] leading-[1.1] mb-1" : "text-sm"} ${
                         selectedLocationId === location.id 
                           ? 'text-white' 
                           : 'text-white/80'
-                      }`}>
+                      } ${isMobile ? "line-clamp-3 break-words whitespace-normal word-break-all" : ""} w-full overflow-hidden max-w-full block text-left`}>
                         {location.address}
                       </span>
                     </div>
                     {selectedLocationId === location.id && (
-                      <div className="flex-shrink-0 w-2 h-2 rounded-full bg-white mt-2" />
+                      <div className={`flex-shrink-0 ${isMobile ? "w-1 h-1" : "w-2 h-2"} rounded-full bg-white mt-2`} />
                     )}
                   </div>
                 </Button>

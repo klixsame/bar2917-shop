@@ -16,7 +16,7 @@ const ProductItem: FC<{product: IProduct}> = ({product}) => {
                         <Image width={262} height={180} src={imageUrl} alt={product.name} className="card__img rounded-lg"/>
                 </div>
             </Link>
-                <div className="flex-row justify-between mt-3.5 ">
+                <div className="flex-row justify-between mt-3.5 items-baseline">
                     <div className="w-60">
                         <Link href={`/product/${product.slug}`}>
                         <h3 className="">{product.name}</h3>
@@ -26,13 +26,14 @@ const ProductItem: FC<{product: IProduct}> = ({product}) => {
                         <span className="card__weight font-normal">{product.weight} г</span>
                     </div>
                 </div>
-                <div className="h-64">
-                <p className=" mt-2 leading-4 line-clamp-2">{product.description}</p>
+                <div className="flex-col justify-between h-32">
+                    <p className=" mt-2 leading-4 line-clamp-2">{product.description}</p>
+                    <div className="flex-row justify-center">
+                        <AddToCartButton product={product}></AddToCartButton>
+                    </div>
                 </div>
             {/* <p>{product.price}</p> */}
-            <div className="product__item__card__row__button">
-                <AddToCartButton product={product}></AddToCartButton>
-            </div>
+            
         </div>
     )
 }

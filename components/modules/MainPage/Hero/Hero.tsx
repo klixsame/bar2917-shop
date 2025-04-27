@@ -1,12 +1,11 @@
 'use client'
-import styles from '@/styles/main-page/index.module.scss'
 import HeroSwiper from './HeroSwiper'
 
 const Hero = () => {
   return (
-    <section className={styles.hero}>
-      <div className={styles.container__section}>
-        <div className={styles.swipe}>
+    <section className="hero">
+      <div className="container__section">
+        <div className="swiper">
           <HeroSwiper />
         </div>
       </div>

@@ -1,0 +1,959 @@
+@media (width >= 1448px) {
+    .container {
+        max-width: calc(1440px - 300px) !important;
+        width: calc(100% - 300px) !important;
+        margin-left: 300px !important;
+    }
+
+    /* Секция слайдера */
+    .hero__section {
+        margin-top: 10px !important;
+    }
+
+    /* Слайдер */
+    .hero__slider {
+        width: 100% !important;
+        max-width: 1162px !important;
+        margin: 0 auto !important;
+        overflow: hidden !important;
+        border-radius: 16px !important;
+        background: #1A1A1A !important;
+        position: relative !important;
+    }
+
+    .hero__slider__swiper {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .swiper {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .swiper-slide {
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        background: #1A1A1A !important;
+    }
+
+    .swiper-slide img {
+        max-width: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
+    /* Стрелки навигации */
+    .swiper-button-prev,
+    .swiper-button-next {
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 0 !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        border-radius: 50% !important;
+        color: #FF8A00 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .swiper-button-prev {
+        left: 10px !important;
+    }
+
+    .swiper-button-next {
+        right: 10px !important;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        font-size: 20px !important;
+    }
+
+    /* Пагинация */
+    .swiper-pagination {
+        bottom: 12px !important;
+    }
+
+    /* Скрываем логотип в хедере при больших экранах */
+    .header__logo__center {
+        display: none !important;
+    }
+    
+    .header__logo__img {
+        width: 140px !important;
+        height: auto !important;
+    }
+}
+
+@media (width >= 1280px) and (width <= 1447px) {
+    /* Скрываем только ссылку контактов */
+    .header__links__item a[href='/contacts'] {
+        display: none !important;
+    }
+
+    .header__links {
+        width: auto !important;
+    }
+
+    /* Контейнер */
+    .container {
+        max-width: calc(1280px - 300px) !important;
+        width: calc(100% - 300px) !important;
+        padding: 0 20px !important;
+    }
+
+    /* Скрываем логотип в хедере при больших экранах */
+    .header__logo__center {
+        display: none !important;
+    }
+    
+    .header__logo__img {
+        width: 130px !important;
+        height: auto !important;
+    }
+}
+
+@media (width >= 1024px) and (width <= 1280px) {
+    /* Контейнер */
+    .container {
+        max-width: calc(1024px - 300px) !important;
+        width: calc(100% - 300px) !important;
+        padding: 0 15px !important;
+    }
+
+    /* Хедер */
+    .header__links {
+        display: none !important;
+    }
+    
+    .header__logo {
+        width: 120px !important;
+    }
+
+    /* Скрываем логотип в хедере при больших экранах */
+    .header__logo__center {
+        display: none !important;
+    }
+    
+    .header__logo__img {
+        width: 120px !important;
+        height: auto !important;
+    }
+}
+
+@media (width <= 1440px) {
+    
+    /* Секция слайдера */
+    .hero__section {
+        margin-top: 10px !important;
+    }
+
+    /* Слайдер */
+    .hero__slider {
+        width: 100% !important;
+        max-width: calc(100%) !important;
+        margin: 0 auto !important;
+        overflow: hidden !important;
+        border-radius: 16px !important;
+        background: #1A1A1A !important;
+        position: relative !important;
+    }
+
+    .hero__slider__swiper {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .swiper {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .swiper-slide {
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        background: #1A1A1A !important;
+    }
+
+    .swiper-slide img {
+        max-width: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
+    /* Стрелки навигации */
+    .swiper-button-prev,
+    .swiper-button-next {
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 0 !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        border-radius: 50% !important;
+        color: #FF8A00 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .swiper-button-prev {
+        left: 10px !important;
+    }
+
+    .swiper-button-next {
+        right: 10px !important;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        font-size: 20px !important;
+    }
+
+    /* Пагинация */
+    .swiper-pagination {
+        bottom: 12px !important;
+    }
+}
+
+@media (width >= 768px) and (width <= 1024px) {
+    .header__icon__links {
+        width: 100% !important;
+        max-width: 240px !important;
+    }
+
+    /* Контейнер */
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 15px !important;
+        margin: 0 auto !important;
+    }
+
+    /* Показываем мобильное меню */
+    .mobile-menu-container {
+        display: flex !important;
+    }
+
+    .mobile-menu-wrapper {
+        display: block !important;
+    }
+
+    /* Скрываем режим работы и доставку */
+    .header__content__info__time {
+        display: none !important;
+    }
+
+    /* Скрываем ссылки доставки и контактов */
+    .header__links__item a[href='/contacts'],
+    .header__links__item a[href='/delivery-info'] {
+        display: none !important;
+    }
+
+    /* Уменьшаем размер телефона */
+    .header__a__down {
+        font-size: calc(12px + (14 - 12) * ((100vw - 768px) / (1024 - 768))) !important;
+    }
+
+    /* Скрываем боковое меню */
+    .sidebar__container {
+        display: none !important;
+    }
+
+    /* Основной контент без бокового меню */
+    .main__content__own {
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    /* Мобильное меню (появляется при клике на бургер) */
+    .mobile-menu {
+        position: fixed !important;
+        top: 0 !important;
+        right: -300px !important;
+        width: 250px !important;
+        height: 100vh !important;
+        background-color: #1A1A1A !important;
+        z-index: 1000 !important;
+        transition: right 0.3s ease !important;
+        padding: 20px !important;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3) !important;
+        overflow-y: auto !important;
+    }
+
+    .mobile-menu.open {
+        right: 0 !important;
+    }
+
+    .mobile-menu__close {
+        position: absolute !important;
+        top: 15px !important;
+        right: 15px !important;
+        width: 20px !important;
+        height: 20px !important;
+        background-image: url('/img/close.svg') !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        cursor: pointer !important;
+    }
+
+    .mobile-menu__logo {
+        margin-bottom: 20px !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    .mobile-menu__item {
+        display: flex !important;
+        align-items: center !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+        margin-bottom: 8px !important;
+        background-color: #292929 !important;
+        border: 1px solid #333333 !important;
+    }
+
+    .mobile-menu__item:hover {
+        background-color: #FF8A00 !important;
+        color: white !important;
+    }
+
+    .mobile-menu__icon {
+        width: 40px !important;
+        height: 35px !important;
+        margin-right: 10px !important;
+    }
+
+    .mobile-menu__text {
+        font-size: 14px !important;
+        color: white !important;
+    }
+
+    /* Показываем логотип в хедере при маленьких экранах */
+    .header__logo__center {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+    
+    .header__logo__img {
+        width: 110px !important;
+        height: auto !important;
+    }
+}
+
+@media (width <= 1024px) {
+    /* Показываем логотип в хедере при маленьких экранах */
+    .header__logo__center {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+    
+    .header__logo__img {
+        width: 110px !important;
+        height: auto !important;
+    }
+    
+    /* Стили для футера при маленьких экранах */
+    .footer__container {
+        flex-direction: column !important;
+        gap: 15px !important;
+        padding: 15px !important;
+    }
+    
+    .footer__telephone__link {
+        display: none !important;
+    }
+    
+    .footer__links {
+        order: 2 !important;
+        display: flex !important;
+        justify-content: center !important;
+        flex-direction: row !important;
+        gap: 15px !important;
+        width: 100% !important;
+    }
+    
+    .footer__links__item {
+        display: block !important;
+        margin: 0 5px !important;
+    }
+    
+    .footer__links__item__a {
+        font-size: 14px !important;
+        white-space: nowrap !important;
+    }
+    
+    .footer__logo {
+        order: 1 !important;
+    }
+}
+
+@media (width <= 768px) {
+    .header__icon__links {
+        width: 100% !important;
+        max-width: 240px !important;
+    }
+
+    /* Контейнер */
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 15px !important;
+        margin: 0 auto !important;
+    }
+
+    /* Показываем мобильное меню */
+    .mobile-menu-container {
+        display: flex !important;
+    }
+
+    .mobile-menu-wrapper {
+        display: block !important;
+    }
+
+    /* Скрываем режим работы и доставку */
+    .header__content__info__time {
+        display: none !important;
+    }
+
+    /* Скрываем ссылки доставки и контактов */
+    .header__links__item a[href='/contacts'],
+    .header__links__item a[href='/delivery-info'] {
+        display: none !important;
+    }
+
+    /* Уменьшаем размер телефона */
+    .header__a__down {
+        font-size: 12px !important;
+    }
+
+    /* Скрываем боковое меню */
+    .sidebar__container {
+        display: none !important;
+    }
+
+    /* Основной контент без бокового меню */
+    .main__content__own {
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    /* Мобильное меню (появляется при клике на бургер) */
+    .mobile-menu {
+        position: fixed !important;
+        top: 0 !important;
+        right: -300px !important;
+        width: 250px !important;
+        height: 100vh !important;
+        background-color: #1A1A1A !important;
+        z-index: 1000 !important;
+        transition: right 0.3s ease !important;
+        padding: 20px !important;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3) !important;
+        overflow-y: auto !important;
+    }
+}
+
+/* Стили для упрощенного футера */
+.footer {
+    background-color: #1A1A1A !important;
+    padding: 20px 0 !important;
+    margin-top: 30px !important;
+}
+
+.footer__container {
+    max-width: 1440px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+
+    align-items: center !important;
+}
+
+.footer__copyright {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    text-align: center !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+@media (width <= 768px) {
+    .footer {
+        padding: 15px 0 !important;
+        margin-top: 20px !important;
+    }
+    
+    .footer__copyright {
+        font-size: 14px !important;
+    }
+}
+
+@media screen and (width <= 480px) {
+    .ctg h1 {
+        font-size: 18px !important;
+    }
+
+    .footer__links__item__a {
+        font-size: 12px !important;
+    }
+    
+    /* Улучшенные стили для хедера на мобильных устройствах */
+    .header__container {
+        padding: 10px 15px !important;
+        position: relative !important;
+    }
+    
+    /* Структура хедера с логотипом вверху и адресом под ним */
+    .header__content {
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+    }
+    
+    /* Исправленные стили для иконок в хедере */
+    .header__icon__links {
+        position: absolute !important;
+        top: 10px !important;
+        right: 15px !important;
+        bottom: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        width: auto !important;
+        z-index: 10 !important;
+    }
+    
+    /* Бургер меню справа вверху */
+    .mobile-menu-wrapper {
+        display: block !important;
+        z-index: 100 !important;
+    }
+    
+    /* Скрываем ненужные элементы */
+    .header__icon__links__item:not(.mobile-menu-wrapper) {
+        display: none !important;
+    }
+    
+    .header__links {
+        display: none !important;
+    }
+    
+    /* Логотип по центру - перемещаем вверх */
+    .header__logo__center {
+        display: flex !important;
+        justify-content: center !important;
+        position: relative !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        z-index: 5 !important;
+        width: 100% !important;
+        order: 1 !important;
+        margin-bottom: 10px !important;
+        padding-bottom: 10px !important;
+    }
+    
+    .header__logo__img {
+        width: 100px !important;
+        height: auto !important;
+        display: block !important;
+    }
+    
+    /* Блок с информацией - перемещаем вниз */
+    .header__content__info {
+        flex-direction: column !important;
+        width: 100% !important;
+        position: relative !important;
+        order: 2 !important;
+        margin-top: 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding-top: 10px !important;
+    }
+    
+    /* Скрываем блок с режимом работы */
+    .header__content__info__time {
+        display: none !important;
+    }
+    
+    /* Блок с адресом и телефоном в одну строку */
+    .header__content__info__geo {
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+    
+    /* Блок с выбором адреса (левая часть) */
+    .header__content__info__geo .flex {
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 5px !important;
+        flex-shrink: 1 !important;
+    }
+    
+    /* Стили для иконки геолокации */
+    .geo-icon {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-right: 2px !important;
+    }
+    
+    .geo-icon svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+    
+    /* Стилизация кнопки выбора местоположения */
+    .header__content__info__geo button {
+        font-size: 12px !important;
+        color: #FF8A00 !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        overflow: hidden !important;
+    }
+    
+    .header__content__info__geo button span {
+        font-weight: 300 !important;
+    }
+    
+    /* Стиль телефона (правая часть) */
+    .header__a__down {
+        color: white !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        white-space: nowrap !important;
+        text-align: right !important;
+        flex-shrink: 0 !important;
+        font-weight: 300 !important;
+    }
+
+    /* В футере показываем только логотип */
+    .footer__links {
+        display: none !important;
+    }
+    
+    .footer__telephone__link {
+        display: none !important;
+    }
+    
+    .footer__logo {
+        margin: 0 auto !important;
+    }
+
+    /* Добавляем отступ для основного контента */
+    main {
+        margin-top: 15px !important;
+    }
+
+    /* Мобильное нижнее меню */
+    .mobile-bottom-nav {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 60px !important;
+        background-color: #1A1A1A !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        z-index: 1000 !important;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
+        border-top: 1px solid #333 !important;
+    }
+
+    .mobile-nav-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #fff !important;
+        width: 25% !important;
+        height: 100% !important;
+        text-decoration: none !important;
+    }
+
+    .mobile-nav-item.active {
+        color: #FF8A00 !important;
+    }
+
+    .mobile-nav-icon {
+        width: 24px !important;
+        height: 24px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .mobile-nav-text {
+        font-size: 10px !important;
+        font-weight: 400 !important;
+    }
+
+    /* Отступ снизу для контента, чтобы не перекрывался нижней навигацией */
+    .main__content__own {
+        padding-bottom: 70px !important;
+    }
+    
+    .footer {
+        padding-bottom: 70px !important;
+    }
+
+    .card__template {
+        width: 145px !important;
+        max-width: 100%;
+        height: 220px !important;
+        max-height: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+    }
+    
+    .card__img {
+        width: 220px !important;
+        max-width: 100% !important;
+        height: 90px !important;
+        min-height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .card__weight {
+        font-size: 7px !important;
+    }
+
+    .card__template h3 {
+        font-size: 11px !important;
+        margin-top: -5px !important;
+    }
+
+    .card__template p {
+        font-size: 7px !important;
+        line-height: 1.4 !important;
+    }
+    
+    .btn__card {
+        height: 30px !important;
+    }
+
+    .btn__card span {
+        font-size: 9px !important;
+    }
+
+    .btn__card svg {
+        width: 8px !important;
+        height: 8px !important;
+    }
+
+    .media-768 {
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 650px !important;
+    }
+
+    .media-768 h1 {
+        font-size: 20px !important;
+    }
+
+    /* Стили для модального окна выбора адреса на мобильных устройствах */
+    .nextui-modal-container {
+        padding: 0 10px !important;
+    }
+    
+    .nextui-modal-content {
+        width: 90% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+    }
+    
+    .nextui-modal-body {
+        padding: 8px 12px 12px !important;
+    }
+    
+    .nextui-modal-header {
+        padding: 12px !important;
+    }
+    
+    .nextui-modal-header h3 {
+        font-size: 15px !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .nextui-modal-header p {
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+    }
+    
+    /* Стили для кнопок выбора адреса */
+    .nextui-modal-body .grid {
+        gap: 6px !important;
+    }
+    
+    .nextui-modal-body button {
+        padding: 6px !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+    
+    .nextui-modal-body .flex {
+        gap: 6px !important;
+    }
+    
+    .nextui-modal-body .flex-col {
+        max-width: 85% !important;
+        overflow: hidden !important;
+    }
+    
+    .nextui-modal-body .flex-col span:first-child {
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+    }
+    
+    .nextui-modal-body .flex-col span:last-child {
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        white-space: normal !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+    }
+    
+    .nextui-modal-body .flex-shrink-0 {
+        transform: scale(0.9) !important;
+    }
+    
+    /* Дополнительные селекторы для NextUI Modal */
+    [class*="modal-content"] {
+        width: 90% !important;
+        max-width: 300px !important;
+    }
+    
+    [class*="modal-header"] {
+        padding: 12px !important;
+    }
+    
+    [class*="modal-body"] {
+        padding: 8px 12px 12px !important;
+    }
+    
+    [class*="modal-footer"] {
+        padding: 8px 12px !important;
+    }
+
+    /* Стили для табов в категории rolls - максимально уменьшаем */
+    [data-slot="tab"] {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
+        height: auto !important;
+        min-height: 24px !important;
+        font-weight: normal !important;
+        letter-spacing: -0.2px !important;
+    }
+    
+    [data-slot="tab-list"] {
+        gap: 2px !important;
+        padding: 2px !important;
+    }
+    
+    [data-slot="tablist-base"] {
+        margin-bottom: 8px !important;
+        width: auto !important;
+        min-width: auto !important;
+    }
+    
+    /* Стили для контейнера категории */
+    .ctg {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: start !important;
+        gap: 5px !important;
+        margin-bottom: -2px !important;
+    }
+
+    .mobile-btn {
+        width: 9rem !important;
+        height: 30px !important;
+    }
+
+    .mobile-btn span {
+        font-size: 9px !important;
+        text-align: center !important;
+    }
+    
+    .ctg h1 {
+        font-size: 18px !important;
+        margin-bottom: 5px !important;
+    }
+    
+    /* Дополнительный отступ после блока с табами */
+    .ctg .flex-row {
+        margin-bottom: 10px !important;
+    }
+}
+
+/* На экранах больше 480px скрываем мобильную навигацию */
+@media screen and (width > 480px) {
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+}
+
+/* Стили для продуктовых карточек */
+@media screen and (width <= 1430px) and (width >= 769px) {
+    .card__template {
+        width: 230px !important;
+        max-width: 100%;
+        height: 320px !important;
+        max-height: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+    }
+    
+    .card__img {
+        width: 220px !important;
+        max-width: 100% !important;
+        height: 140px !important;
+        min-height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .card__weight {
+        font-size: 13px !important;
+    }
+
+    .card__template h3 {
+        font-size: 14px !important;
+    }
+
+    .card__template p {
+        font-size: 11px !important;
+    }
+    
+    .btn__card {
+        height: 40px !important;
+    }
+}
+
+

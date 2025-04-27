@@ -16,7 +16,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
     );
 
     return (
-        <div>
+        <div className="max-w-64 w-full">
             {currentElement ? (
                 <div className="flex-row items-center justify-between">
                     <ButtonCustom
@@ -34,7 +34,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                     >
                         <FiMinus fontSize={13} />
                     </ButtonCustom>
-                    <div className="w-52 bg-background-button-card h-12 justify-center ">
+                    <div className="w-52 bg-background-button-card h-12 justify-center mobile-btn">
                         <span className="text-white font-normal">
                             {currentElement.quantity} x {product.price} ₽
                         </span>

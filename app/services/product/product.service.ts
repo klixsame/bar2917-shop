@@ -1,6 +1,6 @@
 import { instance } from "@/app/api/api.interceptor"
+import { store } from "@/app/store/store"
 import { IProduct, TypeProducts } from "@/app/types/product.interface"
-import { AxiosError } from "axios"
 import { LocationService } from "../location.service"
 import { PRODUCTS, TypeProductData, TypeProductDataFilters } from "./product.types"
 
@@ -26,59 +26,48 @@ export const ProductService = {
   
   async getBySlug(slug: string) {
     try {
-      const locationId = await LocationService.getLocationId();
-      console.log('Getting product for slug:', slug, 'locationId:', locationId);
+      console.log('Getting product by slug:', slug);
       
-      // Получаем базовую информацию о продукте по slug
-      const productResponse = await instance<{ data: IProduct }>({
-        url: `/${PRODUCTS}/by-slug/${slug}`,
-        method: 'GET'
-      });
+      // Получаем текущую локацию из store
+      const { locations, selectedLocationId } = store.getState().location;
+      console.log('Current state:', { locations: locations.length, selectedLocationId });
 
-      console.log('Product response:', productResponse);
+      if (!locations.length) {
+        throw new Error('No locations available');
+      }
 
-      if (!productResponse?.data) {
-        console.error('No data in product response');
+      // Находим выбранную локацию
+      const targetLocation = selectedLocationId 
+        ? locations.find(loc => loc.id === selectedLocationId)
+        : locations.find(loc => loc.isDefault && loc.isActive) || locations.find(loc => loc.isActive);
+
+      if (!targetLocation) {
+        throw new Error('No active locations found');
+      }
+
+      console.log('Target location:', targetLocation.name);
+
+      // Ищем продукт в локации
+      const locationProduct = targetLocation.products.find(item => item.product.slug === slug);
+      
+      if (!locationProduct) {
         throw new Error('Product not found');
       }
 
-      // В ответе может быть просто data без вложенного data
-      const productData = productResponse.data.data || productResponse.data;
+      console.log('Found product:', locationProduct);
 
-      if (!productData) {
-        console.error('No product data in response');
-        throw new Error('Product not found');
-      }
-
-      console.log('Product data:', productData);
-
-      // Получаем информацию о цене для конкретной локации
-      const locationProductResponse = await instance<{ data: { price: number, isAvailable: boolean } }>({
-        url: `/${PRODUCTS}/price/${productData.id}/${locationId}`,
-        method: 'GET'
-      });
-
-      console.log('Location product response:', locationProductResponse);
-
-      // В ответе может быть просто data без вложенного data
-      const priceData = locationProductResponse.data.data || locationProductResponse.data;
-
-      // Комбинируем данные
+      // Возвращаем в нужном формате
       return {
         data: {
           data: {
-            ...productData,
-            price: priceData.price,
-            isAvailable: priceData.isAvailable
+            ...locationProduct.product,
+            price: locationProduct.price,
+            isAvailable: locationProduct.isAvailable
           }
         }
       };
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('Error fetching product:', error);
-      if (error instanceof AxiosError && error.response) {
-        console.error('Error response:', error.response.data);
-        console.error('Error status:', error.response.status);
-      }
       throw error;
     }
   },
@@ -94,30 +83,35 @@ export const ProductService = {
 
   async getById(id: string | number) {
     try {
-      const locationId = await LocationService.getLocationId();
-      
-      // Получаем базовую информацию о продукте
-      const productResponse = await instance<{ data: IProduct }>({
-        url: `${PRODUCTS}/${id}`,
-        method: 'GET'
-      });
+      // Получаем текущую локацию из store
+      const { locations, selectedLocationId } = store.getState().location;
 
-      if (!productResponse.data) {
+      if (!locations.length) {
+        throw new Error('No locations available');
+      }
+
+      // Находим выбранную локацию
+      const targetLocation = selectedLocationId 
+        ? locations.find(loc => loc.id === selectedLocationId)
+        : locations.find(loc => loc.isDefault && loc.isActive) || locations.find(loc => loc.isActive);
+
+      if (!targetLocation) {
+        throw new Error('No active locations found');
+      }
+
+      // Ищем продукт в локации
+      const locationProduct = targetLocation.products.find(item => item.product.id === Number(id));
+      
+      if (!locationProduct) {
         throw new Error('Product not found');
       }
 
-      // Получаем информацию о цене для конкретной локации
-      const locationProductResponse = await instance<{ price: number, isAvailable: boolean }>({
-        url: `${PRODUCTS}/${id}/location/${locationId}`,
-        method: 'GET'
-      });
-
-      // Комбинируем данные
+      // Возвращаем в нужном формате
       return {
         data: {
-          ...productResponse.data.data,
-          price: locationProductResponse.data.price,
-          isAvailable: locationProductResponse.data.isAvailable
+          ...locationProduct.product,
+          price: locationProduct.price,
+          isAvailable: locationProduct.isAvailable
         }
       };
     } catch (error) {

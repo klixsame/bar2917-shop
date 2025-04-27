@@ -56,26 +56,21 @@ const CatalogMain: FC<ICatalog> = ({ products = [], title }) => {
     // Выбираем товары с заданными идентификаторами
     const displayedProducts = useMemo(() => {
         const targetIds = [1, 2, 15, 28, 41, 38, 43, 51, 64, 73, 86, 104];
-        return products.filter((product) => targetIds.includes(product.id));
+        console.log('Incoming products:', products);
+        console.log('Products IDs:', products.map(p => p.id));
+        const filtered = products.filter((product) => targetIds.includes(product.id));
+        console.log('Filtered products:', filtered);
+        return filtered;
     }, [products]);
 
     return (
-        <section>
+        <section className="media-768">
             <div className="flex-row items-center justify-between">
                 {title && <h1>{title}</h1>}
-                {/* <Button
-                    className="border-none pl-2 ml-5 w-60 flex items-center hover:text-background-button-card transition-all duration-300 ease-in-out transform hover:scale-105"
-                    variant="bordered"
-                    onPress={handleRandomProduct}
-                >
-                    <GiPerspectiveDiceSixFacesRandom className="mr-2 group-hover:text-background-button-card transition-all duration-300 ease-in-out transform hover:scale-125" size={20}/>
-                    <p className="text-white text-sm transition-all group-hover:text-background-button-card duration-300 ease-in-out transform group-hover:scale-105">Рекомендованный товар</p>
-                </Button> */}
             </div>
-            <div className="flex-row flex-wrap gap-3.5">
+            <div className="flex flex-row flex-wrap justify-between gap-5">
             <Button className="card__template bg-transparent border-2 border-card-border rounded-lg animate-scaleIn" onPress={handleRandomProduct}>
                 <GiPerspectiveDiceSixFacesRandom className="mr-2 group-hover:text-background-button-card transition-all duration-300 ease-in-out transform hover:scale-125" size={120}/>
-                {/* <p className="text-white text-sm transition-all group-hover:text-background-button-card duration-300 ease-in-out transform group-hover:scale-105">Рекомендованный товар</p> */}
             </Button>
                 {displayedProducts.length ? (
                     displayedProducts.map((product) => <ProductItem key={product.id} product={product} />)

@@ -44,6 +44,9 @@
   src: url('@/public/fonts/Montserrat-Light.ttf');
 }
 /*****************************************************************************/
+html[style*="padding-right"] {
+  padding-right: 0 !important;
+}
 
 body {
   font-family: Montserrat Basis;
@@ -65,12 +68,15 @@ h1 {
 }
 
 .main__content__own {
+
   margin-bottom: 100px !important;
-  width: 1162px !important;
+  width: 100% !important;
+  max-width: 1162px !important;
 }
 
 .container {
-  width: 1440px !important;
+  max-width: 1440px !important;
+  width: 100% !important;
   margin: 0 auto !important;
   padding: 0 15px !important;
 }
@@ -83,8 +89,22 @@ h1 {
   border: none;
 }
 
-.swiper-button-prev, .swiper-button-next {
-  color: #FF8A00 !important;
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 40px !important;
+    height: 40px !important;
+    /* ... */
+}
+
+.swiper-button-prev {
+    left: 10px !important;
+}
+
+.swiper-button-next {
+    right: 10px !important;
 }
 
 .swiper-pagination-bullet-active {
@@ -105,7 +125,7 @@ h1 {
 .main__content {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 20px;
 }
 
 ::-webkit-scrollbar {
@@ -126,7 +146,8 @@ h1 {
 }
 
 .btn__default {
-  width: 330px;
+  width: 100% !important;
+  max-width: 330px !important;
   height: 55px;
   display: flex;
   align-items: center;
@@ -142,8 +163,9 @@ h1 {
 }
 
 .btn__card {
-  width: 260px !important;
-  height: 48px !important;
+  max-width: 260px ;
+  width: 100% ;
+  height: 48px ;
 }
 
 .btn__default:hover {
@@ -162,21 +184,27 @@ h1 {
 }
 
 .card__template {
-  width: 280px;
+  width: 270px;
+  max-width: 100%;
   height: 350px;
-  box-sizing: border-box !important;
+  max-height: 100%;
+  box-sizing: border-box;
   padding: 8px;
 }
 
 .card__img {
-  width: 260px !important;
-  height: 160px !important;
-  object-fit: cover !important;
+  width: 100% ;
+  max-width: 300px;
+  height: auto ;
+  min-height: 160px;
+  object-fit: cover;
 }
 
 .cart__img {
-  width: 100px !important;
-  height: 70px !important;
+  width: 100% !important;
+  max-width: 100px !important;
+  height: auto !important;
+  min-height: 70px !important;
   object-fit: cover !important;
 }
 
@@ -198,10 +226,6 @@ h1 {
   border-left: none;
 }
 
-.img-skidka {
-  padding-top: 70px;
-}
-
 .Loader {
   position: absolute;
   top: 50%;
@@ -212,3 +236,10 @@ h1 {
 .selectitem-span span {
   color: white;
 }
+/*****************************************************************************/
+
+.hero__section {
+    margin-top: 20px !important;
+}
+
+
