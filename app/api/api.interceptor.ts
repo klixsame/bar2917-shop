@@ -3,13 +3,12 @@ import { getAccessToken, removeFromStorage } from "../services/auth/auth.helper"
 import { AuthService } from "../services/auth/auth.service";
 import { errorCatch, getContentType } from "./api.helper";
 
-const API_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:4200/api';
+const API_SERVER_URL = process.env.SERVER_URL;
 
 export const instance = axios.create({
     baseURL: API_SERVER_URL,
     headers: getContentType()
 })
-
 
 instance.interceptors.request.use(config => {
     const accessToken = getAccessToken()
