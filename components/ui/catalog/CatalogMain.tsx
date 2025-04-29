@@ -68,7 +68,7 @@ const CatalogMain: FC<ICatalog> = ({ products = [], title }) => {
             <div className="flex-row items-center justify-between">
                 {title && <h1>{title}</h1>}
             </div>
-            <div className="flex flex-row flex-wrap justify-between gap-5">
+            <div className="flex flex-row flex-wrap justify-between gap-5 media-480-gap">
             <Button className="card__template bg-transparent border-2 border-card-border rounded-lg animate-scaleIn" onPress={handleRandomProduct}>
                 <GiPerspectiveDiceSixFacesRandom className="mr-2 group-hover:text-background-button-card transition-all duration-300 ease-in-out transform hover:scale-125" size={120}/>
             </Button>

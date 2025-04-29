@@ -431,6 +431,11 @@
   resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-2.1.4.tgz#3beff2f55c3170a355383489d0ccc3f5a9b34a99"
   integrity sha512-ju0wj0wwrUTMQ2Yceyrma7TKuI3BpSjp+qKqV81K9KGcUHdvTMdiwfRc2cwXBp3uXtKuDZkh0v03nWOQnJFv2Q==
 
+"@heroicons/react@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-2.2.0.tgz#0c05124af50434a800773abec8d3af6a297d904b"
+  integrity sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==
+
 "@humanwhocodes/module-importer@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz#af5b2691a22b44be847b0ca81641c5fb6ad0172c"
@@ -4842,10 +4847,10 @@ caniuse-lite@^1.0.30001587, caniuse-lite@^1.0.30001599:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001627.tgz#8071c42d468e06ed2fb2c545efe79a663fd326ab"
   integrity sha512-4zgNiB8nTyV/tHhwZrFs88ryjls/lHiqFhrxCW4qSTeuRByBVnPYpDInchOIySWknznucaf31Z4KYqjfbrecVw==
 
-caniuse-lite@^1.0.30001683:
-  version "1.0.30001683"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001683.tgz#7f026a2d5d319a9cf8915a1451173052caaadc81"
-  integrity sha512-iqmNnThZ0n70mNwvxpEC2nBJ037ZHZUoBI5Gorh1Mw6IlEAZujEoU1tXA628iZfzm7R9FvFzxbfdgml82a3k8Q==
+caniuse-lite@^1.0.30001715:
+  version "1.0.30001715"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001715.tgz#bd325a37ad366e3fe90827d74062807a34fbaeb2"
+  integrity sha512-7ptkFGMm2OAOgvZpwgA4yjQ5SQbrNVGdRjzH0pBdy1Fasvcr+KAeECmbCAECzTuDuoX0FCY8KzUxjf9+9kfZEw==
 
 chalk@^2.0.1, chalk@^2.4.2:
   version "2.4.2"

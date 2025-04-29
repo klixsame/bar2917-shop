@@ -2,14 +2,34 @@ import { IProduct } from "@/app/types/product.interface";
 import { useActions } from "@/components/hocs/useActions";
 import { useCart } from "@/components/hocs/useCart";
 import ButtonCustom from "@/components/ui/button/ButtonCustom";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
 
-const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
-    // const { user } = useAuth()
-    // if(!user) return toast('Сначала авторизуйтесь')
+interface AddToCartInlineProps {
+    product: IProduct;
+    alignRight?: boolean;
+}
+
+const AddToCartInline: FC<AddToCartInlineProps> = ({ product, alignRight = false }) => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkIsMobile = () => {
+            setIsMobile(window.innerWidth < 480);
+        };
+        
+        // Проверяем при загрузке
+        checkIsMobile();
+        
+        // Слушаем изменение размера экрана
+        window.addEventListener('resize', checkIsMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIsMobile);
+        };
+    }, []);
 
     const { addToCart, removeFromCart, changeQuantity } = useActions();
     const { items } = useCart();
@@ -19,11 +39,11 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
     );
 
     return (
-        <div>
+        <div className={`${isMobile ? 'w-full' : ''} ${alignRight ? 'flex justify-end' : ''}`}>
             {currentElement ? (
-                <div className="flex-row items-center justify-between">
+                <div className={`flex-row items-center  ${isMobile ? 'justify-center' : 'justify-between'}`}>
                     <ButtonCustom
-                        className="btn__default btn__card product__item__card__button left"
+                        className="btn__default btn__card product__item__card__button left h-mobile-card"
                         onClick={() => {
                             if (currentElement.quantity === 1) {
                                 removeFromCart({ id: currentElement.id });
@@ -37,11 +57,11 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
                     >
                         <FiMinus fontSize={13} />
                     </ButtonCustom>
-                    <span className="text-white font-normal w-60 bg-background-button-card h-12 d-flex pt-4">
+                    <span className={`text-white font-normal ${isMobile ? 'w-64 text-center h-mobile-card text-xs' : 'w-60 text-center h-10'} bg-background-button-card d-flex pt-3`}>
                         {currentElement.quantity} x {product.price} ₽
                     </span>
                     <ButtonCustom
-                        className="btn__default btn__card product__item__card__button right"
+                        className="btn__default btn__card product__item__card__button right h-mobile-card"
                         onClick={() => {
                             if (currentElement.quantity < 50) {
                                 changeQuantity({
@@ -59,7 +79,7 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
                 </div>
             ) : (
                 <ButtonCustom
-                    className="btn__default btn__card product__item__card__button"
+                    className={`btn__default btn__card product__item__card__button ${isMobile ? 'w-full h-mobile-card' : ''}`}
                     onClick={() => 
                         addToCart({
                             product,
@@ -68,9 +88,9 @@ const AddToCartInline: FC<{ product: IProduct }> = ({ product }) => {
                         })
                     }
                 >
-                    <div className="flex-row items-center w-16 justify-between">
+                    <div className={`flex-row items-center ${isMobile ? 'w-full justify-center' : 'w-20 justify-between '}`}>
                         <FaPlus />
-                        <span className="text-white font-normal">{product.price} ₽</span>
+                        <span className="text-white font-normal ml-2">{product.price} ₽</span>
                     </div>
                 </ButtonCustom>
             )}

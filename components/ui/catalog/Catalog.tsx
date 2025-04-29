@@ -9,7 +9,7 @@ interface ICatalog {
 const Catalog: FC<ICatalog> = ({ products = [] }) => {
     return (
         <section>
-            <div className="flex-row flex-wrap gap-3.5">
+            <div className="flex-row flex-wrap gap-5 media-480-gap">
                 {products.length ? (
                     products.map(product => <ProductItem key={product.id} product={product} />)
                 ) : (

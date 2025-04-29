@@ -16,7 +16,7 @@ const ProductItem: FC<{product: IProduct}> = ({product}) => {
                         <Image width={262} height={180} src={imageUrl} alt={product.name} className="card__img rounded-lg"/>
                 </div>
             </Link>
-                <div className="flex-row justify-between mt-3.5 items-baseline">
+                <div className="flex-row justify-between mt-3.5 items-baseline media-480">
                     <div className="w-60">
                         <Link href={`/product/${product.slug}`}>
                         <h3 className="">{product.name}</h3>

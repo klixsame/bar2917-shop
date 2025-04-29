@@ -2,6 +2,7 @@ import { TypeRootState } from "@/app/store/store";
 import { ILocation } from "@/app/types/location.interface";
 import { IProduct } from "@/app/types/product.interface";
 import ProductItem from "@/components/ui/catalog/product-item/ProductItem";
+import ProductCarousel from "@/components/ui/ProductCarousel";
 import { useSelector } from "react-redux";
 
 interface ISimilarProducts {
@@ -34,22 +35,18 @@ export default function SimilarProducts({ similarProducts }: ISimilarProducts) {
       isAvailable: locationProduct?.isAvailable || false
     };
   };
-
   const randomProducts = getRandomProducts(similarProducts, 3)
     .map(product => getProductWithPrice(product));
 
+  if (!randomProducts.length) {
+    return <div className="text-white">Здесь нет продуктов</div>;
+  }
+
   return (
-    <div className="mt-8">
-      <h2 className="text-2xl text-white mb-4">Возможно вам понравится:</h2>
-      {randomProducts.length ? (
-        <div className="flex-row gap-2">
-          {randomProducts.map((product) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <div className="text-white">Здесь нет продуктов</div>
-      )}
-    </div>
+    <ProductCarousel
+      title="Возможно вам понравится:"
+      products={randomProducts}
+      renderItem={(product) => <ProductItem key={product.id} product={product} />}
+    />
   );
 }

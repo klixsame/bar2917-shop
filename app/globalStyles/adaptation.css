@@ -722,33 +722,44 @@
     }
 
     .card__template {
-        width: 145px !important;
+        width: 155px !important;
         max-width: 100%;
-        height: 220px !important;
+        height: 230px !important;
         max-height: 100%;
         box-sizing: border-box;
-        padding: 8px;
+        padding: 6px !important;
     }
     
     .card__img {
         width: 220px !important;
         max-width: 100% !important;
-        height: 90px !important;
+        height: 100px !important;
         min-height: 100% !important;
         object-fit: cover !important;
     }
 
     .card__weight {
-        font-size: 7px !important;
+        font-size: 9px !important;
+        width: 28px !important;
+        text-align: right !important;
+    }
+
+    .media-480-gap {
+        gap: 12px !important;
+        justify-content: space-evenly !important;
+    }
+
+    .media-480 {
+        margin-top: 8px !important;
+        margin-bottom: -3px !important;
     }
 
     .card__template h3 {
-        font-size: 11px !important;
-        margin-top: -5px !important;
+        font-size: 13px !important;
     }
 
     .card__template p {
-        font-size: 7px !important;
+        font-size: 9px !important;
         line-height: 1.4 !important;
     }
     
@@ -872,28 +883,16 @@
         letter-spacing: -0.2px !important;
     }
     
-    [data-slot="tab-list"] {
-        gap: 2px !important;
-        padding: 2px !important;
-    }
-    
-    [data-slot="tablist-base"] {
-        margin-bottom: 8px !important;
-        width: auto !important;
-        min-width: auto !important;
-    }
-    
     /* Стили для контейнера категории */
     .ctg {
         display: flex !important;
-        flex-direction: column !important;
-        align-items: start !important;
+        align-items: center !important;
         gap: 5px !important;
-        margin-bottom: -2px !important;
+        margin-bottom: 5px !important;
     }
 
     .mobile-btn {
-        width: 9rem !important;
+        width: 12rem !important;
         height: 30px !important;
     }
 
@@ -905,11 +904,20 @@
     .ctg h1 {
         font-size: 18px !important;
         margin-bottom: 5px !important;
+        margin-top: -4px !important;
     }
-    
-    /* Дополнительный отступ после блока с табами */
-    .ctg .flex-row {
-        margin-bottom: 10px !important;
+
+    .h-mobile-card {
+        height: 40px !important;
+    }
+
+    .h-mobile-card span {
+        font-size: 12px !important;
+    }
+
+    .h-mobile-card svg {
+        width: 12px !important;
+        height: 12px !important;
     }
 }
 
@@ -930,6 +938,18 @@
         box-sizing: border-box;
         padding: 8px;
     }
+
+    
+    .mobile-btn {
+        width: 15rem !important;
+        height: 40px !important;
+        border-radius: none !important;
+    }
+
+    .mobile-btn span {
+        font-size: 14px !important;
+        text-align: center !important;
+    }
     
     .card__img {
         width: 220px !important;
@@ -944,7 +964,7 @@
     }
 
     .card__template h3 {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     .card__template p {
