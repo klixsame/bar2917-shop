@@ -62,13 +62,13 @@ span {
 .header__content__info__time__carbon {
   width: 50px;
   height: 50px;
-  background: url(@/public/img/carbon_time.svg) no-repeat center center;
+  background: url('/img/carbon_time.svg') no-repeat center center;
 }
 
 .header__content__info__time__slash {
   width: 13px;
   height: 39px;
-  background: url(@/public/img/slash.svg) no-repeat center center;
+  background: url('/img/slash.svg') no-repeat center center;
 }
 
 .header__icon__links__item {
@@ -89,13 +89,13 @@ span {
 .header__icon__links__card__item--profile {
   width: 17px;
   height: 21px;
-  background: url(@/public/img/profile.svg) no-repeat center center;
+  background: url('/img/profile.svg') no-repeat center center;
 }
 
 .header__icon__links__card__item--busket {
   width: 24px;
   height: 24px;
-  background: url(@/public/img/busket.svg) no-repeat center center;
+  background: url('/img/busket.svg') no-repeat center center;
 }
 
 .header__links {

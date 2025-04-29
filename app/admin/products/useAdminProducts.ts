@@ -1,4 +1,3 @@
-
 import { ProductService } from "@/app/services/product/product.service";
 import { IListItem } from "@/components/ui/admin/admin-list/admin-list.interface";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -8,7 +7,7 @@ export const useAdminProducts = () => {
     const { data, isFetching, refetch } = useQuery({
         queryKey: ['getAdminProducts'], 
         queryFn: () => ProductService.getAll(),
-        select: data => data.products.map((product): IListItem => {
+        select: data => data.data.products.map((product): IListItem => {
             return {
                 id: product.id,
                 viewUrl: `/product/${product.slug}`,

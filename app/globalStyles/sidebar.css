@@ -45,47 +45,47 @@
 }
 
 .item--rolls {
-  background: url(@/public/img/rolls.svg) no-repeat center center;
+  background: url('/img/rolls.svg') no-repeat center center;
 }
 
 .item--sushi {
-  background: url(@/public/img/sushi.svg) no-repeat center center;
+  background: url('/img/sushi.svg') no-repeat center center;
 }
 
 .item--sets {
-  background: url(@/public/img/sets.svg) no-repeat center center;
+  background: url('/img/sets.svg') no-repeat center center;
 }
 
 .item--pizza {
-  background: url(@/public/img/pizza.svg) no-repeat center center;
+  background: url('/img/pizza.svg') no-repeat center center;
 }
 
 .item--snacks {
-  background: url(@/public/img/snacks.svg) no-repeat center center;
+  background: url('/img/snacks.svg') no-repeat center center;
 }
 
 .item--gedza {
-  background: url(@/public/img/gedza.svg) no-repeat center center;
+  background: url('/img/gedza.svg') no-repeat center center;
 }
 
 .item--salads {
-  background: url(@/public/img/salads.svg) no-repeat center center;
+  background: url('/img/salads.svg') no-repeat center center;
 }
 
 .item--poke {
-  background: url(@/public/img/poke.svg) no-repeat center center;
+  background: url('/img/poke.svg') no-repeat center center;
 }
 
 .item--soups {
-  background: url(@/public/img/soup.svg) no-repeat center center;
+  background: url('/img/soup.svg') no-repeat center center;
 }
 
 .item--wok {
-  background: url(@/public/img/wok.svg) no-repeat center center;
+  background: url('/img/wok.svg') no-repeat center center;
 }
 
 .item--additionally {
-  background: url(@/public/img/additionally.svg) no-repeat center center;
+  background: url('/img/additionally.svg') no-repeat center center;
 }
 
 .sidebar__menu__item__span {
