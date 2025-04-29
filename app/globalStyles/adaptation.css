@@ -847,7 +847,6 @@
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         display: -webkit-box !important;
-        -webkit-line-clamp: 2 !important;
         -webkit-box-orient: vertical !important;
     }
     
