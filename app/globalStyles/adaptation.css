@@ -728,6 +728,8 @@
         max-height: 100%;
         box-sizing: border-box;
         padding: 6px !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
     
     .card__img {
@@ -936,6 +938,8 @@
         max-height: 100%;
         box-sizing: border-box;
         padding: 8px;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     

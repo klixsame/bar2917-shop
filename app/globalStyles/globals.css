@@ -190,6 +190,8 @@ h1 {
   max-height: 100%;
   box-sizing: border-box;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .card__img {

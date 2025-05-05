@@ -29,10 +29,6 @@ export interface ILocation {
 
 const LOCATIONS = 'locations';
 
-export interface ILocationResponse {
-  data: ILocation[];
-}
-
 export interface IProductsByLocation {
   products: any[];
   locationId: number;
@@ -41,20 +37,20 @@ export interface IProductsByLocation {
 export const LocationService = {
   async getAll() {
     console.log('Fetching all locations...');
-    const response = await instance<{ data: ILocation[] }>({
+    const response = await instance<ILocation[]>({
       url: `/${LOCATIONS}`,
       method: 'GET'
     });
     console.log('Locations response:', response);
-    return response;
+    return response.data;
   },
 
   async getDefault() {
-    const response = await instance<{ data: ILocation }>({
+    const response = await instance<ILocation>({
       url: `/${LOCATIONS}/default`,
       method: 'GET'
     });
-    return response;
+    return response.data;
   },
 
   getUserLocation(): number | null {
@@ -72,16 +68,16 @@ export const LocationService = {
     }
 
     try {
-      const allLocations = await this.getAll();
-      console.log('All locations for ID:', allLocations);
+      const locations = await this.getAll();
+      console.log('All locations for ID:', locations);
       
-      if (allLocations?.data?.data && allLocations.data.data.length > 0) {
-        const defaultLocation = allLocations.data.data.find(loc => loc.isDefault);
+      if (locations && locations.length > 0) {
+        const defaultLocation = locations.find(loc => loc.isDefault);
         if (defaultLocation) {
           console.log('Found default location:', defaultLocation);
           return defaultLocation.id;
         }
-        const activeLocation = allLocations.data.data.find(loc => loc.isActive);
+        const activeLocation = locations.find(loc => loc.isActive);
         if (activeLocation) {
           console.log('Found active location:', activeLocation);
           return activeLocation.id;

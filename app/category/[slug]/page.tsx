@@ -2,14 +2,13 @@
 
 import NotFound from '@/app/not-found';
 import { CategoryService } from '@/app/services/category.service';
-import { IProductsByLocation, LocationService } from '@/app/services/location.service';
+import { ILocation, IProductsByLocation, LocationService } from '@/app/services/location.service';
 import { RootState } from '@/app/store/store';
 import MainLayout from '@/components/layouts/MainLayout';
 import Loader from '@/components/ui/Loader';
 import { Card, CardBody } from "@nextui-org/card";
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { useQuery } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -42,7 +41,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     retry: 1
   });
 
-  const { data: locationsData } = useQuery<AxiosResponse<{ data: Array<{ id: number; name: string }> }>>({
+  const { data: locationsData } = useQuery<ILocation[]>({
     queryKey: ['locations'],
     queryFn: () => LocationService.getAll(),
     enabled: !!selectedLocationId,
@@ -51,7 +50,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
   const category = categoryData?.data;
   const products = productsData?.products || [];
-  const locationName = locationsData?.data?.data?.find(loc => loc.id === selectedLocationId)?.name || '';
+  const locationName = locationsData?.find(loc => loc.id === selectedLocationId)?.name || '';
 
   const filteredProducts = slug === 'rolls' ? 
     activeTab === 0 ? products :
@@ -63,7 +62,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     <Card className="max-w-[600px] mx-auto my-8">
       <CardBody className="text-center py-8 gap-3">
         <h3 className="text-xl font-semibold mb-4">
-          К сожалению, в данном ресторане мы временно не готовим блюда из данной категории
+          К сожалению, в данном ресторане мы не готовим блюда из данной категории
         </h3>
         <p className="text-gray-500 leading-5">
           Пожалуйста, выберите другую категорию или выберите один из наших других ресторанов

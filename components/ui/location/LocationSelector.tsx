@@ -1,4 +1,4 @@
-import { ILocationResponse, LocationService } from '@/app/services/location.service';
+import { ILocation, LocationService } from '@/app/services/location.service';
 import { setLocations, setSelectedLocation } from '@/app/store/location/location.slice';
 import { RootState } from '@/app/store/store';
 import { Button, Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/react';
@@ -31,7 +31,7 @@ export default function LocationSelector() {
 
   console.log('Current state:', { selectedLocationId, locationsCount: locations.length });
 
-  const { data: response, isLoading } = useQuery<AxiosResponse<ILocationResponse>>({
+  const { data: locationsData, isLoading } = useQuery<ILocation[]>({
     queryKey: ['locations'],
     queryFn: () => LocationService.getAll(),
     staleTime: 1000 * 60 * 5, // 5 минут
@@ -41,11 +41,11 @@ export default function LocationSelector() {
 
   // Эффект для установки локаций в store
   useEffect(() => {
-    console.log('Setting locations effect, response:', response?.data?.data);
-    if (response?.data?.data) {
-      dispatch(setLocations(response.data.data));
+    console.log('Setting locations effect, response:', locationsData);
+    if (locationsData) {
+      dispatch(setLocations(locationsData));
     }
-  }, [response?.data?.data, dispatch]);
+  }, [locationsData, dispatch]);
 
   // Отдельный эффект для инициализации выбранной локации
   useEffect(() => {

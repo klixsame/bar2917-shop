@@ -1,5 +1,6 @@
 "use client"
 import { FeedbackService } from '@/app/services/feedback.service';
+import { RootState } from '@/app/store/store';
 import Logo from '@/components/elements/Logo/Logo';
 import { useAuth } from '@/components/hocs/useAuth';
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@nextui-org/react';
@@ -7,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const Footer = () => {
   const { user } = useAuth(); // Получаем информацию о пользователе
@@ -14,6 +16,10 @@ const Footer = () => {
   const [feedback, setFeedback] = useState('');
   const [isInvalid, setIsInvalid] = useState(false); // Состояние для проверки валидности поля
   const router = useRouter();
+  const { selectedLocationId, locations } = useSelector((state: RootState) => state.location);
+  
+  const selectedLocation = locations.find(loc => loc.id === selectedLocationId);
+  const phoneNumber = selectedLocation?.phone || '+7 (981) 156-56-67';
 
   const handleOpen = () => {
     if (user) {
@@ -71,8 +77,8 @@ const Footer = () => {
           <span className='footer__telephone__link__span'>
             Заказ по телефону:
           </span>
-          <a href='tel:+79811565667' className='footer__a__phone'>
-            +7 (981) 156-56-67
+          <a href={`tel:${phoneNumber.replace(/[^\d+]/g, '')}`} className='footer__a__phone'>
+            {phoneNumber}
           </a>
         </div>
       </div>

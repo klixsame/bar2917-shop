@@ -15,19 +15,19 @@ const MainPage = () => {
   const { locations, selectedLocationId } = useSelector((state: TypeRootState) => state.location);
 
   // Загружаем локации
-  const { data: locationsData } = useQuery({
-    queryKey: ['locations'],
+  const { data: locationsData} = useQuery({
+    queryKey: ['get locations'],
     queryFn: () => LocationService.getAll(),
     staleTime: 1000 * 60 * 5, // 5 минут
   });
-
+  
   // Сохраняем локации в store
   useEffect(() => {
-    if (locationsData?.data?.data) {
-      console.log('Received locations:', locationsData.data.data);
-      dispatch(setLocations(locationsData.data.data));
+    if (locationsData) {
+      console.log('Received locations:', locationsData);
+      dispatch(setLocations(locationsData));
     }
-  }, [locationsData?.data?.data, dispatch]);
+  }, [locationsData, dispatch]);
 
   // Загружаем продукты
   const { data: productsData, isLoading, error } = useQuery({

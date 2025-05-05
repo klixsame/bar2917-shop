@@ -16,7 +16,7 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
     );
 
     return (
-        <div className="max-w-64 w-full">
+        <div className="w-full">
             {currentElement ? (
                 <div className="flex-row items-center justify-between">
                     <ButtonCustom
@@ -67,9 +67,9 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
                         })
                     }
                 >
-                    <div className="flex-row items-center w-18 justify-between">
+                    <div className="flex-row items-center justify-center gap-2 w-full">
                         <FaPlus />
-                        <span className="text-white font-normal pl-2">
+                        <span className="text-white font-normal">
                             {product.price} ₽
                         </span>
                     </div>

@@ -57,7 +57,7 @@ const AddToCartInline: FC<AddToCartInlineProps> = ({ product, alignRight = false
                     >
                         <FiMinus fontSize={13} />
                     </ButtonCustom>
-                    <span className={`text-white font-normal ${isMobile ? 'w-64 text-center h-mobile-card text-xs' : 'w-60 text-center h-10'} bg-background-button-card d-flex pt-3`}>
+                    <span className={`text-white font-normal ${isMobile ? 'w-64 text-center h-mobile-card text-xs' : 'w-60 text-center h-full'} bg-background-button-card flex justify-center items-center`}>
                         {currentElement.quantity} x {product.price} ₽
                     </span>
                     <ButtonCustom
