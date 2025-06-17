@@ -7,6 +7,7 @@ import { IProduct } from "@/app/types/product.interface";
 import MainLayout from "@/components/layouts/MainLayout";
 import Product from "@/components/templates/ProductPage/Product";
 import Loader from "@/components/ui/Loader";
+import Meta from '@/components/ui/meta';
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { notFound } from "next/navigation";
@@ -71,13 +72,39 @@ export default function ProductPage({ params }: IPageSlugParam) {
         return notFound();
     }
 
+    const product = productData.data.data;
+    const { name, description, weight, price, category, image } = product;
+
+    const getMetaDescription = () => {
+        let desc = `${name} 🍣 ${description} ⭐ `;
+        desc += `Вес: ${weight}г 📏 Цена: ${price}₽ 💰 `;
+        desc += `Заказывайте ${name.toLowerCase()} с доставкой в Bar2917! `;
+        desc += `Свежие ингредиенты ✨ Быстрая доставка 🚗 Закажите онлайн или по телефону!`;
+        return desc;
+    };
+
+    const getMetaKeywords = () => {
+        return `${name.toLowerCase()}, ${category.name.toLowerCase()}, заказать ${name.toLowerCase()}, 
+        купить ${name.toLowerCase()}, ${category.name.toLowerCase()} с доставкой, 
+        ${name.toLowerCase()} цена, ${name.toLowerCase()} состав, бар2917, суши бар`;
+    };
+
     return (
-        <MainLayout>
-            <Product 
-                initialProduct={productData.data.data}
-                similarProducts={similarProducts?.data || []}
-                slug={slug}
+        <>
+            <Meta 
+                title={`${name} | ${category.name} в Bar2917 | Заказать с доставкой`}
+                description={getMetaDescription()}
+                keywords={getMetaKeywords()}
+                image={image}
             />
-        </MainLayout>
+            <MainLayout>
+                <Product 
+                    initialProduct={product}
+                    similarProducts={similarProducts?.data || []}
+                    slug={slug}
+                />
+            </MainLayout>
+        </>
     );
 }
+

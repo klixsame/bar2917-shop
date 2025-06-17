@@ -1,0 +1,156 @@
+.contacts {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.contacts__header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contacts__header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.contacts__subtitle {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+}
+
+.contacts__main-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.contacts__block {
+    background: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.contacts__block h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.contacts__block p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.contacts__block strong {
+    color: #fff;
+}
+
+.contacts__block a {
+    color: #FF8A00;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contacts__block a:hover {
+    color: #ffa533;
+}
+
+.contacts__about {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3rem;
+}
+
+.contacts__about h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.contacts__about p {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.contacts__about strong {
+    color: #fff;
+}
+
+.contacts__advantages {
+    margin-top: 2rem;
+}
+
+.contacts__advantages h3 {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.contacts__advantages ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contacts__advantages li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.contacts__advantages li::before {
+    content: "•";
+    color: #FF8A00;
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
+.contacts__legal {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.contacts__legal h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.contacts__legal-details {
+    color: #e0e0e0;
+    line-height: 1.8;
+}
+
+.contacts__legal-details p {
+    margin-bottom: 0.8rem;
+}
+
+.contacts__legal-details strong {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .contacts__header h1 {
+        font-size: 2rem;
+    }
+
+    .contacts__block {
+        padding: 1rem;
+    }
+
+    .contacts__about,
+    .contacts__legal {
+        padding: 1.5rem;
+    }
+} 

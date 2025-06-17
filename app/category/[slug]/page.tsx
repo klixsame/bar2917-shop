@@ -6,6 +6,7 @@ import { ILocation, IProductsByLocation, LocationService } from '@/app/services/
 import { RootState } from '@/app/store/store';
 import MainLayout from '@/components/layouts/MainLayout';
 import Loader from '@/components/ui/Loader';
+import Meta from '@/components/ui/meta';
 import { Card, CardBody } from "@nextui-org/card";
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { useQuery } from '@tanstack/react-query';
@@ -58,6 +59,27 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     products.filter(product => product.image.includes('baked')) 
     : products;
 
+  const getMetaDescription = () => {
+    if (slug === 'rolls') {
+      const types = activeTab === 0 ? 'все виды роллов' :
+                   activeTab === 1 ? 'классические роллы' :
+                   'запеченные роллы';
+      return `${category?.name || 'Роллы'} в Bar2917 🍣 ${types} с доставкой ${locationName ? `в ${locationName}` : ''} ⭐ Свежие ингредиенты ✨ Большой выбор ${category?.name.toLowerCase() || 'роллов'} 🎯 Доставка за 60 минут 🚗 Закажите онлайн!`;
+    }
+    return `${category?.name || 'Блюда'} в Bar2917 🍱 Доставка ${locationName ? `в ${locationName}` : ''} ⭐ Свежие ингредиенты ✨ Большой выбор ${category?.name.toLowerCase() || 'блюд'} 🎯 Быстрая доставка 🚗 Выгодные цены 💰 Заказывайте онлайн!`;
+  };
+
+  const getMetaKeywords = () => {
+    if (slug === 'rolls') {
+      const baseKeywords = `роллы, суши, ${category?.name.toLowerCase()}, заказать роллы`;
+      const typeKeywords = activeTab === 0 ? 'все роллы, суши роллы' :
+                          activeTab === 1 ? 'классические роллы, традиционные роллы' :
+                          'запеченные роллы, горячие роллы, теплые роллы';
+      return `${baseKeywords}, ${typeKeywords}, доставка роллов, бар2917, ${locationName ? `доставка в ${locationName}, ` : ''}суши бар`;
+    }
+    return `${category?.name.toLowerCase()}, заказать ${category?.name.toLowerCase()}, доставка ${category?.name.toLowerCase()}, японская кухня, бар2917, ${locationName ? `доставка в ${locationName}, ` : ''}суши бар`;
+  };
+
   const EmptyStateMessage = () => (
     <Card className="max-w-[600px] mx-auto my-8">
       <CardBody className="text-center py-8 gap-3">
@@ -83,40 +105,51 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     return <NotFound />;
   }
 
+  const metaTitle = slug === 'rolls' 
+    ? `${category.name} в Bar2917 | ${activeTab === 0 ? 'Все виды роллов' : activeTab === 1 ? 'Классические роллы' : 'Запеченные роллы'} ${locationName ? `в ${locationName}` : ''}`
+    : `${category.name} в Bar2917 | Заказать ${category.name.toLowerCase()} ${locationName ? `в ${locationName}` : ''}`;
+
   return (
-    <main>
-      <MainLayout>
-        <div className='flex-row justify-between ctg'>
-          <h1>{category.name}</h1>
-          {slug === 'rolls' && (
-            <div className='flex flex-row items-center mb-3'>
-              <Tabs 
-                aria-label="Rolls Filter Tabs" 
-                selectedKey={activeTab.toString()} 
-                onSelectionChange={(key) => setActiveTab(Number(key))}
-                classNames={{
-                  tabList: "flex-row",
-                  tab: "text-[10px] sm:text-sm",
-                  cursor: "bg-orange-500",
-                  tabContent: "py-0 group-data-[selected=true]:text-white",
-                }}
-                size="sm"
-                radius="sm"
-                color="warning"
-              >
-                <Tab key="0" title="Все" />
-                <Tab key="1" title="Классические" />
-                <Tab key="2" title="Запеченные" />
-              </Tabs>
-            </div>
+    <>
+      <Meta 
+        title={metaTitle}
+        description={getMetaDescription()}
+        keywords={getMetaKeywords()}
+      />
+      <main>
+        <MainLayout>
+          <div className='flex-row justify-between ctg'>
+            <h1>{category.name}</h1>
+            {slug === 'rolls' && (
+              <div className='flex flex-row items-center mb-3'>
+                <Tabs 
+                  aria-label="Rolls Filter Tabs" 
+                  selectedKey={activeTab.toString()} 
+                  onSelectionChange={(key) => setActiveTab(Number(key))}
+                  classNames={{
+                    tabList: "flex-row",
+                    tab: "text-[10px] sm:text-sm",
+                    cursor: "bg-orange-500",
+                    tabContent: "py-0 group-data-[selected=true]:text-white",
+                  }}
+                  size="sm"
+                  radius="sm"
+                  color="warning"
+                >
+                  <Tab key="0" title="Все" />
+                  <Tab key="1" title="Классические" />
+                  <Tab key="2" title="Запеченные" />
+                </Tabs>
+              </div>
+            )}
+          </div>
+          {filteredProducts.length > 0 ? (
+            <Catalog products={filteredProducts} />
+          ) : (
+            <EmptyStateMessage />
           )}
-        </div>
-        {filteredProducts.length > 0 ? (
-          <Catalog products={filteredProducts} />
-        ) : (
-          <EmptyStateMessage />
-        )}
-      </MainLayout>
-    </main>
+        </MainLayout>
+      </main>
+    </>
   );
 }
