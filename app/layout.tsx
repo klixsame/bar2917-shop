@@ -37,11 +37,11 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="./faviconn.ico" />
         <title>Bar2917</title>
         <meta name="description" content="Лучший суши-бар - Bar2917. Свежие и вкусные роллы, суши, сеты. Быстрая доставка." />
         <meta name="author" content="kleyfiex" />
-        <meta name="keywords" content="суши, роллы, доставка суши, японская кухня, бар2917, bar2917, сеты роллов" />
+        <meta name="keywords" content="суши, роллы, доставка суши, пицца, японская кухня, бар2917, bar2917, сеты роллов" />
         <meta name="robots" content="index, follow" />
       </head>
       <body>
