@@ -6,6 +6,7 @@ import { TypeRootState } from '@/app/store/store';
 import MainLayout from '@/components/layouts/MainLayout';
 import Hero from '@/components/modules/MainPage/Hero/Hero';
 import CatalogMain from '@/components/ui/catalog/CatalogMain';
+import LocationSelectorHero from '@/components/ui/location/LocationSelectorHero';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,9 +52,10 @@ const MainPage = () => {
 
   return (
     <MainLayout>
+      <LocationSelectorHero />
       <Hero />
-      <CatalogMain 
-        title="Популярное" 
+      <CatalogMain
+        title="Популярное"
         products={productsData?.products || []}
       />
     </MainLayout>

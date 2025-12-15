@@ -52,18 +52,18 @@ const SidebarMenu = () => {
           <div className='sidebar__menu__item__div item--snacks' />
           <span className='sidebar__menu__item__span'>Закуски</span>
         </Link>
-        <Link className='sidebar__menu__item animate-scaleIn' href='/category/gedza'>
+        <Link className='sidebar__menu__item animate-scaleIn' href='/category/maki'>
           <div className='sidebar__menu__item__div item--gedza' />
-          <span className='sidebar__menu__item__span'>Гёдза</span>
+          <span className='sidebar__menu__item__span'>Маки</span>
         </Link>
         <Link className='sidebar__menu__item animate-scaleIn' href='/category/salads'>
           <div className='sidebar__menu__item__div item--salads' />
           <span className='sidebar__menu__item__span'>Салаты</span>
         </Link>
-        <Link className='sidebar__menu__item animate-scaleIn' href='/category/poke'>
+        {/* <Link className='sidebar__menu__item animate-scaleIn' href='/category/poke'>
           <div className='sidebar__menu__item__div item--poke' />
           <span className='sidebar__menu__item__span'>Поке</span>
-        </Link>
+        </Link> */}
         <Link className='sidebar__menu__item animate-scaleIn' href='/category/soups'>
           <div className='sidebar__menu__item__div item--soups' />
           <span className='sidebar__menu__item__span'>Супы</span>
