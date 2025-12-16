@@ -33,8 +33,8 @@ const MobileMenu = () => {
         <RxHamburgerMenu size={24} className="text-white" />
       </Button>
 
-      <Modal 
-        isOpen={isOpen} 
+      <Modal
+        isOpen={isOpen}
         onClose={handleClose}
         placement="center"
         classNames={{
@@ -45,6 +45,29 @@ const MobileMenu = () => {
         className="mobile-menu-modal"
         size="full"
         hideCloseButton={true}
+        motionProps={{
+          variants: {
+            enter: {
+              x: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut"
+              }
+            },
+            exit: {
+              x: "100%",
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn"
+              }
+            }
+          },
+          initial: { x: "100%", opacity: 0 },
+          animate: "enter",
+          exit: "exit"
+        }}
       >
         <ModalContent className="h-screen w-[280px] absolute right-0 top-0 m-0 rounded-none">
           {(onClose) => (
@@ -113,13 +136,13 @@ const MobileMenu = () => {
                   <span className="mobile-menu__text">Закуски</span>
                 </Link>
                 
-                <Link 
-                  href="/category/gedza" 
-                  className="mobile-menu__item" 
+                <Link
+                  href="/category/maki"
+                  className="mobile-menu__item"
                   onClick={onClose}
                 >
-                  <div className="mobile-menu__icon item--gedza"></div>
-                  <span className="mobile-menu__text">Гёдза</span>
+                  <div className="mobile-menu__icon item--maki"></div>
+                  <span className="mobile-menu__text">Маки</span>
                 </Link>
                 
                 <Link 

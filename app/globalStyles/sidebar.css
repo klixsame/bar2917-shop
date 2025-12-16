@@ -68,6 +68,11 @@
   background: url('/img/gedza.svg') no-repeat center center;
 }
 
+.item--maki {
+  background: url('/img/maki.svg') no-repeat center center;
+  background-size: 32px 32px;
+}
+
 .item--salads {
   background: url('/img/salads.svg') no-repeat center center;
 }

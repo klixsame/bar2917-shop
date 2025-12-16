@@ -53,7 +53,7 @@ const SidebarMenu = () => {
           <span className='sidebar__menu__item__span'>Закуски</span>
         </Link>
         <Link className='sidebar__menu__item animate-scaleIn' href='/category/maki'>
-          <div className='sidebar__menu__item__div item--gedza' />
+          <div className='sidebar__menu__item__div item--maki' />
           <span className='sidebar__menu__item__span'>Маки</span>
         </Link>
         <Link className='sidebar__menu__item animate-scaleIn' href='/category/salads'>
