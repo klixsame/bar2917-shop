@@ -25,9 +25,9 @@ const HeroSwiper = () => {
           spaceBetween={10}
           modules={[Autoplay, Navigation, Pagination]}
         >
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <Image src='/img/discount/new_year_banner.jpg' alt='new_year_banner' width={1162} height={437} className="img-skidka"/>
-          </SwiperSlide>
+          </SwiperSlide> */}
           <SwiperSlide>
             <Image src='/img/discount/skidka-otzyv.png' alt='otzyv' width={1162} height={437} className="img-skidka"/>
           </SwiperSlide>
